@@ -11,7 +11,7 @@ import dynamic from "next/dynamic";
 import { Image } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { EffectComposer, DepthOfField } from '@react-three/postprocessing'
-
+import { lerp } from 'three/src/math/MathUtils'
 extend({ MeshTransmissionMaterial })
 
 // function MyModel() {
@@ -24,8 +24,9 @@ extend({ MeshTransmissionMaterial })
 // }
 
 export default function Experience() {
-    const three= useThree()
+    const three = useThree()
     const camera = three?.camera
+    const shakeRef = useRef();
 
     const MyImage = (props) => {
         return <Image url="/assets/images/3.png" scale={25} position={[0, 0, -10]} receiveShadow transparent opacity={1} />
@@ -35,16 +36,39 @@ export default function Experience() {
         const knotRef = useRef(null)
         const scroll = useScroll()
 
-        useFrame(({ clock }) => {
-            if (knotRef) {
-                knotRef.current.rotation.x = clock.elapsedTime
-                knotRef.current.rotation.y = clock.elapsedTime
-                knotRef.current.position.y = scroll.offset * 60
-                knotRef.current.position.z = scroll.offset * 100
-                camera.rotation.y = scroll.offset / 5
-                camera.rotation.x = scroll.offset / 5
+        
+        useFrame((state) => {
+            if (!knotRef.current) return;
+            
+            const t = scroll.offset;
+            let vec = new THREE.Vector3()
+            state.camera.position.lerp(vec.set( state.pointer.x*2, 0.5, state.pointer.y*10), 0.01)
+            state.camera.lookAt(0, 0, 0)
+          
+            // Smooth rotation
+            knotRef.current.rotation.x = lerp(knotRef.current.rotation.x, state.clock.elapsedTime, 0.1);
+            knotRef.current.rotation.y = lerp(knotRef.current.rotation.y, state.clock.elapsedTime, 0.1);
+
+            // Smooth position
+            knotRef.current.position.y = lerp(knotRef.current.position.y, t * 60, 0.1);
+            knotRef.current.position.z = lerp(knotRef.current.position.z, t * 100, 0.1);
+
+            // Smooth camera rotation
+            camera.rotation.y = lerp(camera.rotation.y, t / 5, 0.1);
+            camera.rotation.x = lerp(camera.rotation.x, t / 5, 0.1);
+
+            // Smooth camera zoom based on scroll ranges
+            if (t < 0.3) {
+                camera.position.z = lerp(camera.position.z, 10 + t * 10, 0.1);
             }
-        })
+            if (t > 0.4) {
+                camera.position.z = lerp(camera.position.z, t * 50, 0.5);
+            }
+            if (shakeRef.current && t > 0.5) {
+                shakeRef.current.setIntensity(0); // Set shake intensity to 1
+              }
+        });
+
 
         return (
             <mesh receiveShadow castShadow position={[0, 0, -2]} scale={0.8} ref={knotRef}  >
@@ -62,33 +86,10 @@ export default function Experience() {
             <ambientLight intensity={10} />
             <directionalLight position={[2, 2, 10]} intensity={10} />
             {/* <color attach="background" args={['#fef4eff']} /> */}
-            <ScrollControls pages={7} damping={0.1} >
-                {/* <Html
-                    transform
-                    position={[0, 0, -10]}
-                    rotation-y={THREE.MathUtils.degToRad(90)}
-                    style={{
-                        transition: 'opacity 0.3s',
-                    }}
-                >
-                    <div className='w-80 h-80  rounded-xl bg-white/10'>
-                    </div>
-                </Html>
-                <Html
-                    transform
-                    position={[0, 0, 10]}
-                    rotation-y={THREE.MathUtils.degToRad(90)}
-                    style={{
-                        transition: 'opacity 0.3s',
-                    }}
-                >
-                    <div className='w-80 h-80  rounded-xl bg-white/10'>
-                    </div>
-                </Html> */}
+            <ScrollControls pages={8} damping={0.1} >
                 <Scroll html>
-
-                <HomePage data={scroll} />
-                            </Scroll>
+                    <HomePage data={scroll} />
+                </Scroll>
                 <Knot />
                 <Text scale={8} position={[0, 0, -4]} castShadow>
                     Yieldium
@@ -96,15 +97,15 @@ export default function Experience() {
                 <MyImage />
             </ScrollControls>
             <CameraShake
+            ref={shakeRef}
                 maxYaw={0.05} // Max amount camera can yaw in either direction
                 maxPitch={0.05} // Max amount camera can pitch in either direction
                 maxRoll={0.02} // Max amount camera can roll in either direction
                 yawFrequency={0.5} // Frequency of the the yaw rotation
                 pitchFrequency={0.2} // Frequency of the pitch rotation
                 rollFrequency={0.2} // Frequency of the roll rotation
-                intensity={1} // initial intensity of the shake
-                decayRate={0.65} // if decay = true this is the rate at which intensity will reduce at />
-            />
+                intensity={0.5} // initial intensity of the shake
+                decayRate={0.5}/>
         </>
     )
 }

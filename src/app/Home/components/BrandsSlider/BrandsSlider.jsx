@@ -19,7 +19,7 @@ const logos = [
 
 export default function BrandsSlider() {
   return (
-    <div className=" m-5 !bg-transparent  h-max mask-x-from-90% mask-x-to-100%  ">
+    <div className=" !m-0 p-0 !bg-transparent  h-max mask-x-from-90% mask-x-to-100% border-8  ">
       <Swiper
         modules={[Autoplay]}
         loop={true}
@@ -32,7 +32,7 @@ export default function BrandsSlider() {
         freeMode={true}
         grabCursor={false}
         allowTouchMove={false}
-        className="w-full !bg-transparent p-0 m-0 h-full"
+        className="w-full !bg-transparent p-0 m-0 h-max"
       
       >
         

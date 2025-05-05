@@ -5,6 +5,8 @@ import { motion, useInView } from 'framer-motion';
 import Featuresslider from './components/Featuresslider/Featuresslider';
 import FeaturesAccordion from '../components/FeaturesAccordion';
 import BrandsSlider from './components/BrandsSlider/BrandsSlider';
+import { AiFillOpenAI } from "react-icons/ai";
+import ButtonPrimary from '../components/ButtonPrimary';
 
 
 export default function SectionFeatures() {
@@ -30,12 +32,11 @@ export default function SectionFeatures() {
   function Card({ data }) {
     return (
 
-      <div className="rounded-xl p-px bg-gradient-to-br from-primary/40 to-pink-500/20 from-40% /10 w-full h-full z-1">
-        <div className="rounded-xl bg-background/95 p-6 bg-clip-border w-full h-full space-y-5">
+        <div className="rounded-xl bg-white/5 border border-primary/5 shadow-xl  p-6 bg-clip-border w-full h-full space-y-5">
 
 
-          <div className='border rounded border-primary/40 w-max p-3'>
-            <GrMoney className='text-primary text-xl' />
+          <div className='border rounded border-primary/50 w-max p-3'>
+            <GrMoney className='text-primary/50 text-xl' />
           </div>
 
           {/* Card content here */}
@@ -45,7 +46,6 @@ export default function SectionFeatures() {
             <p className='text-sm text-neutral'>{data?.desc}</p>
           </div>
         </div>
-      </div>
 
     )
 
@@ -84,7 +84,7 @@ export default function SectionFeatures() {
 
   function Section2() {
     return (
-      <div className='grid gap-5 border  rounded-xl p-10 bg-background  '>
+      <div className='grid gap-5 border  rounded-xl p-10 bg-white/5 backdrop-blur  '>
 
         <div className='grid gap-5 py-5'>
 
@@ -131,61 +131,30 @@ export default function SectionFeatures() {
 
 
 
-  function Section3() {
-    return (
-      <div className='grid gap-5 border  rounded-xl p-10   '>
-        <div className='flex gap-5'>
-
-          <div className='w-1/2'>
-            <div className='bg-gradient-to-br from-neutral-900 border to-background h-80 w-full rounded-xl'>
-            </div>
-
-          </div>
-          <div className='flex gap-5 w-1/2'>
-
-            <div className='bg-gradient-to-br from-neutral-900 border to-background h-80 w-80 rounded-xl'>
-            </div>
-            <div className='bg-gradient-to-br from-neutral-900 border to-background h-80 w-80 rounded-xl'>
-            </div>
-          </div>
-        </div>
-        <div className='grid grid-cols-6 gap-4'>
-
-          <div className='col-span-4'>
-            <div className='bg-gradient-to-br from-neutral-900 border to-background h-80 w-full rounded-xl'>
-            </div>
-
-          </div>
-          <div className='col-span-2'>
-
-            <div className='bg-gradient-to-br from-neutral-900 border to-background h-80 w-full rounded-xl'>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    )
-  }
-
-
   return (
+    <>
+ <img src="/assets/images/divider.png" alt="" className="w-screen -mb-[450px] z-[-1] "/>
     <motion.div style={{
       opacity: isInView ? 1 : 0,
-      transition: "all 1.5s "
-    }}
-      className='h-[350vh] snap-center w-full backdrop-blur relative bg-black overflow-hidden mask-t-from-90% py-20'>
+      transition: "all 1s "}}
+    className='h-[240vh] snap-center w-full backdrop-blur  relative overflow-hidden'>
+        
       <span className="bg-purple-500 rounded-full h-[600px] w-[600px] blur-[400px] absolute -top-80 left-[35%] z-[-1] opacity-5"></span>
       <span className="bg-primary rounded-full w-[600px] h-[600px] absolute -top-10 -left-40 blur-[300px] opacity-30 ">
       </span>
-      <div className='container space-y-20 pt-20 h-full' ref={itemRef} >
+      <div className='bg-black  mask-t-from-90%  mask-b-from-95% '>
+
+      <div className='container space-y-20 py-20 h-full' ref={itemRef} >
+        <div>
         <Section1 />
-        <BrandsSlider />
+        </div>
         <Section2 />
-        <Section3 />
-
-
+        <div className=''>
+          <BrandsSlider />
+        </div>
+      </div>
       </div>
     </motion.div>
+        </>
   )
 }

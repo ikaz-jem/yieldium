@@ -89,10 +89,7 @@ export default function SectionHowItWorks() {
           <button className=' h-max cursor-pointer hover:bg-primary/10 transition-all border-primary/50 border w-max rounded-full flex items-center gap-2 px-5 py-2 '>Crypto Trading Now  <FaArrowRightLong className='text-primary ' /> </button>
         </div>
 
-<div className=' py-10'>
-          <BrandsSlider/>
 
-</div>
 
         <div className='flex justify-between w-full'>
 

@@ -16,7 +16,7 @@ function Loader() {
       <div className='text-primary text-xl bg-black bg-opacity-60 p-4 rounded-lg'>
         Loading {progress.toFixed(0)}%
       </div>
-      <span className='h-2 rounded-lg bg-primary' style={{width: `${progress.toFixed(0)}px`}}></span>
+      <span className='h-2 rounded-lg bg-primary text-left' style={{width: `${progress.toFixed(0)}%`}}></span>
     </div>
   )
 }

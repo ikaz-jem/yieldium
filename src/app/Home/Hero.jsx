@@ -32,6 +32,8 @@ export default function Hero() {
             <div className="container  ">
                 <Navbar />
             </div>
+            {/* <img src="/assets/images/divider.png" alt="" className="w-screen" /> */}
+
         </div>
 
     )

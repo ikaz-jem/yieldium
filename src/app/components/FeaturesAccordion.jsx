@@ -35,8 +35,8 @@ export default function FeaturesAccordion() {
       <div className="h-full w-full max-w-lg ">
         <div className="mx-auto w-full space-y-2">
           {
-            data?.map((faq, idx) => <div key={idx} className='bg-gradient-to-br from-primary/50 to-accent/20 p-[1px]  rounded-lg'>
-              <Disclosure as="div" className="p-5 bg-background  bg-clip-border rounded-lg" defaultOpen={idx==0 ?true:false}>
+            data?.map((faq, idx) => <div key={idx} className='border-white/10 p-[1px]  rounded-lg'>
+              <Disclosure as="div" className="p-5 bg-white/5  bg-clip-border rounded-lg" defaultOpen={idx==0 ?true:false}>
                 {({ open }) => (
                   <>
                     <DisclosureButton className="group flex w-full items-center justify-between rounded-lg">
