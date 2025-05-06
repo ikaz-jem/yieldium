@@ -27,9 +27,24 @@ export default function Experience() {
     const three = useThree()
     const camera = three?.camera
     const shakeRef = useRef();
+    const { width, height } = useThree(state => state.viewport);
+
+    const scaleElement = (baseWidth = 1980, baseHeight = 900) => {
+        const vw = width;
+        const vh = height;
+      
+        // Calculate scale based on width or height (choose one or use min/max)
+        const scaleX = vw / baseWidth;
+        const scaleY = vh / baseHeight;
+      
+        // Use the smaller scale factor to maintain aspect ratio
+        const scale = Math.min(width, height);
+      
+        return Number(scale)
+    };
 
     const MyImage = (props) => {
-        return <Image url="/assets/images/3.png" scale={25} position={[0, 0, -10]} receiveShadow transparent opacity={1} />
+        return <Image url="/assets/images/3.png" scale={scaleElement()}  position={[0, 0, -10]}  receiveShadow transparent opacity={1} />
     }
 
     const Knot = (props) => {
@@ -46,12 +61,23 @@ export default function Experience() {
             state.camera.lookAt(0, 0, 0)
           
             // Smooth rotation
+            // Smooth position
             knotRef.current.rotation.x = lerp(knotRef.current.rotation.x, state.clock.elapsedTime, 0.1);
             knotRef.current.rotation.y = lerp(knotRef.current.rotation.y, state.clock.elapsedTime, 0.1);
+            if (t < 0.5) {
+                knotRef.current.position.y = lerp(knotRef.current.position.y, t * 60, 0.1);
+                knotRef.current.position.z = lerp(knotRef.current.position.z, t * 100, 0.5);
+            }
+            if (t < 0.8 &&  t > 0.5) {
+                knotRef.current.position.z = -50
+            }
 
-            // Smooth position
-            knotRef.current.position.y = lerp(knotRef.current.position.y, t * 60, 0.1);
-            knotRef.current.position.z = lerp(knotRef.current.position.z, t * 100, 0.1);
+            if (t > 0.8) {
+                knotRef.current.position.y = 2
+                knotRef.current.position.z = 25
+            }
+
+
 
             // Smooth camera rotation
             camera.rotation.y = lerp(camera.rotation.y, t / 5, 0.1);
@@ -71,9 +97,9 @@ export default function Experience() {
 
 
         return (
-            <mesh receiveShadow castShadow position={[0, 0, -2]} scale={0.8} ref={knotRef}  >
-                <torusKnotGeometry args={[3, 1, 256, 32]} />
-                <MeshTransmissionMaterial backside backsideThickness={1} emissive={1} thickness={1} roughness={0.2} />
+            <mesh receiveShadow castShadow position={[0, 0, -2]} scale={scaleElement()*0.03} ref={knotRef}  >
+                <torusKnotGeometry args={[3, 1, 100, 30]} />
+                <MeshTransmissionMaterial backside backsideThickness={0.7} emissive={0.2} thickness={0.5} roughness={0.2} />
             </mesh>
         )
     }
@@ -87,11 +113,11 @@ export default function Experience() {
             <directionalLight position={[2, 2, 10]} intensity={10} />
             {/* <color attach="background" args={['#fef4eff']} /> */}
             <ScrollControls pages={8} damping={0.1} >
-                <Scroll html>
+                <Scroll html > 
                     <HomePage data={scroll} />
                 </Scroll>
                 <Knot />
-                <Text scale={8} position={[0, 0, -4]} castShadow>
+                <Text scale={scaleElement()*0.3} position={[0, 0, -4]} castShadow>
                     Yieldium
                 </Text>
                 <MyImage />

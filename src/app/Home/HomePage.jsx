@@ -1,5 +1,7 @@
 import SectionBento from "./components/SectionBento";
+import Footer from "./Footer";
 import Hero from "./Hero";
+import SectionCta from "./SectionCta";
 import SectionFaq from "./SectionFaq";
 import SectionFeatures from "./SectionFeatures";
 import SectionHowItWorks from "./SectionHowItWorks";
@@ -12,12 +14,14 @@ export default function HomePage() {
 
     return (
         <>
-                <div className="!w-screen h-full overflow-x-hidden scroll-smooth snap-y  relative ">
+                <div className="!w-screen h-full scroll-smooth  relative ">
                     <Hero />
                     <SectionFeatures />
                     <SectionBento />
                     <SectionHowItWorks />
-                    <SectionFaq />
+                    <SectionCta />
+                    {/* <SectionFaq /> */}
+                    <Footer />
                 </div>
         </>
     )

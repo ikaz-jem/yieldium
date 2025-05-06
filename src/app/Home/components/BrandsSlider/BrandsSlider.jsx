@@ -19,9 +19,10 @@ const logos = [
 
 export default function BrandsSlider() {
   return (
-    <div className=" !m-0 p-0 !bg-transparent  h-max mask-x-from-90% mask-x-to-100% border-8  ">
+    <div className=" !m-0 p-0 !bg-transparent  h-max mask-x-from-50% mask-x-to-100%  ">
       <Swiper
         modules={[Autoplay]}
+        spaceBetween={0}
         loop={true}
         slidesPerView="auto"
         speed={4000}
@@ -44,7 +45,7 @@ export default function BrandsSlider() {
             <img
               src={src}
               alt="logo"
-              className="h-14 w-auto opacity-40 invert hover:opacity-100 transition !bg-transparent"
+              className="h-10 w-auto opacity-30 invert hover:opacity-100 transition !bg-transparent"
             />
           </SwiperSlide>
         ))}
