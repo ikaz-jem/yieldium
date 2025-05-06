@@ -32,11 +32,11 @@ export default function FeaturesAccordion() {
 
   return (
     <>
-      <div className="h-full w-full max-w-lg ">
+      <div className="h-full w-full  ">
         <div className="mx-auto w-full space-y-2">
           {
             data?.map((faq, idx) => <div key={idx} className='border-white/10 p-[1px]  rounded-lg'>
-              <Disclosure as="div" className="p-5 bg-white/5  bg-clip-border rounded-lg" defaultOpen={idx==0 ?true:false}>
+              <Disclosure as="div" className="p-5 bg-white/5 backdrop-blur bg-clip-border rounded-lg" defaultOpen={idx==0 ?true:false}>
                 {({ open }) => (
                   <>
                     <DisclosureButton className="group flex w-full items-center justify-between rounded-lg">

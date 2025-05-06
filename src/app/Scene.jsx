@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense, lazy } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Html, useProgress } from '@react-three/drei'
+import {  useProgress } from '@react-three/drei'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from './Home/components/Navbar/Navbar'
 
@@ -17,7 +17,7 @@ function Loader() {
       <div className='text-primary text-xl bg-black bg-opacity-60 p-4 rounded-lg'>
         Loading {progress.toFixed(0)}%
       </div>
-      <span className='h-2 rounded-lg bg-primary text-left' style={{ width: `${progress.toFixed(0)}%` }}></span>
+      <span className='h-2 rounded-lg bg-primary text-left' style={{width: `${progress.toFixed(0)}%`}}></span>
     </div>
   )
 }
@@ -32,7 +32,7 @@ export default function Scene() {
 
 
 
-
+  
   return (
     <>
       {/* Fullscreen overlay loader (before clipPath animation) */}
@@ -52,24 +52,24 @@ export default function Scene() {
 
       {/* Reveal animation with framer-motion */}
       <motion.div
-        initial={{ clipPath: 'circle(0% at 50% 50%)' }}
-        animate={{ clipPath: 'circle(150% at 50% 50%)' }}
-        transition={{ duration: 3, delay: 2, ease: 'easeInOut' }}
-        className="absolute inset-0 z-10 bg-transparent"
-      >
+  initial={{ clipPath: 'circle(0% at 50% 50%)' }}
+  animate={{ clipPath: 'circle(150% at 50% 50%)' }}
+  transition={{ duration: 4, delay: 2, ease: 'easeInOut' }}
+  className="absolute inset-0 z-10 bg-transparent"
+>
         <Canvas
-          dpr={0.7}
+          dpr={0.8}
           gl={{ powerPreference: 'high-performance', antialias: false, stencil: false }}
           shadows
           camera={{ position: [0, 0, 10], zoom: 1, fov: 90 }}
-
+          
         >
           <Suspense fallback={''}>
             <Experience />
           </Suspense>
         </Canvas>
 
-        <Navbar />
+          <Navbar/>
       </motion.div>
     </>
   )

@@ -1,7 +1,6 @@
 import React from 'react'
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 import { FaArrowRightLong } from "react-icons/fa6";
-import BrandsSlider from './components/BrandsSlider/BrandsSlider';
 
 
 export default function SectionHowItWorks() {
@@ -35,7 +34,7 @@ export default function SectionHowItWorks() {
         <div className='[box-shadow:0px_-20px_40px_rgba(238,102,166,0.3)] '>
           <div className='bg-gradient-to-br from-primary to-pink-500/50 p-5 mask-b-from-80% rounded-lg  '>
 
-            <img src={item?.src} alt="" className='w-60 h-60  ' />
+            <img loading='lazy' src={item?.src} alt="" className='w-60 h-60  ' />
           </div>
         </div>
         <div className='flex items-baseline gap-2'>
@@ -50,33 +49,32 @@ export default function SectionHowItWorks() {
   }
 
 
- 
+
 
 
   return (
     <div className='overflow-y-scroll pr-5 pl-1 snap-center w-full backdrop-blur relative bg-gradient-to-b from-background to-black overflow-hidden py-20 h-[100vh]'>
 
-      <span className="bg-pink-500 rounded-full h-[600px] w-[600px] blur-[400px] absolute top-[80] left-[35%] z-[-1] opacity-40"></span>
-      <span className="bg-primary rounded-full w-[600px] h-[600px] absolute top-[10%] -left-40 blur-[300px] opacity-30 "></span>
+      <span className="bg-pink-500 rounded-full h-[400px] w-[400px] blur-[400px] absolute top-[80] left-[35%] z-[-1] opacity-40"></span>
 
       <div className='container  pt-20 h-full space-y-20'  >
 
 
-        <div className='text-left gap-3 flex flex-col md:flex-row justify-between align-baseline '>
-        <motion.div
-  className='space-y-3'
-  initial={{ opacity: 0, x: -30 }}
-  whileInView={{ opacity: 1, x: 0 }}
-  transition={{ duration: 0.6, ease: 'easeOut' }}
-  viewport={{ once: false }}
->
-  <motion.h1 className='text-5xl tracking-widest font-bold'>
-    Building A Better
-  </motion.h1>
-  <motion.h1 className='text-5xl font-light tracking-widest !text-primary'>
-    Financial Future
-  </motion.h1>
-</motion.div>
+        <div className='text-left gap-3 flex flex-col md:flex-row justify-between align-baseline px-2'>
+          <motion.div
+            className='space-y-3'
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            viewport={{ once: true }}
+          >
+            <motion.h1 className='text-3xl lg:text-5xl tracking-widest font-bold'>
+              Building A Better
+            </motion.h1>
+            <motion.h1 className='text-3xl lg:text-5xl font-light tracking-widest !text-primary'>
+              Financial Future
+            </motion.h1>
+          </motion.div>
           <button className=' h-max cursor-pointer hover:bg-primary/10 transition-all border-primary/50 border w-max rounded-full flex items-center gap-2 px-5 py-2 '>Crypto Trading Now  <FaArrowRightLong className='text-primary ' /> </button>
         </div>
 
@@ -85,24 +83,24 @@ export default function SectionHowItWorks() {
         <div className='flex justify-center md:justify-between flex-wrap w-full '>
 
           {
-            images?.map((item, idx) =>  <motion.div
-            key={idx}
-            className={`${idx == 1 ? 'mt-10' : ''} ${idx == 3 ? 'mt-20' : ''}`}
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 0.6,
-              ease: 'easeOut',
-              delay: idx * 0.15
-            }}
-            viewport={{ once: false, amount: 0.4 }}
-          >
-            <Card item={item} idx={idx} />
-          </motion.div>)
+            images?.map((item, idx) => <motion.div
+              key={idx}
+              className={`${idx == 1 ? 'mt-10' : ''} ${idx == 3 ? 'mt-20' : ''}`}
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                duration: 0.6,
+                ease: 'easeOut',
+                delay: idx * 0.15
+              }}
+              viewport={{ once: true, amount: 0.4 }}
+            >
+              <Card item={item} idx={idx} />
+            </motion.div>)
           }
         </div>
         <p className=' tracking-widest text-center  !text-neutral ' >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scra </p>
-        
+
       </div>
     </div>
   )

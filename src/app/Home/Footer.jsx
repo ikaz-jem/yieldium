@@ -33,7 +33,7 @@ export default function Footer() {
 
 
         </div>
-        <BrandsSlider />
+        {/* <BrandsSlider /> */}
 
       </div>
     </div>

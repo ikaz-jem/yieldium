@@ -18,7 +18,6 @@ export default function Hero() {
                 {/* <Navbar />
                 <NavbaMobile /> */}
             </div>
-            {/* <img src="/assets/images/divider.png" alt="" className="w-screen" /> */}
             <div className="absolute bottom-0 w-full">
                 <div className="container mx-auto pb-20  ">
                     <div className="w-full h-20 bg-forground">

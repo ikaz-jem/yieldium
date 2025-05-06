@@ -2,11 +2,12 @@
 
 :root {
   --background: #010012;
-  --foreground: #171717;
+  --foreground: hsla(0,0,98%,1);
   --primary: #45E3FF;
-  --title: #FEFEFE;
+  --title: #dbdbdb;
   --neutral:var(--color-neutral-500);
   --accent: #EE66A6 ;
+  --foreground-default:hsla(0,0,98%,1)
 }
 
 @theme  {
@@ -18,7 +19,7 @@
 --color-primary: var(--primary);
 --color-neutral: var(--neutral);
 --color-accent: var(--accent);
-
+--color-default:var(--forgrou)
 
 }
 h1, h2, h3, h4, h5, h6, ul ,button{
@@ -60,3 +61,11 @@ body,html {
 }
 
 /* Target the Drei scroll container */
+.touch-scroll-container, .canvas {
+  touch-action: auto !important; /* Allow touch scrolling */
+  -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
+}
+
+.canvas {
+  touch-action: auto !important;
+  }
