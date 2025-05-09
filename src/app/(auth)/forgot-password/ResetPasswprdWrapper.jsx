@@ -1,5 +1,6 @@
 "use client"
 import { useRouter } from "next/navigation"
+import { Suspense } from 'react';
 
 export default function ResetPasswprdWrapper({ children, sent }) {
     const router = useRouter()
@@ -27,7 +28,11 @@ export default function ResetPasswprdWrapper({ children, sent }) {
                     }
                     
                 </div>
+                      <Suspense fallback={<div>Loading...</div>}>
+
                 {children}
+                      </Suspense>
+
             </div>
         </div>
     )
