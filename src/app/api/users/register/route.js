@@ -2,8 +2,7 @@ import bcrypt from 'bcryptjs';
 import UserSchema from '@/app/models/userSchema/UserSchema';
 import dbConnect from '@/app/lib/db';
 import { generateVerificationToken } from '@/app/lib/tokens';
-import { sendVerificationEmail } from '@/app/lib/emailSenders';
-import { signIn } from 'next-auth/react';
+
 
 export async function POST(req) {
   try {
