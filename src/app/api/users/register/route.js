@@ -27,7 +27,8 @@ export async function POST(req) {
     // const newUser = new UserSchema({ email, password: hashedPassword,verificationToken:token,verificationTokenExpires:expiresAt });
     // await newUser.save();
 
-    // const res = await sendVerificationEmail('h',token)
+
+      // const res = await sendVerificationEmail('h',token)
 
 
       return Response.json({success:true , message:'account created !'}, { status: 200 });

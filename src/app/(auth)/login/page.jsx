@@ -1,15 +1,14 @@
 "use client"
 
 import { signIn } from 'next-auth/react';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { useSession } from 'next-auth/react';
 import { loginSchema } from './validation';
 import { toast } from 'sonner';
 import ButtonPrimary from '@/app/components/ButtonPrimary';
 import { useRouter } from 'next/navigation';
-import ReCAPTCHA from 'react-google-recaptcha';
 import LoginFormWrapper from './LoginFormWrapper';
-
+import { appBaseRoutes } from '@/routes';
 
 export default function LoginPage() {
   const session = useSession()
@@ -18,11 +17,13 @@ export default function LoginPage() {
   const [data, setData] = useState({ email: '', password: '' });
   const [captchaValue, setCaptchaValue] = useState("null");
   const [formErrors, setFormErrors] = useState({});
-
+  const [isPending,startTransition]=useTransition()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!captchaValue){
+
+    startTransition(async ()=> {
+      if(!captchaValue){
 
       toast.error('Please verify captcha')
       return
@@ -65,13 +66,10 @@ export default function LoginPage() {
       // Proceed with login API call
     }
 
+    })
 
-    // if (res?.error) {
-    //   setError('Invalid credentials');
-    // } else {
-    //   // Redirect to a protected page
-    //   window.location.href = '/dashboard';
-    // }
+    
+
   };
 
 
@@ -90,47 +88,53 @@ export default function LoginPage() {
   }
   
   const signUp = async (e) => {
-  router.push('register')
+  router.push(appBaseRoutes?.singUp)
   }
 
-  const handleCaptchaChange = (value) => {
-    setCaptchaValue(value);
+  const forgotPasword = (value) => {
+  router.push(appBaseRoutes?.resetPassword)
   };
 
   return (
-    <LoginFormWrapper signUp={signUp}  data={data} googleLogin={googleLogin} >
-        <form onSubmit={handleSubmit} className=' gap-5 grid space-y-5'>
+    <LoginFormWrapper signUp={signUp}  data={data} googleLogin={googleLogin} router={router} loading={isPending} >
+        <form onSubmit={handleSubmit} className=' gap-5 grid space-y-5 relative'>
+
+
           <div className='grid gap-3'>
             <p className='text-sm font-semibold'>Email</p>
             <input
-              className='bg-white/10 text-white rounded h-10 p-3 text-sm outline-none focus:border-primary/50 focus:border'
+              className='bg-white/10 aria-selected:bg-none auto text-white rounded h-10 p-3 text-sm outline-none focus:border-primary/50 focus:border disabled:cursor-not-allowed disabled:bg-neutral-400/30'
               name="email"
               type="email"
               placeholder="Email"
               value={data?.email}
               onChange={handleChange}
               required
+              disabled={isPending}
             />
           </div>
           <div className='grid gap-3'>
 
             <div className='flex justify-between items-baseline'>
               <p className='text-sm font-semibold'>Password</p>
-              <p className='text-xs !text-primary'>Forgot Password ?</p>
+              <p className='text-xs !text-primary/50 hover:!text-primary cursor-pointer' onClick={forgotPasword} >Forgot Password ?</p>
             </div>
             <input
-              className='bg-white/10 text-white rounded h-10 p-3 text-sm outline-none focus:border-primary/50 focus:border'
+        
+              className='bg-white/10  text-white rounded h-10 p-3 text-sm outline-none focus:border-primary/50 focus:border disabled:cursor-not-allowed disabled:bg-neutral-400/30'
               name="password"
               type="password"
               placeholder="Password"
               value={data?.password}
               onChange={handleChange}
               required
+             disabled={isPending}
+
               />
           </div>
           <div className='w-full'>
 
-            <ButtonPrimary className={'w-full'} type="submit">Login</ButtonPrimary>
+            <ButtonPrimary className={'w-full'} loading={isPending} type="submit">Login</ButtonPrimary>
           </div>
         </form>
     </LoginFormWrapper>
