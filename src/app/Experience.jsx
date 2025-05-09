@@ -1,14 +1,15 @@
 "use client"
-import React, { useEffect, useRef,useState } from 'react'
+import React, { useRef } from 'react'
 import { extend, useFrame } from '@react-three/fiber'
+import { ScrollControls, Scroll, MeshTransmissionMaterial, Environment, useScroll, Text} from '@react-three/drei'
 
-import { ScrollControls, Scroll, MeshTransmissionMaterial, Environment, useScroll, Text, Html, Float, CameraShake } from '@react-three/drei'
-
-import HomePage from './Home/HomePage'
 import * as THREE from 'three'
 import { Image } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { lerp } from 'three/src/math/MathUtils'
+
+const HomePage = React.lazy(()=>import('./Home/HomePage'))
+
 extend({ MeshTransmissionMaterial })
 
 // function MyModel() {
@@ -21,7 +22,6 @@ extend({ MeshTransmissionMaterial })
 // }
 
 export default function Experience() {
-    let [pages,setPages] = useState(8)
 
     const { width, height } = useThree(state => state.viewport);
 
@@ -30,14 +30,7 @@ export default function Experience() {
     const camera = three?.camera
 
     const scaleElement = (baseWidth = 1980, baseHeight = 900) => {
-        const vw = width;
-        const vh = height;
-      
-        // Calculate scale based on width or height (choose one or use min/max)
-        const scaleX = vw / baseWidth;
-        const scaleY = vh / baseHeight;
-      
-        // Use the smaller scale factor to maintain aspect ratio
+        
         const scale = Math.min(width, height);
       
         return Number(scale)
@@ -97,11 +90,11 @@ export default function Experience() {
         <>
             {/* <gridHelper /> */}
             <Environment preset='city' />
-            {/* <OrbitControls enabled={false} enableZoom={false} position={[10, 10, 0]} /> */}
+            {/* <OrbitControls enabled={true} enableZoom={false} position={[10, 10, 0]} /> */}
             <ambientLight intensity={5} />
             <directionalLight position={[2, 2, 10]} intensity={5} />
             {/* <color attach="background" args={['#fef4eff']} /> */}
-            <ScrollControls pages={pages} damping={0.1} >
+            <ScrollControls pages={8} damping={0.1} >
                 <Scroll html > 
                     <HomePage data={scroll} />
                 </Scroll>

@@ -7,7 +7,9 @@
   --title: #dbdbdb;
   --neutral:var(--color-neutral-500);
   --accent: #EE66A6 ;
-  --foreground-default:hsla(0,0,98%,1)
+  --foreground-default:hsla(0,0,98%,1);
+  --toast-background:var(--color-neutral-900);
+  --toast-border:var(--color-neutral-800);
 }
 
 @theme  {

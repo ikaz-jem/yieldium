@@ -1,6 +1,8 @@
+
 import { Geist, Geist_Mono,Inter , Poppins } from "next/font/google";
 import "./globals.css";
-
+import AuthProvider from "@/providers/AuthProvider";
+import { Toaster, toast } from 'sonner'
 
 
 const inter = Poppins({
@@ -23,7 +25,15 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className}    antialiased`}
       >
-        {children}
+       <Toaster position="top-center" toastOptions={{
+        
+    style: {
+      background: 'var(--toast-background)',
+      color:'var(--title)',
+      border:'1px solid var(--toast-border)'
+    },
+  }}/>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

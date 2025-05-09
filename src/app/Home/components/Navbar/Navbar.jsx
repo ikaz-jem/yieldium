@@ -2,6 +2,8 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoCloseSharp } from "react-icons/io5";
 import ButtonPrimary from "@/app/components/ButtonPrimary";
+import { useRouter } from 'next/navigation'
+
 
 import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, TransitionChild, DisclosureButton } from '@headlessui/react'
@@ -21,12 +23,10 @@ let navigation = [
 ]
 
 function NavbaMobile() {
+const Router = useRouter()
+const login = ()=>Router.push('/login')
+
   const [open, setOpen] = useState(false)
-
-
-
-
-
   return (
     <>
       <GiHamburgerMenu className="text-4xl text-white hover:text-primary transition-all cursor-pointer md:hidden flex " onClick={() => setOpen(true)} />
@@ -81,7 +81,7 @@ function NavbaMobile() {
 
                   <div className="relative mt-6 flex-1 px-4 sm:px-6">{/* Your content */}</div>
                   <div className="flex justify-center p-5">
-                    <ButtonPrimary className='w-full'>Launch App</ButtonPrimary>
+                    <ButtonPrimary onClick={login} className='w-full'>Get Started</ButtonPrimary>
                   </div>
                 </div>
               </DialogPanel>
@@ -97,7 +97,8 @@ function NavbaMobile() {
 
 export default function Navbar() {
 
-
+  const Router = useRouter()
+  const login = ()=>Router.push('/login')
   return (
 
     <div className="  absolute top-0  w-[calc(100vw-15px)] backdrop-blur-lg  ">
@@ -111,11 +112,11 @@ export default function Navbar() {
 
           <ul className="md:flex hidden gap-5">
             {
-              navigation?.map((link, idx) => <li className="cursor-pointer hover:text-primary">{link?.title}</li>)
+              navigation?.map((link, idx) => <li key={idx} className="cursor-pointer hover:text-primary">{link?.title}</li>)
             }
           </ul>
 
-          <ButtonPrimary className="md:flex hidden items-center justify-center">Log In</ButtonPrimary>
+          <ButtonPrimary onClick={login} className="md:flex hidden items-center justify-center">Get Started</ButtonPrimary>
           <NavbaMobile />
         </div>
       </div>
