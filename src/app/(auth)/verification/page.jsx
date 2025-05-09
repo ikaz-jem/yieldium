@@ -11,6 +11,9 @@ import { appBaseRoutes } from '@/routes';
 import { sendVerificationEmail } from '@/actions/sendVerificationEmail';
 import { generateVerificationToken } from '@/app/lib/tokens';
 import VerificationFormWraper from './VerificationFormWraper';
+import { Suspense } from 'react';
+
+
 
 export default function ValidateEmail() {
 
@@ -62,33 +65,35 @@ export default function ValidateEmail() {
   }
 
   return (
-    <VerificationFormWraper router={router}>
-      <form onSubmit={handleVerify} className=' gap-5 grid space-y-2'>
-        <div className='grid gap-3'>
-          <p className='text-sm font-semibold'>Verification Code</p>
-          <div className='flex w-fullgap-2 bg-white/10 p-2 rounded gap-2'>
-            {!resend ?
-              <>
-                <input
-                  className=' text-white  h-10 p-3 text-sm outline-none  w-full  '
-                  name="verification"
-                  type="text"
-                  placeholder="eg : 1b817622-589e-4288-b788-7b8df83010a3"
-                  value={verificationCode}
-                  onChange={handleChange}
-                  required
-                />
-                <ButtonPrimary type="submit" >Verify</ButtonPrimary>
-              </>
-              :
-              <ButtonPrimary type="submit" className={'w-full'} onClick={resendCode} >Resend Code</ButtonPrimary>
-            }
+    <Suspense>
+      <VerificationFormWraper router={router}>
+        <form onSubmit={handleVerify} className=' gap-5 grid space-y-2'>
+          <div className='grid gap-3'>
+            <p className='text-sm font-semibold'>Verification Code</p>
+            <div className='flex w-fullgap-2 bg-white/10 p-2 rounded gap-2'>
+              {!resend ?
+                <>
+                  <input
+                    className=' text-white  h-10 p-3 text-sm outline-none  w-full  '
+                    name="verification"
+                    type="text"
+                    placeholder="eg : 1b817622-589e-4288-b788-7b8df83010a3"
+                    value={verificationCode}
+                    onChange={handleChange}
+                    required
+                  />
+                  <ButtonPrimary type="submit" >Verify</ButtonPrimary>
+                </>
+                :
+                <ButtonPrimary type="submit" className={'w-full'} onClick={resendCode} >Resend Code</ButtonPrimary>
+              }
+            </div>
           </div>
-        </div>
-        <div className='w-full gap-5 flex'>
-          <ButtonSecondary onClick={goToDashboard}>Verify Later</ButtonSecondary>
-        </div>
-      </form>
-    </VerificationFormWraper>
+          <div className='w-full gap-5 flex'>
+            <ButtonSecondary onClick={goToDashboard}>Verify Later</ButtonSecondary>
+          </div>
+        </form>
+      </VerificationFormWraper>
+    </Suspense>
   );
 }

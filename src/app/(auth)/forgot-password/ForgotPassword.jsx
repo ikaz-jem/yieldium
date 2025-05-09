@@ -14,6 +14,7 @@ import { useTransition } from 'react';
 import { resetPasswordEmail } from '@/actions/resetPasswordEmail';
 import { FaCheckCircle } from "react-icons/fa";
 import ResetPasswprdWrapper from './ResetPasswprdWrapper';
+import { Suspense } from 'react';
 
 
 
@@ -24,7 +25,7 @@ export default function ForgotPassword() {
   const params = useSearchParams()
   const token = params?.get('verify')
 
-  const [sent, setSent] = useState(false)
+  const [sent, setSent] = useState(true)
   const [email, setEmail] = useState('');
   const [isPending, startTransition] = useTransition()
 
@@ -52,6 +53,7 @@ export default function ForgotPassword() {
 
 
   return (
+                          <Suspense >
 
     <ResetPasswprdWrapper sent={sent}>
 
@@ -82,6 +84,7 @@ export default function ForgotPassword() {
 
       </form>
     </ResetPasswprdWrapper>
+                          </Suspense>
 
   );
 }
