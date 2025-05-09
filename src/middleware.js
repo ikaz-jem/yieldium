@@ -1,7 +1,6 @@
 // middleware.ts
 import { NextResponse } from "next/server";
 import { getToken }     from "next-auth/jwt";
-import { appBaseRoutes } from "./routes";
 
 const authRoutes = ["/login","/register"]
 
@@ -23,8 +22,8 @@ export async function middleware(req) {
 }
 export const config = {
   matcher: [
-    appBaseRoutes?.login, 
-    appBaseRoutes?.singUp,     
-    `${appBaseRoutes?.dashboard}/:path*`,
+    '/login', 
+    'register',     
+    `dashboard/:path*`,
   ],
 };
