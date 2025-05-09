@@ -14,6 +14,7 @@ import { useTransition } from 'react';
 import { resetPasswordEmail } from '@/actions/resetPasswordEmail';
 import { FaCheckCircle } from "react-icons/fa";
 import ResetPasswprdWrapper from './ResetPasswprdWrapper';
+import { Suspense } from 'react';
 
 
 
@@ -52,6 +53,8 @@ export default function ResetPassword() {
 
 
   return (
+                          <Suspense fallback={<div>Loading...</div>}>
+
     <ResetPasswprdWrapper sent={sent}>
 
       <form onSubmit={handleVerify} className=' gap-5 grid space-y-2'>
@@ -81,5 +84,7 @@ export default function ResetPassword() {
 
       </form>
     </ResetPasswprdWrapper>
+                          </Suspense>
+
   );
 }
