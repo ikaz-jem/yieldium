@@ -1,6 +1,6 @@
 // middleware.ts
 import { NextResponse } from "next/server";
-import { getToken }     from "next-auth/jwt";
+import { getToken } from "next-auth/jwt";
 
 const authRoutes = ["/login","/register"]
 
@@ -12,11 +12,11 @@ export async function middleware(req) {
   const { pathname } = req.nextUrl;
   // 1. If user *is* authenticated AND on /login → send to /dashboard
   if (token && authRoutes.includes(pathname)) {
-    return NextResponse.redirect(new URL(appBaseRoutes?.dashboard, req.url));        
+    return NextResponse.redirect(new URL('/dashboard', req.url));        
   }
   // 2. If user is *not* authenticated AND trying /dashboard → send to /login
-  if (!token && pathname.startsWith(appBaseRoutes?.dashboard)) {
-    return NextResponse.redirect(new URL(appBaseRoutes?.login, req.url));            
+  if (!token && pathname.startsWith('/dashboard')) {
+    return NextResponse.redirect(new URL('/login', req.url));            
   }
   return NextResponse.next();
 }
