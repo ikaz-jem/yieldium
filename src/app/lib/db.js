@@ -2,9 +2,6 @@ import mongoose from 'mongoose';
 
 const uri =  process.env.MONGO_DB_URI || '';
 
-if (!uri) {
-  throw new Error('Please define the uri environment variable');
-}
 
 let cached = global.mongoose;
 
