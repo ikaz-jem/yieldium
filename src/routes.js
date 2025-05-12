@@ -16,5 +16,8 @@ export const appBaseRoutes = {
     dashboard:'/dashboard',
     onboarding:'/',
     resetPassword:'/forgot-password',
-    images:'/assets/images'
+    images:'/assets/images',
+    deposit:'/dashboard/deposit',
+    withdraw:'/dashboard/withdraw',
+    withdraw:'/dashboard/settings',
 }

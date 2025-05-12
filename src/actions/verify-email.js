@@ -11,7 +11,7 @@ export async function verifyEmailByToken(token) {
     throw new Error('Token is required');
   }
 
-  const user = await UserSchema.findOne({ verificationToken: token });
+  const user = await UserSchema.findOne({ verificationToken: token , emailVerified:false });
 
   const validId = isUuid(token)
   if (!validId){
@@ -23,7 +23,7 @@ export async function verifyEmailByToken(token) {
   }
 
   const isExpired = user.verificationTokenExpires < new Date();
-  if (isExpired) {
+  if (!isExpired) {
     return {
       success: false,
       message: 'Verification Code Expired',
@@ -31,11 +31,10 @@ export async function verifyEmailByToken(token) {
       email:user.email || true
     };
   } else {
-    user.verified = true;
+    user.emailVerified = true;
     user.verificationToken = undefined;
     user.verificationTokenExpires = undefined;
     await user.save();
     return { success: true, message: 'Email verified successfully ! ' };
   }
-
 }

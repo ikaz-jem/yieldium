@@ -15,7 +15,7 @@ export default function LoginFormWrapper({children ,signUp ,data,googleLogin,rou
     </div>
 
 
-    <div className='bg-black/5 backdrop-blur-xl p-10 pb-10 rounded-xl max-w-md w-full space-y-5 border border-primary/10 shadow-xl shadow-black  '>
+    <div className='bg-black/5 backdrop-blur-xl p-10 pb-10 rounded-xl max-w-md w-full space-y-5 border border-primary/10 shadow-xl shadow-black m-2 '>
       <div className="flex items-center gap-2 justify-center cursor-pointer" onClick={()=>router.push('.')} >
         <img src="/assets/images/logo.png" alt="" loading="lazy" className="rounded-full h-10 w-10" />
         <h5 className="font-light  tracking-wide text-xl ">Yieldium</h5>

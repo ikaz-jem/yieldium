@@ -1,10 +1,17 @@
 "use server"
 // lib/sendVerificationEmail.js
+
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 export async function sendVerificationEmail(email, token) {
+  let key = process.env.NEXT_RESEND_KEY
+  if (!key){
+    return {success:false,message:'something went wrong please try again or later'}
+  }
+
+  const resend = new Resend(key);
   const verificationUrl = `https://yieldium/verification?token=${token}`;
 
    const { data, error } =  await resend.emails.send({

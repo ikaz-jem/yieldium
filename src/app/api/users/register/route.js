@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import UserSchema from '@/app/models/userSchema/UserSchema';
 import dbConnect from '@/app/lib/db';
 import { generateVerificationToken } from '@/app/lib/tokens';
-
+import { sendVerificationEmail } from '@/actions/sendVerificationEmail';
 
 export async function POST(req) {
   try {
@@ -23,14 +23,15 @@ export async function POST(req) {
     const {token,expiresAt} = generateVerificationToken()
 
 
-    // const newUser = new UserSchema({ email, password: hashedPassword,verificationToken:token,verificationTokenExpires:expiresAt });
-    // await newUser.save();
+    const newUser = new UserSchema({ email, password: hashedPassword,verificationToken:token,verificationTokenExpires:expiresAt });
+    await newUser.save();
+    const res = await sendVerificationEmail('reciepient@email.com',token)
 
 
-      // const res = await sendVerificationEmail('h',token)
-
-
+    if (res) {
       return Response.json({success:true , message:'account created !'}, { status: 200 });
+    }
+
   } catch (error) {
     console.error(error);
     return Response.json('Internal Server Error', { status: 500 });

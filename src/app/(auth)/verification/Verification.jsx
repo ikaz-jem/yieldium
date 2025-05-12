@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import ButtonPrimary from '@/app/components/ButtonPrimary';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -12,6 +12,7 @@ import { sendVerificationEmail } from '@/actions/sendVerificationEmail';
 import { generateVerificationToken } from '@/app/lib/tokens';
 import VerificationFormWraper from './VerificationFormWraper';
 import { Suspense } from 'react';
+import { renewUserVerificationToken } from '@/actions/renewUserVerificationToken';
 
 
 
@@ -22,26 +23,31 @@ export default function Verification() {
   const params = useSearchParams()
   const token = params?.get('verify')
 
-  const [resend, setResend] = useState(false)
+  const [resend, setResend] = useState(true)
   const [verificationCode, setVerificationCode] = useState(token || '');
 
+
+  const [isPending,startTransition] = useTransition()
+
   const handleVerify = async (e) => {
-    e.preventDefault();
-    const code = isUuid(verificationCode)
-    if (code) {
-      const verified = await verifyEmailByToken(verificationCode)
-      if (verified.email) {
-        toast.warning(verified?.message)
-        return setResend(verified)
-      } else if (verified.success) {
-        toast.success(verified?.message)
-        router.push(appBaseRoutes?.login)
+    startTransition(async ()=>{
+      e.preventDefault();
+      const code = isUuid(verificationCode)
+      if (code) {
+        const verified = await verifyEmailByToken(verificationCode)
+        if (verified.email) {
+          toast.warning(verified?.message)
+          return setResend(verified)
+        } else if (verified.success) {
+          toast.success(verified?.message)
+          router.push(appBaseRoutes?.login)
+        } else {
+          toast.error(verified.message)
+        }
       } else {
-        toast.error(verified.message)
+        toast.error('Please Enter a Valide Code !')
       }
-    } else {
-      toast.error('Please Enter a Valide Code !')
-    }
+    })
   };
 
   const handleChange = async (e) => {
@@ -54,14 +60,22 @@ export default function Verification() {
   }
 
   const resendCode = async (e) => {
-    e.preventDefault()
-    const token = generateVerificationToken()
-    const data = await sendVerificationEmail(resend?.email, token)
-    //send email
-    if (data) {
-      toast.success('New Code Has Been Sent To your Email !')
-      setResend(false)
-    }
+
+    startTransition(async ()=>{
+      e.preventDefault()
+      const tokenObject = generateVerificationToken()
+      const updated = await renewUserVerificationToken(resend?.email,tokenObject)
+      if (updated?.success){
+        const data = await sendVerificationEmail(resend?.email, tokenObject?.token)
+        //send email
+        if (data) {
+          toast.success('New Code Has Been Sent To your Email !')
+          setResend(false)
+        }
+      }else {
+        toast.warning(updated?.message)
+      }
+    })
   }
 
   return (
@@ -74,18 +88,19 @@ export default function Verification() {
               {!resend ?
                 <>
                   <input
-                    className=' text-white  h-10 p-3 text-sm outline-none  w-full  '
+                    className=' text-white  h-10 p-3 text-sm outline-none  w-full disabled:cursor-not-allowed disabled:text-white/50 '
                     name="verification"
                     type="text"
                     placeholder="eg : 1b817622-589e-4288-b788-7b8df83010a3"
                     value={verificationCode}
                     onChange={handleChange}
                     required
+                    disabled={isPending}
                   />
-                  <ButtonPrimary type="submit" >Verify</ButtonPrimary>
+                  <ButtonPrimary type="submit" loading={isPending}>Verify</ButtonPrimary>
                 </>
                 :
-                <ButtonPrimary type="submit" className={'w-full'} onClick={resendCode} >Resend Code</ButtonPrimary>
+                <ButtonPrimary  className={'w-full'} onClick={resendCode} loading={isPending} >Resend Code</ButtonPrimary>
               }
             </div>
           </div>
