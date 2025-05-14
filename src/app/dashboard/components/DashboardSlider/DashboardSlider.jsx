@@ -16,19 +16,17 @@ import GrowthChart from '../charts/growthchart';
 export default function App() {
   return (
     <>
-      <Swiper  slidesPerView={'auto'}
+      <Swiper slidesPerView={'auto'}
         centeredSlides={true}
         spaceBetween={30} pagination={true} modules={[Pagination]} className=" flex gap-5 !z-0">
         <SwiperSlide>
-          <BalanceChart/>
-          </SwiperSlide>
+          <BalanceChart />
+        </SwiperSlide>
         <SwiperSlide>
-          <ActivityChart/>
-          </SwiperSlide>
-        <SwiperSlide>
-          <GrowthChart/>
-          </SwiperSlide>
-       
+          <ActivityChart />
+        </SwiperSlide>
+
+
       </Swiper>
     </>
   );
