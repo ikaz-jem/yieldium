@@ -11,7 +11,6 @@ import './styles.css';
 // import required modules
 import { Pagination } from 'swiper/modules';
 import ActivityChart from '../charts/ActivityChart.';
-import GrowthChart from '../charts/growthchart';
 
 export default function App() {
   return (
