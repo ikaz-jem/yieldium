@@ -23,7 +23,7 @@ export async function verifyEmailByToken(token) {
   }
 
   const isExpired = user.verificationTokenExpires < new Date();
-  if (!isExpired) {
+  if (isExpired) {
     return {
       success: false,
       message: 'Verification Code Expired',

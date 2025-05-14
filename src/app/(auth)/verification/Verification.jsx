@@ -23,7 +23,7 @@ export default function Verification() {
   const params = useSearchParams()
   const token = params?.get('verify')
 
-  const [resend, setResend] = useState(true)
+  const [resend, setResend] = useState(false)
   const [verificationCode, setVerificationCode] = useState(token || '');
 
 
@@ -37,7 +37,7 @@ export default function Verification() {
         const verified = await verifyEmailByToken(verificationCode)
         if (verified.email) {
           toast.warning(verified?.message)
-          return setResend(verified)
+           setResend(verified)
         } else if (verified.success) {
           toast.success(verified?.message)
           router.push(appBaseRoutes?.login)
@@ -67,13 +67,15 @@ export default function Verification() {
       const updated = await renewUserVerificationToken(resend?.email,tokenObject)
       if (updated?.success){
         const data = await sendVerificationEmail(resend?.email, tokenObject?.token)
+        setResend(false)
         //send email
         if (data) {
           toast.success('New Code Has Been Sent To your Email !')
-          setResend(false)
         }
       }else {
         toast.warning(updated?.message)
+        
+        setResend(false)
       }
     })
   }

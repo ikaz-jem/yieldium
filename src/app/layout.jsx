@@ -33,8 +33,7 @@ export default function RootLayout({ children }) {
       border:'1px solid var(--toast-border)'
     },
   }}/>
-        {/* <AuthProvider>{children}</AuthProvider> */}
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
