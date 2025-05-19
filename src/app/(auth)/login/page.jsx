@@ -15,7 +15,6 @@ export default function LoginPage() {
   const router = useRouter()
 
   const [data, setData] = useState({ email: '', password: '' });
-  const [captchaValue, setCaptchaValue] = useState("null");
   const [formErrors, setFormErrors] = useState({});
   const [isPending,startTransition]=useTransition()
 
@@ -23,12 +22,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     startTransition(async ()=> {
-      if(!captchaValue){
-
-      toast.error('Please verify captcha')
-      return
-    }
-
+ 
     let result = loginSchema?.safeParse(data)
     
     if (!result.success) {

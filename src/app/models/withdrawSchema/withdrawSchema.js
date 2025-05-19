@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import User from '../userSchema/UserSchema'
 
 const withdrawSchema = new mongoose.Schema({
     user:{type:mongoose.Types.ObjectId , ref:'User'},

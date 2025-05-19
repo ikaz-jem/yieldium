@@ -14,10 +14,12 @@ import { MdPeopleAlt } from "react-icons/md";
 import { FaChartPie } from "react-icons/fa";
 import { GiMining } from "react-icons/gi";
 import { FaArrowsRotate } from "react-icons/fa6";
+import { useSession } from 'next-auth/react';
 
 
-export default function MobileDashboard() {
-  // const session = useSession()
+export default  function MobileDashboard() {
+  const session = useSession()
+  console.log(session)
   const router = useRouter()
 
   const buttons = [
@@ -30,7 +32,7 @@ export default function MobileDashboard() {
       title:'Deposit',
       icon:  <PiUploadSimpleBold className='text-primary/50 text-2xl group-hover:text-primary transition-all' />
 ,
-      link:appBaseRoutes.withdraw,
+      link:appBaseRoutes.deposit,
     },
     // {
     //   title:'Reinvest',
@@ -40,17 +42,17 @@ export default function MobileDashboard() {
     {
       title:'Stake',
       icon: <FaChartPie className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-      link:appBaseRoutes.withdraw,
+      link:appBaseRoutes.stake,
     },
     {
       title:'Mining',
       icon: <GiMining className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-      link:appBaseRoutes.withdraw,
+      link:appBaseRoutes.mining,
     },
     {
       title:'Convert',
       icon: <FaArrowsRotate className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-      link:appBaseRoutes.withdraw,
+      link:appBaseRoutes.convert,
     },
     {
       title:'referral',

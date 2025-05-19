@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
   phone:{type:String},
   password:{type: String},
   balance:{type:Number,default:0},
+  image:{type:String,defaul:null},
   invested:{type:Number,default:0},
   deposits:[{type:mongoose.Types.ObjectId , ref:'Deposit'}],
   withdrawls:[{type:mongoose.Types.ObjectId , ref:'Withdraw'}],
@@ -17,11 +18,23 @@ const UserSchema = new mongoose.Schema({
   verificationTokenExpires: Date,
   emailVerified:{type:Boolean,default:false},
   accountType:{type:mongoose.Types.ObjectId , ref:'Package'},
-  index:{type:Number,default:undefined}
+  walletIndex:{type:Number,default:undefined}
 },  
  {
   timestamps: true 
 }
 )
+
+UserSchema.pre('save', function (next) {
+  if (!this.isNew) return next(); // Only run on new users
+
+  if (this.walletIndex !== undefined && this.walletIndex !== null) {
+    return next();
+  }
+
+  const timestampIndex = Math.floor(Date.now() / 1000);
+  this.walletIndex = timestampIndex;
+  next();
+});
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);

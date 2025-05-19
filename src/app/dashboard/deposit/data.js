@@ -1,3 +1,5 @@
+"use client"
+
 import { FaGooglePay } from "react-icons/fa6";
 import { FaPaypal } from "react-icons/fa";
 import { RiVisaFill } from "react-icons/ri";
@@ -7,11 +9,13 @@ import { BsBank2 } from "react-icons/bs";
 
 
 export const cryptoDeposits = [
-  { id: 1, name: 'USDT - BEP20', address: "CPNxdZRBxvjrYPo6uaLSQEs4TmGKKt12JTjaBvisx3ep" },
-  { id: 2, name: 'USDT - TRC20', address: "2QcWX9wrvCbMU2YFQc1xayuP8zr8T6Bqh5HbCAtGYMHx" },
-  { id: 3, name: 'BNB - BEP20', address: "JBdB3uFvA3886SmTcPaqGXUg6S1AAbDPEqoy2JG8muib" },
-  { id: 4, name: 'SOLANA - BEP20', address: "8NpNmntfm9eGHdELmciNPtTVnrAXhScF7vggfzRtTdnr" },
-  { id: 5, name: 'SOLANA - SOL', address: "G6EYhKMupMissPYx8emRospQAvQGQcVPn3RPy3gFVVgT" },
+  { id: 1, name: 'USDT - BEP20', network:"evm",currency:"USDT", chain:'bsc', isNative:false,contractAddress:"0x55d398326f99059ff775485246999027b3197955" },
+  { id: 2, name: 'USDT - TRC20', network:"evm",currency:"USDT", chain:'trc', isNative:false,contractAddress:"TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t"},
+  { id: 3, name: 'BNB - BEP20', network:"evm",currency:"BNB", chain:'bsc', isNative:true,contractAddress:"" },
+  { id: 4, name: 'SOLANA - BEP20', network:"evm",currency:"SOL", chain:'bsc', isNative:false,contractAddress:"0x570A5D26f7765Ecb712C0924E4De545B89fD43dF" },
+  { id: 5, name: 'SOLANA - SOL', network:"solana",currency:"SOL", chain:'sol', isNative:true,contractAddress:""},
+  { id: 6, name: 'TON - TON', network:"ton",currency:"TON", chain:'ton', isNative:true,contractAddress:""},
+  // { id: 7, name: 'Zaq - BEP20', network:"evm",currency:"ZAQTOK", chain:'bsc', isNative:false,contractAddress:"0xb7F2F74eAE83074eDe6e04b76ECB80320185b0AF"},
 ]
 
 

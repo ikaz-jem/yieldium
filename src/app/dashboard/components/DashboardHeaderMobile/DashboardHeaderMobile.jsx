@@ -4,12 +4,12 @@ import { useRouter } from 'next/navigation'
 import { GrFormPreviousLink } from "react-icons/gr";
 import { usePathname } from 'next/navigation';
 
-
-export default function DashboardHeaderMobile() {
+export default function DashboardHeaderMobile({session}) {
     const router = useRouter()
    const pathname = usePathname();
+   const user = session.user
 
-      function extractTitle (path){
+   function extractTitle (path){
         switch (path) {
             case "/dashboard/deposit":
            return"Deposit"
@@ -29,7 +29,7 @@ export default function DashboardHeaderMobile() {
 
             <h1 className=''>{extractTitle(pathname)}</h1>
             </div>
-            <Avatar img='https://i.pravatar.cc/300' />
+            <Avatar img={user?.image ? user.image : 'https://i.pravatar.cc/300'} />
         </div>
 
     )

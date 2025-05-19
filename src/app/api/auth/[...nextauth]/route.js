@@ -1,10 +1,12 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import dbConnect from '@/app/lib/db';
-import UserSchema from '@/app/models/userSchema/UserSchema';
+import User from '@/app/models/userSchema/UserSchema';
 import bcrypt from 'bcryptjs';
 import GoogleProvider from "next-auth/providers/google";
 import TwitterProvider from "next-auth/providers/twitter";
+
+
 
 export const authOptions = {
   providers: [
@@ -12,7 +14,6 @@ export const authOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-
 
     CredentialsProvider({
       name: 'Credentials',
@@ -22,7 +23,7 @@ export const authOptions = {
       },
       async authorize(credentials) {
         await dbConnect();
-        const user = await UserSchema.findOne({ email: credentials.email });
+        const user = await User.findOne({ email: credentials.email });
         if (user && bcrypt.compareSync(credentials.password, user.password)) {
           return { id: user._id, name: user.name, email: user.email };
         }
@@ -35,13 +36,14 @@ export const authOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
+
       // Create user if logging in with Google
       if (user?.email) {
         await dbConnect();
-  
-        const existingUser = await UserSchema.findOne({ email: user.email });
+
+        const existingUser = await User.findOne({ email: user.email });
         if (!existingUser) {
-          const newUser = await UserSchema.create({
+          const newUser = await User.create({
             name: user.name,
             email: user.email,
             image: user.image,
@@ -49,17 +51,25 @@ export const authOptions = {
             provider: "google",
           });
           token.id = newUser._id;
+          token.image = newUser.image;
         } else {
+          if (user.image && existingUser.image == null || existingUser.image == undefined) {
+            existingUser.image = user.image
+            await existingUser.save()
+          }
           token.id = existingUser._id;
+          token.walletIndex = existingUser.walletIndex;
+          token.image = existingUser.image;
         }
       }
-  
       return token;
     },
-    
+
     async session({ session, token }) {
       if (token?.id) {
         session.user.id = token.id;
+        session.user.walletIndex = token.walletIndex;
+        session.user.image = token.image;
       }
       return session;
     },
@@ -69,18 +79,17 @@ export const authOptions = {
         return `${baseUrl}/login`;
       }
       // Default behavior for signIn, etc.
-      if (url.startsWith("/"))      return `${baseUrl}${url}`;
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
       if (new URL(url).origin === baseUrl) return url;
       return baseUrl;
     }
-  
   },
-  
+
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn:  "/login",
-    newUser: "/auth/register", 
-    error:"/login"  // New users land here on first sign‑in
+    signIn: "/login",
+    newUser: "/auth/register",
+    error: "/login"  // New users land here on first sign‑in
   },
 };
 

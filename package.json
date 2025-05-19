@@ -46,6 +46,7 @@
     "three": "^0.176.0",
     "tonweb": "^0.0.66",
     "uuidv4": "^6.2.13",
+    "viem": "^2.29.3",
     "zod": "^3.24.4"
   },
   "devDependencies": {
