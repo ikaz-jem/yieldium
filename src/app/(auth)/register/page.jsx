@@ -3,20 +3,25 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 import ButtonPrimary from '@/app/components/ButtonPrimary';
- import { useRouter } from 'next/navigation';
+ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { appBaseRoutes } from '@/routes';
 import { useTransition } from 'react';
 
 
 export default function LoginPage() {
+  const searchParams = useSearchParams()
+ const id = searchParams.get('id')
   const router = useRouter()
-  const [data, setData] = useState({ email: '', password: '' });
+  const [data, setData] = useState({ email: '', password: '' , referredBy:id || null });
   const [isPending,startTransition] = useTransition()
 
+
+ 
   const handleCreateAccount = async (e) => {
     e.preventDefault();
-      startTransition(async()=>{
+
+    startTransition(async()=>{
         const res = await axios.post('api/users/register',data).then((res)=>res.data)
         if (res.success) {
             toast.success(res.message + " Please Check Your Email !");

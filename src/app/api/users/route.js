@@ -1,6 +1,9 @@
 import bcrypt from 'bcryptjs';
 import UserSchema from '@/app/models/userSchema/UserSchema';
 import dbConnect from '@/app/lib/db';
+import { getServerSession } from 'next-auth';
+
+
 
 export async function POST(req) {
   try {
@@ -26,4 +29,8 @@ export async function POST(req) {
     console.error(error);
     return new Response('Internal Server Error', { status: 500 });
   }
+}
+
+export async function GET(req) {
+
 }

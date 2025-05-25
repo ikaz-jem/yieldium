@@ -1,6 +1,7 @@
 import mongoose, { mongo } from 'mongoose';
 import Withdraw from '../withdrawSchema/withdrawSchema'
 import Deposit from '../depositSchema/depositSchema'
+import Balance from '../balanceSchema/balanceSchema';
 
 const UserSchema = new mongoose.Schema({
   name: String,
@@ -10,6 +11,7 @@ const UserSchema = new mongoose.Schema({
   balance:{type:Number,default:0},
   image:{type:String,defaul:null},
   invested:{type:Number,default:0},
+  balances:[{type:mongoose.Types.ObjectId , ref:'Balance'}],
   deposits:[{type:mongoose.Types.ObjectId , ref:'Deposit'}],
   withdrawls:[{type:mongoose.Types.ObjectId , ref:'Withdraw'}],
   verified:{type:Boolean,default:false},
@@ -18,7 +20,9 @@ const UserSchema = new mongoose.Schema({
   verificationTokenExpires: Date,
   emailVerified:{type:Boolean,default:false},
   accountType:{type:mongoose.Types.ObjectId , ref:'Package'},
-  walletIndex:{type:Number,default:undefined}
+  walletIndex:{type:Number,default:undefined},
+  referredBy: { type: mongoose.Types.ObjectId, ref: "User" },
+  referredUsers: { type: [{ type: mongoose.Types.ObjectId, ref: "User" }], default: [] },
 },  
  {
   timestamps: true 

@@ -5,6 +5,7 @@ import abi from '../abi.json'
 import { mainnet, bsc, bscTestnet, polygon } from 'viem/chains'
 import { parseAbi } from 'viem'
 import { createPublicClient, http, formatEther, erc20Abi } from 'viem'
+import { appBaseRoutes } from '@/routes';
 
 
 function delay(ms) {
@@ -18,6 +19,7 @@ const publicClient = createPublicClient({
 })
 
 
+const evmVault = "0x9156fB636d942A916eB165559348e806818b3bD4"
 
 
 export async function CheckEvmsNativeDeposits(address, token, user, privateKey) {
@@ -26,22 +28,19 @@ export async function CheckEvmsNativeDeposits(address, token, user, privateKey) 
 
   console.log(`Listening for deposits on ${address}...`);
   let deposited = false
-  let maxAttempts = 100; // Optional: 10 minutes if polling every 2s
+  let maxAttempts = 10; // Optional: 10 minutes if polling every 2s
+ let threshold = 0.01
 
-  while (maxAttempts-- > 0 && !deposited) {
+  while (maxAttempts-- > 0 && !deposited && window.location.pathname == appBaseRoutes.deposit) {
     try {
       const currentBalanceWei = await publicClient.getBalance({ address });
       const balance = Number(formatEther(currentBalanceWei));
 
-      if (balance >= 0.01) {
+      if (balance >= threshold) {
         console.log(`✅ Deposit received: ${balance} BNB`);
         toast.success(`New deposit detected: ${balance} BNB`);
 
-        const transferToVault = await transferMaxNative(
-          '0x9156fB636d942A916eB165559348e806818b3bD4',
-          privateKey,
-          token,
-        );
+        const transferToVault = await transferMaxNative(evmVault,privateKey);
 
         if (transferToVault?.success) {
           deposited = true

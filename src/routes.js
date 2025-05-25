@@ -14,10 +14,12 @@ export const appBaseRoutes = {
     verification:'/verification',
     home:'/',
     dashboard:'/dashboard',
+    settings:'/dashboard/settings',
+    convert:'/dashboard/convert',
     onboarding:'/',
     resetPassword:'/forgot-password',
     images:'/assets/images',
     deposit:'/dashboard/deposit',
     withdraw:'/dashboard/withdraw',
-    withdraw:'/dashboard/settings',
+    referrals:'/dashboard/referrals'
 }

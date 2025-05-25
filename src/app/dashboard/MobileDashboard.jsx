@@ -1,137 +1,118 @@
-"use client"
 
-import React, { useState } from 'react'
+import { getServerSession } from 'next-auth';
+import dbConnect from '../lib/db';
 import DashboardSlider from './components/DashboardSlider/DashboardSlider';
-import { PiDownloadSimpleBold } from "react-icons/pi";
-import { PiUploadSimpleBold } from "react-icons/pi";
-import { MdOutlineArrowCircleUp } from "react-icons/md";
-import { FaEyeSlash } from "react-icons/fa";
-import { FaEye } from "react-icons/fa";
-import { PiArrowClockwiseFill } from "react-icons/pi";
-import { useRouter } from 'next/navigation';
-import { appBaseRoutes } from '@/routes';
-import { MdPeopleAlt } from "react-icons/md";
-import { FaChartPie } from "react-icons/fa";
-import { GiMining } from "react-icons/gi";
-import { FaArrowsRotate } from "react-icons/fa6";
-import { useSession } from 'next-auth/react';
+import HeaderMobile from './components/HeaderMobile/HeaderMobile';
+import { authOptions } from '../api/auth/[...nextauth]/route';
+import User from '../models/userSchema/UserSchema';
+import { redirect } from 'next/navigation';
+import axios from 'axios';
 
 
-export default  function MobileDashboard() {
-  const session = useSession()
-  console.log(session)
-  const router = useRouter()
-
-  const buttons = [
-    {
-      title:'Withdraw',
-      icon: <PiDownloadSimpleBold className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-      link:appBaseRoutes.withdraw,
-    },
-    {
-      title:'Deposit',
-      icon:  <PiUploadSimpleBold className='text-primary/50 text-2xl group-hover:text-primary transition-all' />
-,
-      link:appBaseRoutes.deposit,
-    },
-    // {
-    //   title:'Reinvest',
-    //   icon: <PiArrowClockwiseFill className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-    //   link:appBaseRoutes.withdraw,
-    // },
-    {
-      title:'Stake',
-      icon: <FaChartPie className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-      link:appBaseRoutes.stake,
-    },
-    {
-      title:'Mining',
-      icon: <GiMining className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-      link:appBaseRoutes.mining,
-    },
-    {
-      title:'Convert',
-      icon: <FaArrowsRotate className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-      link:appBaseRoutes.convert,
-    },
-    {
-      title:'referral',
-      icon: <MdPeopleAlt className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-      link:appBaseRoutes.withdraw,
-    },
-  ]
-
-  function Buttons() {
-    return (
-      <div className='w-full h-max '>
-        <div className='grid gap-1 rounded-full '>
-          <div className='flex gap-2 flex-wrap justify- items-center h-full'>
-            {
-              buttons.map((button,idx)=> <div key={idx} className=' p-2 grow group  cursor-pointer' onClick={() => (router.push(button.link))}>
-              <div className=' flex flex-col gap-2 items-center justify-center  '>
-                <span className=' bg-primary/10 p-3 rounded-full'>
-                 {button.icon}
-                </span>
-              <p className='text-xs'>{button.title}</p>
-              </div>
-            </div>)
-            }
-          </div>
-        </div>
-      </div>
-    )
-  }
 
 
-  function HeaderMobile() {
-    const [visible, setVisible] = useState(true)
+const symbols = {
+  sol: 'SOLUSDT',
+  bnb: 'BNBUSDT',
+  tron: 'TRXUSDT',
+  ton: 'TONUSDT',
+  usdt:'usdt'
+};
 
-    return (
-      <div className=' relative  space-y-5  overflow-hidden rounded-lg'>
-        <div className='w-full flex items-center h-max '>
 
-          <div className='w-full rounded flex flex-col justify-center  gap-1 '>
-            <h5 className='text-xs !text-neutral'>Total Balance in USD</h5>
-            <div className='flex gap-2 items-baseline'>
-              {
-                visible ?
-                  <div className='flex gap-2 items-baseline'>
-                    <h1 className='text-4xl font-semibold '>$1,950.<span className='text-sm'>35</span> </h1>
-                    <FaEyeSlash className='text-white/50 text-2xl hover:text-primary cursor-pointer' onClick={() => setVisible(false)} />
-                  </div>
-                  :
-                  <div className='flex gap-2 items-baseline'>
-                    <h1 className='text-4xl font-semibold '>$****** </h1>
-                    <FaEye className='text-white/50 text-2xl hover:text-primary cursor-pointer' onClick={() => setVisible(true)} />
-                  </div>
-              }
-            </div>
-          </div>
-          <div className='flex gap-1 items-center px-2  rounded-full bg-green-500/20 py-1 '>
-            <h5 className='text-sm !text-green-500'> +15.5%</h5>
-            <MdOutlineArrowCircleUp className='text-green-500 text-xl hover:!text-primary cursor-pointer' />
-          </div>
 
-          {/* <ButtonPrimary>Deposit</ButtonPrimary> */}
-        </div>
-        <div className='flex gap-2 items-center'>
-        <img src="/assets/images/logo.png" alt="" className='w-5 h-5'/>
 
-        <h1 className='text-xl font-semibold '>158 <span className='text-sm'>Yield Coin</span> </h1>
-        </div>
-        <Buttons />
-      </div>
-    )
+async function getUserData() {
+  "use server"
+  const session =await getServerSession(authOptions)
+
+  if (!session) return null;
+
+  await dbConnect()
+  const userDoc = await User.findById({_id:session.user.id })
+    .populate('deposits') // or pass second arg to populate specific fields
+    .populate('balances')
+    .populate('referredUsers');
+    
+  const userData = JSON.parse(JSON.stringify(userDoc))
+
+  let totalValue = 0
+  userData.balances = await Promise.all(
+  userData.balances.map(async (balance) => {
+   if (balance?.currency !== "usdt"){
+     const price = await axios.get(`https://api.binance.com/api/v3/ticker/price?symbol=${symbols[balance?.currency]}`).then((res) => Number(res.data?.price))
+     totalValue += (balance.amount * price)
+     return {
+        ...balance.toObject?.() ?? balance, // if it's a Mongoose doc
+        convertedAmount: balance.amount * price,
+      };
+    
+   }
+   if (balance?.currency == "usdt"){
+     totalValue += balance.amount 
+     return {
+        ...balance.toObject?.() ?? balance, // if it's a Mongoose doc
+        convertedAmount: balance.amount,
+      };
+   }
+
+  })
+);
+
+userData.balances.sort((a, b) => b.convertedAmount - a.convertedAmount);
+
+  userData.totalValue = totalValue
+  return userData
+}
+
+
+
+
+
+export default async function MobileDashboard() {
+
+  const data = await getUserData()
+
+  const coinDetails = {
+    sol: '/assets/images/crypto/solana.svg',
+    bnb: '/assets/images/crypto/bnb.svg',
+    usdt:'/assets/images/crypto/usdt.svg'
+
   }
 
 
 
   return (
-    <>
-      <HeaderMobile />
-      <div className='w-full z-0 '>
-        <DashboardSlider />
+    <div className='w-full  max-w-lg mx-auto'>
+      <HeaderMobile userData={data || {}} />
+      <div className='w-full z-0  '>
+        <DashboardSlider data={data} />
+
+        <div className='flex flex-col gap-5 p-5'>
+
+          <h1 >Balances</h1>
+
+          {
+
+            data?.balances?.map((balance, idx) => <div key={idx} className='flex  gap-5 items-center'>
+
+              <img src={coinDetails[balance?.currency]} alt="" className='w-10 h-10' />
+              <div className='w-full flex justify-between'>
+
+              <div className='flex flex-col '>
+                <h1>{balance?.currency.toUpperCase()}</h1>
+                <p className='text-xs'>{parseFloat((balance?.amount).toFixed(2))} {balance?.currency.toUpperCase()}</p>
+                {/* <p className='text-xs'>{balance?.prices[balance?.currency]}$</p> */}
+
+              </div>
+                <p className='text-sm'>{parseFloat((balance?.convertedAmount).toFixed(2) ) + ' $'} </p>
+              </div>
+            </div>
+            )
+          }
+
+        </div>
       </div>
-    </>
+    </div>
   )
 }

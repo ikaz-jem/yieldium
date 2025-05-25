@@ -2,19 +2,24 @@
 
 
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useState, useTransition } from 'react'
+import {
+    ClipLoader
+} from 'react-spinners'
 
 
 
 
 export default function DepositHistory() {
     const [deposits, setDeposits] = useState(null)
+    const [isPending, startTransition] = useTransition()
 
     async function getDeposits() {
+        startTransition(async () => {
+            const deposits = await axios.get('/api/deposits').then((res) => res.data)
+            setDeposits(deposits)
 
-        const deposits = await axios.get('/api/deposits').then((res) => res.data)
-        setDeposits(deposits)
+        })
 
     }
 
@@ -23,34 +28,36 @@ export default function DepositHistory() {
     }, [])
 
 
-function extractClassName  (status){
+    function extractClassName(status) {
 
-    if (status == "pending"){
-        return "!text-yellow-400 border border-yellow-500 bg-yellow-500/10"
-    }
-    if (status == "credited"){
-        return "!text-green-400 border border-green-500 bg-green-500/10"
-    }
-    if (status == "canceled"){
-        return "!text-red-400 border border-red-500 bg-red-500/10"
-    }
-    if (status == "error"){
-        return "!text-red-400 border border-red-500 bg-red-500/10"
-    }
+        if (status == "pending") {
+            return "!text-yellow-400 border border-yellow-500 bg-yellow-500/10"
+        }
+        if (status == "credited") {
+            return "!text-green-400 border border-green-500 bg-green-500/10"
+        }
+        if (status == "canceled") {
+            return "!text-red-400 border border-red-500 bg-red-500/10"
+        }
+        if (status == "error") {
+            return "!text-red-400 border border-red-500 bg-red-500/10"
+        }
 
-}
+    }
 
 
     function DepositCard({ deposit }) {
 
         return (
 
-            <div className='w-full border-primary/50 bg-white/10 rounded  p-5'>
-                <div className='flex flex-col gap-2 w-max'>
+            <div className='w-full border-primary/50  rounded  px-5 py-2 bg-white/5'>
+                <div className='flex flex-col gap-1   w-full'>
+                    <div className='flex w-full justify-between'>
 
-                <h1 className='text-white text-2xl'>{deposit?.amount} {deposit?.currency} <span className='text-xs capitalize'> {deposit?.chain}</span> </h1>
-                <p className={` ${extractClassName(deposit?.status)} rounded px-2 p-1 !text-xs w-max '`}>{deposit?.status}</p>
-                <p className={`  px-2 p-1 !text-xs w-40 truncate '`}>{deposit?.signature}</p>
+                        <h1 className='text-white '>{deposit?.amount} {deposit?.currency} <span className='text-xs capitalize'> {deposit?.chain}</span> </h1>
+                        <p className={` ${extractClassName(deposit?.status)} rounded px-2 p-1 !text-[12px] w-max '`}>{deposit?.status}</p>
+                    </div>
+                    <p className={`   !text-xs w-40 truncate '`}>{deposit?.signature}</p>
                 </div>
             </div>
 
@@ -60,17 +67,24 @@ function extractClassName  (status){
     }
 
     return (
-        <div className='mb-10 space-y-10'>
-            <h1 className='text-3xl text-white '>
+        <div className='pb-20 space-y-5'>
+            <h1 className='text-2xl text-white '>
                 Deposit History
             </h1>
+            {
+                isPending ?
+                    <div className='w-full space-y-5 flex items-center justify-center  h-40'>
+                        <ClipLoader className='text-xs' color='var(--title)' size={25} />
+                    </div>
+                    :
+                    <div className='w-full  flex flex-col gap-5'>
+                        {
+                            deposits?.length > 0 && deposits?.map((deposit) => <DepositCard key={deposit?._id} deposit={deposit} />)
+                        }
 
-            <div className='w-full bg-black flex flex-col gap-5'>
-                {
-                    deposits?.length > 0 && deposits?.map((deposit) => <DepositCard key={deposit?._id} deposit={deposit} />)
-                }
+                    </div>
+            }
 
-            </div>
 
         </div>
     )

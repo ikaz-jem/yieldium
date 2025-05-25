@@ -29,6 +29,7 @@ export async function sendMaxSol(
   key,
 ) {
  const connection = new Connection(rpcUrl, "confirmed");
+
   let privateKey = hexToUint8Array(key)
   // Convert private key to Keypair
   const secretKey = Uint8Array.from(privateKey);
@@ -40,7 +41,7 @@ export async function sendMaxSol(
   // Get sender balance
   const balance = await connection.getBalance(senderPublicKey);
   if (balance === 0) {
-    throw new Error("Wallet is empty.");
+    return;
   }
 
   // Calculate fee

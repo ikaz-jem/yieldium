@@ -49,8 +49,14 @@ export default function LoginPage() {
         redirect: false,
         email: data?.email,
         password: data?.password,
-        callbackUrl: '/dashboard'
+        // callbackUrl: '/dashboard'
       });
+      if (res?.ok) {
+    // Force a page reload or session refresh
+    // window.location.href = '/dashboard'; // hard reload
+    // OR (less reliable):
+    // router.refresh(); if using app router
+  } 
       if (res?.error) {
         toast.error('Sign-in failed. Please try again.');
       } else {
