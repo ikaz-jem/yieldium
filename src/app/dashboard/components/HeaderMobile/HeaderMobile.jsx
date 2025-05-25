@@ -32,12 +32,12 @@ import React, { useState } from 'react'
       icon: <PiDownloadSimpleBold className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
       link:appBaseRoutes.withdraw,
     },
-    {
-      title:'Deposit',
-      icon:  <PiUploadSimpleBold className='text-primary/50 text-2xl group-hover:text-primary transition-all' />
-,
-      link:appBaseRoutes.deposit,
-    },
+//     {
+//       title:'Deposit',
+//       icon:  <PiUploadSimpleBold className='text-primary/50 text-2xl group-hover:text-primary transition-all' />
+// ,
+//       link:appBaseRoutes.deposit,
+//     },
     // {
     //   title:'Reinvest',
     //   icon: <PiArrowClockwiseFill className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,

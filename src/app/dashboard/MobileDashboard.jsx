@@ -41,6 +41,7 @@ async function getUserData() {
   userData.balances.map(async (balance) => {
    if (balance?.currency !== "usdt"){
      const price = await axios.get(`https://api.binance.com/api/v3/ticker/price?symbol=${symbols[balance?.currency]}`).then((res) => Number(res.data?.price))
+     
      totalValue += (balance.amount * price)
      return {
         ...balance.toObject?.() ?? balance, // if it's a Mongoose doc
