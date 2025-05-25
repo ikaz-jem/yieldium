@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { toast } from 'sonner';
 import ButtonPrimary from '@/app/components/ButtonPrimary';
  import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -9,7 +9,7 @@ import { appBaseRoutes } from '@/routes';
 import { useTransition } from 'react';
 
 
-export default function LoginPage() {
+ function Login() {
   const searchParams = useSearchParams()
  const id = searchParams.get('id')
   const router = useRouter()
@@ -116,4 +116,18 @@ export default function LoginPage() {
       </div>
     </div>
   );
+}
+
+
+
+export default function LoginPage(){
+
+
+return (
+<Suspense fallback='loading ...'>
+<Login/>
+</Suspense>
+
+)
+
 }
