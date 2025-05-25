@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
-import { connectDb } from "../../db/db";
-import { User } from "../../models/user/user";
-import { origins } from "../origins";
+import User from "@/app/models/userSchema/UserSchema";
+import dbConnect from "@/app/lib/db";
+// import { origins } from "../origins";
 
 export async function GET(req, res) {
 
   let headers = await req.headers
-  let origin = await headers.get('origin')
-  if (!origins.includes(origin)) {
-    await mongoose.disconnect()
-    return Response.json({ succes: true, message: 'origin Blocked from the server' }, { status: 401 })
-  }
+  // let origin = await headers.get('origin')
+  // if (!origins.includes(origin)) {
+  //   await mongoose.disconnect()
+  //   return Response.json({ succes: true, message: 'origin Blocked from the server' }, { status: 401 })
+  // }
 
   let apiKey = process.env.API_KEY
   const uiKey = await headers.get('authorization')
@@ -19,7 +19,7 @@ export async function GET(req, res) {
     return Response.json({ succes: true, message: 'unauthorized' }, { status: 200 })
   }
 
-  await connectDb();
+  await dbConnect();
   const address = await headers.get('address');
   const queryWallet = await req.nextUrl.searchParams.get('address')
   if (address) {
