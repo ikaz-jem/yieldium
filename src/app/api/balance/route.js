@@ -21,5 +21,5 @@ export async function GET(req) {
 
   const currencyBalance = await Balance.findOne({ user: session.user.id, currency: currency })
   if (!currencyBalance) return Response.json({ success: false, message: 'No balance for this currency ' })
-  return Response.json({ success: true, message: 'Converted ', currencyBalance })
+  return Response.json({ success: true, message: 'User Balance ', currencyBalance })
 }

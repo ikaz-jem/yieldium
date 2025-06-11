@@ -6,6 +6,7 @@ const depositSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Types.ObjectId, ref: 'User' },
     currency: { type: String },
+    depositType: { type: String },
     amount: { type: Number },
     address: { type: String },
     signature: { type: String },

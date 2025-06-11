@@ -10,8 +10,9 @@ export default function Footer() {
       <div className="w-full h-full pt-30 px-5 flex flex-col gap-5  sepia-100">
 
        
-            <h1 className='text-3xl md:text-8xl tracking-widest font-bold ' >Join The Comunity </h1>
-            <h1 className=' tracking-widest font-bold  w-[50%]' >Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nobis autem tempore animi placeat cum perspiciatis quibusdam! Placeat, excepturi eaque culpa voluptatibus a qui, ea quae, fuga ad delectus nesciunt. </h1>
+            <h1 className='text-3xl md:text-7xl tracking-widest font-bold ' >Grow Your Portfolio — The Smart Way </h1>
+            <h1 className=' tracking-widest font-bold  w-[50%]' >Join a new era of intelligent investing. Start earning with Yieldium and take control of your financial future.
+ </h1>
 
       </div>
 

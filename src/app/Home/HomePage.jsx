@@ -11,6 +11,7 @@ const SectionFeatures = lazy(() => import('./SectionFeatures'))
 const SectionHowItWorks = lazy(() => import('./SectionHowItWorks'))
 const SectionCta = lazy(() => import('./SectionCta'))
 const SectionFeatures2 = lazy(() => import('./SectionFeatures2'))
+const SectionCalculator = lazy(() => import('./SectionCalculator'))
 
 
 export default function HomePage() {
@@ -18,23 +19,22 @@ export default function HomePage() {
 
     return (
         <>
-                <div className="!w-screen h-full  relative ">
-                    <Hero />
-                    <Suspense fallback='loading'>
+            <div className="!w-screen h-full  relative ">
+                <Hero />
+                <Suspense fallback='loading'>
                     <SectionFeatures />
                     <SectionFeatures2 />
                     <SectionBento />
-                    <div className='h-[100vh] relative   '>
-                    <Featuresslider />
-                         
-                        </div>
-                    
+                    <div className='h-[100vh] '>
+                        <Featuresslider />
+                    </div>
                     <SectionHowItWorks />
                     <SectionCta />
-                    </Suspense>
-                    <Footer />
-                    {/* <SectionFaq /> */}
-                </div>
+                    <SectionCalculator />
+                </Suspense>
+                <Footer />
+                {/* <SectionFaq /> */}
+            </div>
         </>
     )
 }

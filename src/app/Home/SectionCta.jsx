@@ -1,6 +1,8 @@
 import React from 'react'
 import { FaArrowRightLong } from "react-icons/fa6";
 import { motion } from 'framer-motion'
+import { appBaseRoutes } from '@/routes';
+
 function Card2({ data }) {
 
     return (
@@ -9,9 +11,10 @@ function Card2({ data }) {
                 <motion.img initial={{y:50 ,opacity:0}} whileInView={{y:0 ,opacity:1}} viewport={{once:true}}  transition={{ duration: 0.6, ease: 'easeOut' }} src="/assets/images/mobile.png" alt="" className='absolute bottom-0 left-0 drop-shadow-[0px_-20px_40px_rgba(238,102,166,0.3)] ' />
                 <div className='text-left gap-3 flex justify-between align-baseline p-10 my-5'>
                     <div className=''>
-                        <h1 className='text-4xl tracking-widest font-bold !text-neutral ' >Yieldium ,Your Growth  </h1>
-                        <h1 className='text-2xl font-light tracking-widest !text-primary ' >Your Pocket Financial Companion ! </h1>
-                        <p className=' tracking-widest  max-w-md !text-neutral py-5 ' >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scra </p>
+                        <h1 className='text-3xl tracking-widest font-bold !text-neutral ' > Your 24/7 Wealth Machine </h1>
+                        <h1 className='text-xl font-light tracking-widest !text-primary ' >Small Profits, Big Outcomes ! </h1>
+                        <p className=' tracking-widest  max-w-md !text-neutral py-5 ' >With Yieldium’s 2% daily compounding, your crypto doesn’t just earn — it multiplies. Every day, your profits are reinvested automatically, growing your balance faster than you think. </p> <br />
+                        <p className=' tracking-widest  max-w-md !text-neutral py-5 ' >💰 Day 1: You deposit $1,000 , 🌕 Day 90: You hold ~$5,943 </p> 
                     </div>
                 </div>
             </div>
@@ -40,13 +43,13 @@ export default function SectionCta() {
                         viewport={{ once: true }}
                     >
                         <motion.h1 className='text-3xl lg:text-5xl tracking-widest font-bold'>
-                            Building A Better
+                            Watch Your Crypto 
                         </motion.h1>
                         <motion.h1 className='text-3xl lg:text-5xl font-light tracking-widest !text-primary'>
-                            Financial Future
+                            Multiply Daily
                         </motion.h1>
                     </motion.div>
-                    <button className=' h-max cursor-pointer hover:bg-primary/10 transition-all border-primary/50 border w-max rounded-full flex items-center gap-2 px-5 py-2 '>Crypto Trading Now  <FaArrowRightLong className='text-primary ' /> </button>
+                    <a href={appBaseRoutes.register} className='!text-white h-max cursor-pointer hover:bg-primary/10 transition-all border-primary/50 border w-max rounded-full flex items-center gap-2 px-5 py-2 '>Create Wallet  <FaArrowRightLong className='text-primary ' /> </a>
                 </div>
 
 
@@ -54,7 +57,9 @@ export default function SectionCta() {
                 <div className='pt-10'>
                     <Card2 />
                 </div>
-                <p className=' tracking-widest text-center  !text-neutral ' >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scra </p>
+                <p className=' tracking-widest text-center  !text-neutral ' >You don’t need to trade, click, or manage anything. Just deposit your crypto and let our AI handle the rest. You can track every step of your growth through our sleek, easy-to-use mobile dashboard.
+
+ </p>
             </div>
         </div>
     )

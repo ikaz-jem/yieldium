@@ -1,7 +1,6 @@
 import bcrypt from 'bcryptjs';
 import UserSchema from '@/app/models/userSchema/UserSchema';
 import dbConnect from '@/app/lib/db';
-import { getServerSession } from 'next-auth';
 
 
 

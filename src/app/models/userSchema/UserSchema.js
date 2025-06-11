@@ -2,7 +2,7 @@ import mongoose, { mongo } from 'mongoose';
 import Withdraw from '../withdrawSchema/withdrawSchema'
 import Deposit from '../depositSchema/depositSchema'
 import Balance from '../balanceSchema/balanceSchema';
-
+import Staking from '../stacking/stakingSchema';
 const UserSchema = new mongoose.Schema({
   name: String,
   email: { type: String, unique: true },
@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
   balance:{type:Number,default:0},
   image:{type:String,defaul:null},
   invested:{type:Number,default:0},
+  staking:[{type:mongoose.Types.ObjectId , ref:'Staking'}],
   balances:[{type:mongoose.Types.ObjectId , ref:'Balance'}],
   deposits:[{type:mongoose.Types.ObjectId , ref:'Deposit'}],
   withdrawls:[{type:mongoose.Types.ObjectId , ref:'Withdraw'}],

@@ -17,7 +17,7 @@ export async function getReferrals(userId) {
 const user = await User.findOne({ _id: userId })
   .select("-password") // ✅ Exclude password, keep other fields
   .populate({
-    path: "referredUsers",
+    path: ["referredUsers","deposits"],
     select: "-password"
   });
 

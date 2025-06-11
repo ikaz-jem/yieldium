@@ -15,8 +15,16 @@ export default function DashboardHeaderMobile({session}) {
            return"Deposit"
             case "/dashboard/withdraw":
            return"Withdraw"
-            case "/dashboard/compound":
-           return"Compound"
+            case "/dashboard/invest":
+           return"Invest"
+            case "/dashboard/referrals":
+           return"Referrals"
+            case "/dashboard/settings":
+           return"Account Settings"
+            case "/dashboard/convert":
+           return"Convert Balance"
+            case "/dashboard/contracts":
+           return"Manage Contracts"
            default: return "Dashboard"
         }
       }

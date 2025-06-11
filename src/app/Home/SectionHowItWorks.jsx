@@ -12,15 +12,15 @@ export default function SectionHowItWorks() {
     },
     {
       src: '/assets/images/sphere.png',
-      title: 'Create Account',
+      title: 'Deposit Funds',
     },
     {
       src: '/assets/images/sphere.png',
-      title: 'Create Account',
+      title: 'Daily Profit Calculation',
     },
     {
       src: '/assets/images/sphere.png',
-      title: 'Create Account',
+      title: 'Weekly Withdrawals',
     },
 
 
@@ -69,10 +69,10 @@ export default function SectionHowItWorks() {
             viewport={{ once: true }}
           >
             <motion.h1 className='text-3xl lg:text-5xl tracking-widest font-bold'>
-              Building A Better
+              How Yieldium
             </motion.h1>
             <motion.h1 className='text-3xl lg:text-5xl font-light tracking-widest !text-primary'>
-              Financial Future
+              Works
             </motion.h1>
           </motion.div>
           <button className=' h-max cursor-pointer hover:bg-primary/10 transition-all border-primary/50 border w-max rounded-full flex items-center gap-2 px-5 py-2 '>Crypto Trading Now  <FaArrowRightLong className='text-primary ' /> </button>
@@ -99,7 +99,9 @@ export default function SectionHowItWorks() {
             </motion.div>)
           }
         </div>
-        <p className=' tracking-widest text-center  !text-neutral ' >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scra </p>
+        <p className=' tracking-widest text-center  !text-neutral ' >More Than Just a Trading Platform — It’s a Smart Wealth Engine
+
+ </p>
 
       </div>
     </div>

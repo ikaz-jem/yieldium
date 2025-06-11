@@ -7,6 +7,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts';
+import BorderEffect from '../BorderEffect/BorderEffect';
 
 const COLORS = ['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#14b8a6'];
 
@@ -16,43 +17,51 @@ const AssetDistributionChart = ({ user }) => {
   if (!data.length) return null;
 
   return (
-    <div className="w-full h-96 rounded-lg border border-primary/10 py-5">
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Pie
-            data={data}
-            dataKey="value"
-            nameKey="name"
-            outerRadius={100}
-            innerRadius={60}
-            fill="#8884d8"
-            label={({ name, value }) => `${name}: $ ${value}`}
-            fontSize={ '1rem'}
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip
-            formatter={(value) => [`$${value}`, 'Value']}
-            contentStyle={{
-              backgroundColor: 'rgba(255,255,255,0.1)',
-              border: '1px solid #ffffff44',
-              color: '#fff',
-              backdropFilter: 'blur(6px)',
-              fontSize: '0.75rem',
-            }}
-            labelStyle={{ color: '#fff', fontSize: '0.75rem' }}
-            itemStyle={{ color: '#fff', fontSize: '0.75rem' }}
-          />
-          <Legend
-            wrapperStyle={{
-              color: '#fff',
-              fontSize: '0.75rem',
-            }}
-          />
-        </PieChart>
-      </ResponsiveContainer>
+    <div className='flex flex-col gap-3 w-full '>
+      <div className="flex items-center justify-between">
+        <h1 className="!text-neutral !text-sm" >Balance Allocation</h1>
+        <p className="text-xs !text-primary cursor-pointer">Deposit</p>
+      </div>
+      <div className="w-full h-96 rounded-lg border border-primary/10 py-5 bg-card  relative  overflow-hidden backdrop-blur-xl">
+      <BorderEffect/>
+
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={data}
+              dataKey="value"
+              nameKey="name"
+              outerRadius={90}
+              innerRadius={50}
+              fill="#8884d8"
+              label={({ name, value }) => `${name}: $ ${value}`}
+              fontSize={'0.8rem'}
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip
+              formatter={(value) => [`$${value}`, 'Value']}
+              contentStyle={{
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                border: '1px solid #ffffff44',
+                color: '#fff',
+                backdropFilter: 'blur(6px)',
+                fontSize: '0.75rem',
+              }}
+              labelStyle={{ color: '#fff', fontSize: '0.75rem' }}
+              itemStyle={{ color: '#fff', fontSize: '0.75rem' }}
+            />
+            <Legend
+              wrapperStyle={{
+                color: '#fff',
+                fontSize: '0.75rem',
+              }}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };

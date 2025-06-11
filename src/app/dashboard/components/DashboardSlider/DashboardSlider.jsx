@@ -15,15 +15,22 @@ import ActivityChart from '../charts/ActivityChart.';
 import AssetDistributionChart from '../charts/AssetsDistribution';
 import DepositHistoryChart from '../charts/DepositHistoryChart';
 
-export default function App({data}) {
+export default function App({ data }) {
 
   return (
     <>
+
       <Swiper slidesPerView={'auto'}
         centeredSlides={true}
-        spaceBetween={30} pagination={true} modules={[Pagination]} className=" flex gap-5 !z-0">
+        spaceBetween={30} pagination={true} modules={[Pagination]} className=" flex gap-5 !z-0 max-w-xl">
         <SwiperSlide>
-          <AssetDistributionChart user={data} />
+          <div className='flex flex-col gap-3 w-full'>
+            <div className="flex items-center justify-between">
+              <h1 className="!text-neutral !text-sm" >Balance Allocation</h1>
+              <p className="text-xs !text-primary cursor-pointer">Deposit</p>
+            </div>
+            <AssetDistributionChart user={data} />
+          </div>
         </SwiperSlide>
         <SwiperSlide>
           <DepositHistoryChart user={data} />

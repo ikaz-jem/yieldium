@@ -9,7 +9,7 @@ import {
   Legend,
 } from 'recharts';
 
-const data = [
+const placeHolder = [
   { date: 'May 1', balance: 1000 },
   { date: 'May 2', balance: 1200 },
   { date: 'May 3', balance: 1250 },
@@ -21,9 +21,9 @@ const data = [
   { date: 'May 9', balance: 1550 },
 ];
 
-const BalanceChart = () => (
-  <div className="w-full h-96 rounded-lg border border-primary/10 py-5"> {/* no bg or shadow */}
-    <h2 className="text-xl font-semibold mb-4 !text-neutral">Balance </h2>
+const BalanceChart = ({data = placeHolder ,className , showLegend , showDays}) => (
+  <div className={`w-full  h-96 rounded-lg border border-primary/10  ${className} `}> {/* no bg or shadow */}
+    {/* <h2 className="text-xl font-semibold m-4 !text-neutral">Balance </h2> */}
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={data}>
         <defs>
@@ -33,8 +33,8 @@ const BalanceChart = () => (
           </linearGradient>
         </defs>
         {/* semi-transparent grid */}
-        <XAxis dataKey="date" stroke="#ffffffaa"  className='text-xs'/>
-        {/* <YAxis stroke="#ffffffaa" /> */}
+{showDays &&        <XAxis dataKey="date" stroke="#ffffffaa"  className='text-xs'/>
+}        {/* <YAxis stroke="#ffffffaa" /> */}
         <Tooltip
           contentStyle={{
             backgroundColor: 'rgba(255,255,255,0.1)',
@@ -52,7 +52,7 @@ const BalanceChart = () => (
           fillOpacity={1}
           fill="url(#colorBalance)"
         />
-        <Legend wrapperStyle={{ color: '#fff' }} />
+        {showLegend && <Legend wrapperStyle={{ color: '#fff' }} />}
       </AreaChart>
     </ResponsiveContainer>
   </div>

@@ -24,27 +24,28 @@ export async function POST(req) {
     const { token, expiresAt } = generateVerificationToken()
 
     let referrer = null;
+
     if (referredBy) {
       referrer = await User.findOne({ walletIndex: referredBy })
     }
 
     let referrerId = referrer ? referrer._id : null;
-      
 
 
-
-    const newUser = new UserSchema({ email, password: hashedPassword, verificationToken: token, verificationTokenExpires: expiresAt, referredBy:referrerId });
+    const newUser = new UserSchema({ email, password: hashedPassword, verificationToken: token, verificationTokenExpires: expiresAt, referredBy: referrerId });
     await newUser.save();
     // const res = await sendVerificationEmail('reciepient@email.com', token)
 
-
-    if (referredBy && referrer && referrerId !== newUser._id  ) {
+    if (referredBy && referrer && referrerId !== newUser.walletIndex && referrerId !== referrer.walletIndex) {
       if (!referrer?.referredUsers?.includes(newUser._id)) {
-        await User.findByIdAndUpdate(referrer._id, {
+        const updatedReferrer = await User.findByIdAndUpdate(referrer._id, {
           $push: { referredUsers: newUser._id },
-        });
-      }
-    }
+
+        }, { new: true }
+        );
+
+  }
+}
 
 
     // if (res) {

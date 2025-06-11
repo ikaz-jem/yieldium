@@ -26,6 +26,7 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { toast } from 'sonner';
 import ButtonSecondary from '@/app/components/ButtonSecondary';
+import BorderEffect from '../components/BorderEffect/BorderEffect';
 
 
 
@@ -238,7 +239,9 @@ export default function page() {
                             </Tab>
                         </TabList>
                         <TabPanels className="mt-3">
-                            <TabPanel className="rounded-xl bg-white/5 ">
+                            <TabPanel className="rounded-xl bg-card backdrop-blur-xl ">
+
+                                <BorderEffect />
                                 <CryptoPayment />
                             </TabPanel>
                         </TabPanels>

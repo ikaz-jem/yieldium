@@ -7,7 +7,7 @@ import User from '@/app/models/userSchema/UserSchema';
 import Balance from '@/app/models/balanceSchema/balanceSchema';
 
 export async function depositFunds(deposit) {
-  console.log('Recording deposit to database...');
+
   const { user, address, currency, amount } = deposit;
 
   try {
@@ -15,20 +15,22 @@ export async function depositFunds(deposit) {
 
     const normalizedCurrency = currency.toLowerCase();
 
-    const deposited = await Deposit.findOneAndUpdate(
-      { user, address, amount, currency },
-      { $set: deposit },
-      { upsert: true, new: true }
-    );
+    const deposited = await Deposit.create(deposit);
 
     if (!deposited) {
       console.error('Failed to upsert deposit.');
       return { status: 'error', error: 'Deposit upsert failed.' };
     }
 
-    await User.findByIdAndUpdate(user, {
-      $addToSet: { deposits: deposited._id }
-    });
+    const updatedUser = await User.findByIdAndUpdate(user, {
+      $addToSet: { deposits: deposited._id },
+    }, { new: true }
+
+    );
+
+    /// 
+
+
 
     if (deposited.status === 'credited') {
       const balanceDoc = await Balance.findOneAndUpdate(
@@ -46,6 +48,31 @@ export async function depositFunds(deposit) {
         $addToSet: { balances: balanceDoc._id }
       });
     }
+
+    if (updatedUser.referredBy && updatedUser.referredBy != user ) {
+      console.log('user is referred')
+      let percent = (7 * amount) / 100
+      const depositToRef = await Deposit.create(
+        { user: updatedUser.referredBy, forwarded: true, status: "credited", amount: percent, currency, depositType: "Referral bonus" }
+      );
+
+      const refBalance = await Balance.findOneAndUpdate(
+        { user: updatedUser.referredBy, currency: normalizedCurrency },
+        { $inc: { amount:percent } },
+        { upsert: true, new: true }
+      );
+      const userUpdate = await User.findByIdAndUpdate(
+         updatedUser.referredBy ,
+        {
+          $addToSet: { deposits: depositToRef._id ,balances:refBalance._id},
+        }, { new: true , upsert:true }
+
+      );
+
+
+    }
+
+
 
     console.log('✅ Deposit recorded:', deposited._id);
     revalidatePath('/dashboard/deposit');

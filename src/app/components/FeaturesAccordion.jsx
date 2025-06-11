@@ -6,25 +6,22 @@ export default function FeaturesAccordion() {
 
   const data = [
     {
-      title: 'What is your refund policy?',
-      desc: 'Yes! You can purchase a license that you can share with your entire team.'
+      title: ' Can I withdraw at any time?',
+      desc: 'You can withdraw weekly on Fridays. However, first-time deposits have a 7-day lock-in to maintain system stability.'
     },
     {
-      title: 'What is your refund policy?',
-      desc: 'Yes! You can purchase a license that you can share with your entire team.'
+      title: 'Is there a risk involved?',
+      desc: 'Yes. While our AI reduces risk significantly, crypto and trading always carry inherent risks. Only invest what you can afford to commit long-term.'
     },
     {
-      title: 'What is your refund policy?',
-      desc: 'Yes! You can purchase a license that you can share with your entire team.'
+      title: 'How is AI used?',
+      desc: 'Our AI engine uses real-time data, sentiment analysis, and trading strategies to execute trades automatically.'
     },
     {
-      title: 'What is your refund policy?',
-      desc: 'Yes! You can purchase a license that you can share with your entire team.'
+      title: 'Is Yieldium audited?',
+      desc: 'A smart contract audit is scheduled for Q3 2025. In the meantime, the platform uses internal and external security best practices.'
     },
-    {
-      title: 'What is your refund policy?',
-      desc: 'Yes! You can purchase a license that you can share with your entire team.'
-    },
+
   ]
 
 

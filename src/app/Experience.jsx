@@ -44,7 +44,7 @@ export default function Experience() {
         const knotRef = useRef(null)
         const scroll = useScroll()
         
-        let vec = new THREE.Vector3()
+        // let vec = new THREE.Vector3()
         
         useFrame((state) => {
             const t = scroll.offset;
@@ -54,12 +54,15 @@ export default function Experience() {
             knotRef.current.rotation.x = lerp(knotRef.current.rotation.x, state.clock.elapsedTime, 0.1);
             knotRef.current.rotation.y = lerp(knotRef.current.rotation.y, state.clock.elapsedTime, 0.1);
             if (width < 25) return;
+          
+          
             if (t < 0.5&& width > 25) {
                 knotRef.current.position.y = lerp(knotRef.current.position.y, t * 60, 0.1);
                 knotRef.current.position.z = lerp(knotRef.current.position.z, t * 100, 0.5);
             }
             if (t < 0.8 &&  t > 0.5 && width > 25) {
-                knotRef.current.position.z = -50
+                knotRef.current.position.z = -40
+                knotRef.current.position.y = 0
             }
 
             if (t > 0.8) {
@@ -94,7 +97,7 @@ export default function Experience() {
             <ambientLight intensity={5} />
             <directionalLight position={[2, 2, 10]} intensity={5} />
             {/* <color attach="background" args={['#fef4eff']} /> */}
-            <ScrollControls pages={8} damping={0.1} >
+            <ScrollControls pages={9} damping={0.1} >
                 <Scroll html > 
                     <HomePage data={scroll} />
                 </Scroll>

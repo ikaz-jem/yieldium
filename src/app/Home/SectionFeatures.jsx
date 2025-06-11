@@ -5,6 +5,7 @@ import Featuresslider from './components/Featuresslider/Featuresslider';
 
 
 import { LazyMotion, domAnimation, m } from "framer-motion";
+import { appBaseRoutes } from '@/routes';
 
 
 export default function SectionFeatures() {
@@ -14,16 +15,16 @@ export default function SectionFeatures() {
 
   const cards = [
     {
-      title: 'Where Knowledge Meets Opportunity',
-      desc: 'Lorem ipsum dolor sit amet, consectur adipiscing elit, sed do eiusmod tempor ',
+      title: 'AI-Powered Profit Engine',
+      desc: 'Yieldium uses arbitrage, sentiment analysis, and yield optimization to generate consistent profits — even in volatile markets. ',
     },
     {
-      title: 'Connecting You to Financial Opportunities',
-      desc: 'Lorem ipsum dolor sit amet, consectur adipiscing elit, sed do eiusmod tempor ',
+      title: 'Security First',
+      desc: 'Your funds are protected with advanced security protocols, wallet isolation, and a 7-day lock-in buffer for system stability.',
     },
     {
-      title: 'Our Mission: Empowering Your Investments',
-      desc: 'Lorem ipsum dolor sit amet, consectur adipiscing elit, sed do eiusmod tempor ',
+      title: 'High-Yield Potential',
+      desc: 'Target up to 2% daily returns, with compounding designed to maximize your long-term growth.',
     },
   ]
 
@@ -58,10 +59,10 @@ export default function SectionFeatures() {
 
           <div className='text-left gap-3 flex flex-col md:flex-row justify-between align-baseline '>
             <div className='space-y-3'>
-              <h1 className='text-3xl lg:text-5xl tracking-widest font-bold ' >Building A Better </h1>
-              <h1 className='text-3xl lg:text-5xl font-light tracking-widest !text-primary ' >Financial Future </h1>
+              <h1 className='text-3xl lg:text-5xl tracking-widest font-bold ' >Yieldium </h1>
+              <h1 className='text-3xl lg:text-5xl font-light tracking-widest !text-primary ' >a Smart Wealth Engine </h1>
             </div>
-            <button className=' h-max cursor-pointer hover:bg-primary/10 transition-all border-primary/50 border w-max rounded-full flex items-center gap-2 px-5 py-2 '>Crypto Trading Now  <FaArrowRightLong className='text-primary ' /> </button>
+            <a href={appBaseRoutes?.register} className='!text-white h-max cursor-pointer hover:bg-primary/10 transition-all border-primary/50 border w-max rounded-full flex items-center gap-2 px-5 py-2 '>Create Account  <FaArrowRightLong className='text-primary ' /> </a>
           </div>
         </div>
 
@@ -81,7 +82,7 @@ export default function SectionFeatures() {
 
   return (
     
-    <div className='h-[100vh] relative overflow-y-scroll sm:overflow-none  '>
+    <div className='h-[100vh] relative overflow-y-scroll sm:overflow-none bg-gradient-to-t from-black to-transparent from-50% to-80%   '>
       <img src="/assets/images/divider.png" loading='lazy' alt="" className="w-full -mb-[100px] md:-mb-[200px] lg:-mb-[450px] z-[-1] " />
       <LazyMotion features={domAnimation}>
       <m.div 
@@ -91,14 +92,12 @@ export default function SectionFeatures() {
       className=' w-full backdrop-blur  overflow-hidden   relative'>
 
   
-        <div className='bg-black  mask-t-from-90%  pr-2 pl-1 '>
+        <div className='bg-black  mask-t-from-90%  pr-2 pl-1 overflow-hidden '>
           <div className='container space-y-20 py-20 h-full' ref={itemRef} >
             <div>
               <Section1 />
             </div>
-            <div className='w-full h-[39px] bg-black hidden md:flex'>
-
-            </div>
+           
           </div>
         </div>
       </m.div>

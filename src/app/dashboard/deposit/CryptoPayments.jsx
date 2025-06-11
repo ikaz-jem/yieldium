@@ -187,8 +187,8 @@ export default function CryptoPayments() {
                                 <p className='text-white'>Crypto</p>
                             </Tab>
                         </TabList>
-                        <TabPanels className="mt-3">
-                            <TabPanel className="rounded-xl bg-white/5 ">
+                        <TabPanels className="mt-3 ">
+                            <TabPanel className="rounded-xl bg-card  backdrop-blur-xl     ">
                                 <CryptoPayment />
                             </TabPanel>
                         </TabPanels>

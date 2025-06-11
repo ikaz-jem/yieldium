@@ -5,11 +5,12 @@
   --foreground: hsla(0,0,98%,1);
   --primary: #45E3FF;
   --title: #dbdbdb;
-  --neutral:var(--color-neutral-500);
+  --neutral:var(--color-neutral-400);
   --accent: #EE66A6 ;
   --foreground-default:hsla(0,0,98%,1);
   --toast-background:var(--color-neutral-900);
   --toast-border:var(--color-neutral-800);
+  --card:rgba(0, 0, 0, 0.15);
 }
 
 @theme  {
@@ -21,7 +22,8 @@
 --color-primary: var(--primary);
 --color-neutral: var(--neutral);
 --color-accent: var(--accent);
---color-default:var(--forgrou)
+--color-default:var(--forgrou);
+--color-card:var(--card)
 
 }
 h1, h2, h3, h4, h5, h6, ul ,button{
@@ -73,7 +75,7 @@ body,html {
   }
 
 
-  input:-webkit-autofill,
+input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
@@ -83,4 +85,29 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px rgba(26, 26, 26, 0.205) inset !important;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);  
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary); 
+  border-radius: 6px;
+  border: 3px solid #f0f0f0; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary); 
+}
+
+* {
+  scrollbar-width: thin;          
+  scrollbar-color: var(--primary) var(--background);
 }

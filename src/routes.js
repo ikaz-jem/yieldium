@@ -21,5 +21,7 @@ export const appBaseRoutes = {
     images:'/assets/images',
     deposit:'/dashboard/deposit',
     withdraw:'/dashboard/withdraw',
-    referrals:'/dashboard/referrals'
+    referrals:'/dashboard/referrals',
+    invest:'/dashboard/invest',
+    contracts:'/dashboard/contracts',
 }

@@ -106,7 +106,7 @@ export default function Navbar() {
       <div className="  container mx-auto  ">
         <div className="  flex w-full items-center justify-between  px-5 ">
           <div className="flex items-center gap-2 ">
-            <img src="/assets/images/logo.png" alt="" loading="lazy" className="rounded-full h-10 w-10" />
+            <img src="/assets/images/logo.webp" alt="" loading="lazy" className="rounded-full h-10 w-10" />
             <h5 className="font-light  tracking-wide text-xl ">Yieldium</h5>
           </div>
 
