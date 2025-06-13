@@ -63,11 +63,11 @@ if (typeof window !== 'undefined') {
       icon: <FaChartPie className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
       link: appBaseRoutes.invest,
     },
-    {
-      title: 'Mining',
-      icon: <GiMining className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-      link: appBaseRoutes.mining,
-    },
+    // {
+    //   title: 'Mining',
+    //   icon: <GiMining className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
+    //   link: appBaseRoutes.mining,
+    // },
     {
       title: 'Convert',
       icon: <FaArrowsRotate className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,

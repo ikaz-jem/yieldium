@@ -7,6 +7,16 @@ import BorderEffect from "../BorderEffect/BorderEffect";
 
 
 export default function DashboardInvestments({ data }) {
+    let filter ='claimed'
+
+    
+
+    const contracts = data?.staking?.filter((contract) => {
+        if (filter === 'active') return !contract.claimed
+        if (filter === 'claimed') return contract.claimed
+        if (filter === 'forced') return contract.forced
+    })
+
 
     return (
 
@@ -14,14 +24,14 @@ export default function DashboardInvestments({ data }) {
         <>
 
             {
-                data?.staking?.length > 0 ?
+                contracts?.length > 0 ?
                     <div className='flex flex-col gap-3  w-full  '>
                         <div className="flex items-center justify-between">
 
                             <h1 className="!text-neutral text-sm" >Investment</h1>
                             <Link href={appBaseRoutes.contracts} className="text-xs !text-primary cursor-pointer hover:!text-accent transition-all">Manage</Link>
                         </div>
-                        {data?.staking?.map((stake, idx) =>
+                        {contracts?.map((stake, idx) =>
                             <div key={idx} className='flex flex-col gap-2 border border-primary/10 p-5 rounded relative overflow-hidden bg-card backdrop-blur-xl'>
 
                                 <BorderEffect />

@@ -2,7 +2,8 @@
 const coinDetails = {
     sol: '/assets/images/crypto/solana.svg',
     bnb: '/assets/images/crypto/bnb.svg',
-    usdt: '/assets/images/crypto/usdt.svg'
+    usdt: '/assets/images/crypto/usdt.svg',
+    matic: '/assets/images/crypto/matic.svg',
 
 }
 

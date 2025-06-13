@@ -2,14 +2,38 @@
 import ButtonPrimary from '@/app/components/ButtonPrimary'
 import ButtonSecondary from '@/app/components/ButtonSecondary'
 import { Button, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 import { formatISO } from '@/app/utils/formatISO'
 import { timeLeft } from '@/app/utils/timeLeft'
 import { FaLock } from "react-icons/fa";
 import { FaUnlock } from "react-icons/fa";
 import BorderEffect from '../components/BorderEffect/BorderEffect'
-export default function ForceUnlockModal({ contract }) {
+import { useRouter } from 'next/navigation'
+import axios from 'axios'
+
+
+export default function ForceUnlockModal({ contract  }) {
     let [isOpen, setIsOpen] = useState(false)
+    const [isPending,startTransition]=useTransition()
+      const router = useRouter()
+
+    async function forceUnlock() {
+        startTransition(async()=>{
+            close(false)
+            const data = {
+                id: contract._id,
+            }
+    
+            const res = await axios.post('/api/staking/force-unlock', data)
+            if (res) {
+                   router.refresh()
+                console.log(res.data)
+            }
+
+        })
+    }
+
+
 
     function open() {
         setIsOpen(true)
@@ -28,11 +52,11 @@ export default function ForceUnlockModal({ contract }) {
             <Dialog open={isOpen} as="div" className="relative z-10 focus:outline-none" onClose={close}>
 
                 <div className="fixed inset-0 z-50 w-screen overflow-y-auto backdrop-blur-md bg-black/20 ">
-                   
+
                     <div className="flex min-h-full items-center justify-center p-4 relative overflow-hidden">
                         <DialogPanel transition className="w-full space-y-5 relative max-w-lg rounded-xl bg-primary/5 p-6 backdrop-blur-xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0">
-                        <BorderEffect/>
-                          
+                            <BorderEffect />
+
                             <DialogTitle as="h3" className="text-base/7 font-medium text-white">
                                 Are You sure You wanna Force Unlock ?
                             </DialogTitle>
@@ -46,7 +70,7 @@ export default function ForceUnlockModal({ contract }) {
                             </p>
 
                             <div className='flex flex-col max-w-xl w-full gap-2 border border-primary/10 p-5 rounded backdrop-blur-xl'>
-                              
+
                                 <div className='flex  gap-5 items-center '>
                                     <img src='/assets/images/crypto/usdt.svg' alt="" className='w-8 h-8' />
                                     <div className='w-full flex justify-between'>
@@ -83,7 +107,7 @@ export default function ForceUnlockModal({ contract }) {
                                 <ButtonPrimary onClick={close}>
                                     Cancel
                                 </ButtonPrimary>
-                                <ButtonSecondary onClick={close}>
+                                <ButtonSecondary loading={isPending} onClick={forceUnlock}>
                                     Yes I'm Aware
                                 </ButtonSecondary>
                             </div>

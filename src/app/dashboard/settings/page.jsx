@@ -12,6 +12,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import dbConnect from '@/app/lib/db';
 import User from '@/app/models/userSchema/UserSchema';
+import BorderEffect from '../components/BorderEffect/BorderEffect';
 
 
 async function userProfile() {
@@ -34,7 +35,7 @@ export default async function page() {
     function DeopsitTypes() {
         "use client"
         return (
-            <div className="flex  w-full justify-center  pt-5">
+            <div className="flex  w-full justify-center  pt-5 ">
                 <div className="w-full ">
                     <TabGroup>
                         <TabList className="flex gap-4">
@@ -50,11 +51,14 @@ export default async function page() {
                             </Tab>
                         </TabList>
                         <TabPanels className="mt-3">
-                            <TabPanel className="rounded-xl bg-white/5 ">
+                            <TabPanel className="rounded-xl bg-card backdrop-blur-xl ">
+
+                                <BorderEffect/>
                                 <AccountSettings user={profile} />
 
                             </TabPanel>
-                            <TabPanel className="rounded-xl bg-white/5 ">
+                            <TabPanel className="rounded-xl  bg-card backdrop-blur-xl ">
+                                <BorderEffect/>
                                 <PaymentSettings user={profile} />
 
                             </TabPanel>
@@ -70,7 +74,6 @@ export default async function page() {
     return (
         <>
             <div className='max-w-lg mx-auto'>
-
                 <DeopsitTypes />
             </div>
 

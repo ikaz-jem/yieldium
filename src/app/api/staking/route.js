@@ -14,7 +14,7 @@ export async function GET() {
 
     await dbConnect()
 
-    const stakes = await Staking.find({ user: session.user.id, claimed: false }).sort({ createdAt: -1 });
+    const stakes = await Staking.find({ user: session.user.id }).sort({ createdAt: -1 });
 
     if (!stakes) {
         return Response.json({ success: false, message: 'No available Investments' })

@@ -11,6 +11,7 @@ import { TbCreditCardRefund } from "react-icons/tb";
 import { RiFundsLine } from "react-icons/ri";
 import { useRouter } from 'next/navigation';
 import { appBaseRoutes } from '@/routes';
+import BorderEffect from '../BorderEffect/BorderEffect';
 
 export default function Avatar({img}) {
 
@@ -37,8 +38,10 @@ router.push(path)
         
           transition
           anchor="bottom end"
-          className=" w-52 origin-top-right rounded-xl border border-white/5 bg-background p-1 text-sm/6 text-white transition duration-100 ease-out [--anchor-gap:--spacing(1)] focus:outline-none data-closed:scale-95 data-closed:opacity-0"
+          className=" w-52 origin-top-right rounded-xl border border-white/5 bg-card backdrop-blur-xl p-1 text-sm/6 text-white transition duration-100 ease-out [--anchor-gap:--spacing(1)] focus:outline-none data-closed:scale-95 data-closed:opacity-0"
         >
+
+        < BorderEffect/>
           <MenuItem className='cursor-pointer' >
             <button onClick={()=>Navigate(appBaseRoutes.settings)}  className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-focus:bg-white/10">
               <MdAccountCircle className="size-4 fill-white/30" />

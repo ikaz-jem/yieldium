@@ -4,6 +4,7 @@ import User from "@/app/models/userSchema/UserSchema"
 import Staking from "@/app/models/stacking/stakingSchema"
 import Balance from "@/app/models/balanceSchema/balanceSchema"
 import dbConnect from "@/app/lib/db"
+import { revalidatePath } from "next/cache"
 
 export async function POST(req) {
 
@@ -15,22 +16,27 @@ export async function POST(req) {
 
     await dbConnect()
 
-    const staked = await Staking.findOne({ _id: data?.id, user })
+    const staked = await Staking.findOne({ _id: data?.id, user ,claimed:false , isLocked:true})
 
     if (!staked) { return Response.json({ success: false, message: 'Not found !' }) }
 
     if (staked.claimed) { return Response.json({ success: false, message: 'Already claimed !' }) }
 
-    if (new Date() < staked.unlocksAt) { return NextResponse.json({ success: false, message: "Stake still locked" }); }
+    const percent = (staked.amount * 25) / 100
+    const newCredit = staked.amount - percent
+
 
     const balanceDoc = await Balance.findOneAndUpdate(
         { user, currency: 'usdt' },
-        { $inc: { amount: staked.profits } },
+        { $inc: { amount: newCredit } },
         { upsert: true, new: true }
     );
 
     staked.claimed = true
-
+    staked.forced = true
+    staked.isLocked = false
+    staked.amountClaimed = newCredit
+    
     await staked.save()
 
     return Response.json({ succes: true, data: balanceDoc })

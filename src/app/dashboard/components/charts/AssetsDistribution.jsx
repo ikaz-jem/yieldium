@@ -20,7 +20,6 @@ const AssetDistributionChart = ({ user }) => {
     <div className='flex flex-col gap-3 w-full '>
       <div className="flex items-center justify-between">
         <h1 className="!text-neutral !text-sm" >Balance Allocation</h1>
-        <p className="text-xs !text-primary cursor-pointer">Deposit</p>
       </div>
       <div className="w-full h-96 rounded-lg border border-primary/10 py-5 bg-card  relative  overflow-hidden backdrop-blur-xl">
       <BorderEffect/>

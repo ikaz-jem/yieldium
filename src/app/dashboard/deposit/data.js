@@ -10,8 +10,8 @@ import {v4 as uuid} from 'uuid'
 export const cryptoDeposits = [
   // { id: 1, name: 'USDT - BEP20', network:"evm",currency:"USDT", chain:'bsc', isNative:false,contractAddress:"0x55d398326f99059ff775485246999027b3197955" },
   // { id: 2, name: 'USDT - TRC20', network:"evm",currency:"USDT", chain:'trc', isNative:false,contractAddress:"TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t"},
-  { id: 5, name: 'SOLANA - SOL', network:"solana",currency:"SOL", chain:'sol', isNative:true,contractAddress:""},
-  { id: 3, name: 'BNB - BEP20', network:"evm",currency:"BNB", chain:'bsc', isNative:true,contractAddress:"" },
+  // { id: 5, name: 'SOLANA - SOL', network:"solana",currency:"SOL", chain:'sol', isNative:true,contractAddress:""},
+  // { id: 3, name: 'BNB - BEP20', network:"evm",currency:"BNB", chain:'bsc', isNative:true,contractAddress:"" },
    {      
     id: uuid(),  
             name: 'BNB',
@@ -45,14 +45,14 @@ export const cryptoDeposits = [
             icon: '/assets/images/crypto/tron.svg',
             disabled:true
         },
-        {
-          id: uuid(),
-            name: 'Ton',
-            symbol: 'ton',
-            pair: 'TONUSDT',
-            icon: '/assets/images/crypto/ton.svg',
-            disabled:true
-        },
+        // {
+        //   id: uuid(),
+        //     name: 'Ton',
+        //     symbol: 'ton',
+        //     pair: 'TONUSDT',
+        //     icon: '/assets/images/crypto/ton.svg',
+        //     disabled:true
+        // },
         {
           id: uuid(),
             name: 'Matic Polygone',

@@ -9,6 +9,8 @@ const StakingSchema = new mongoose.Schema({
   isLocked: { type: Boolean, default: true },
   claimed: { type: Boolean, default: false },
   unlocksAt: { type: Date, required: true },
+  amountClaimed: { type: Number },
+  forced:{type:Boolean,default:false},
 }, { timestamps: true });
 
 export default mongoose.models.Staking || mongoose.model("Staking", StakingSchema);

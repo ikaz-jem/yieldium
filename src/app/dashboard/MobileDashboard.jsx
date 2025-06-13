@@ -1,7 +1,6 @@
 
 import { getServerSession } from 'next-auth';
 import dbConnect from '../lib/db';
-import DashboardSlider from './components/DashboardSlider/DashboardSlider';
 import HeaderMobile from './components/HeaderMobile/HeaderMobile';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import User from '../models/userSchema/UserSchema';
@@ -17,8 +16,9 @@ const symbols = {
   bnb: 'BNBUSDT',
   tron: 'TRXUSDT',
   ton: 'TONUSDT',
-  usdt: 'usdt'
-};
+  usdt: 'usdt',
+  matic:'MATICUSDT'
+};    
 
 async function getUserData() {
   "use server"
@@ -31,7 +31,7 @@ async function getUserData() {
     .populate('deposits') // or pass second arg to populate specific fields
     .populate('balances')
     .populate('referredUsers')
-    .populate("staking");
+    .populate("staking",);
 
   const userData = JSON.parse(JSON.stringify(userDoc))
 
