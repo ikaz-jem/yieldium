@@ -11,7 +11,7 @@ async function getContracts() {
 
     await dbConnect()
     const Staking = (await import('@/app/models/stacking/stakingSchema')).default
-    const contracts = await Staking.find({ user: session.user.id }).sort({ createdAt: -1 });
+    const contracts = await Staking.find({ user: session.user.id }).sort({ updatedAt: -1 });
 
     if (!contracts) {
         return { success: false, message: 'No available Investments' }

@@ -10,24 +10,31 @@ import { FaUnlock } from "react-icons/fa";
 import BorderEffect from '../components/BorderEffect/BorderEffect'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
+import { toast } from 'sonner'
 
 
-export default function ForceUnlockModal({ contract  }) {
+export default function Unlock({ contract }) {
     let [isOpen, setIsOpen] = useState(false)
-    const [isPending,startTransition]=useTransition()
-      const router = useRouter()
+    const [isPending, startTransition] = useTransition()
+    const router = useRouter()
 
-    async function forceUnlock() {
-        startTransition(async()=>{
+
+    const now = new Date();
+    const target = new Date(contract.unlocksAt);
+    const diffMs = target.getTime() - now.getTime();
+    let disabled = diffMs >= 0
+
+    async function claim() {
+        startTransition(async () => {
             close(false)
             const data = {
                 id: contract._id,
             }
-    
-            const res = await axios.post('/api/staking/force-unlock', data)
+
+            const res = await axios.post('/api/staking/unstake', data)
             if (res) {
-                   router.refresh()
-                console.log(res.data)
+                router.refresh()
+                toast.success('Profits Added To your Wallet !')
             }
 
         })
@@ -45,9 +52,9 @@ export default function ForceUnlockModal({ contract  }) {
 
     return (
         <>
-            <ButtonSecondary onClick={open}>
-                Force Unlock
-            </ButtonSecondary>
+            <ButtonPrimary onClick={open} disabled={disabled}>
+                Claim
+            </ButtonPrimary>
 
             <Dialog open={isOpen} as="div" className="relative z-10 focus:outline-none" onClose={close}>
 
@@ -58,13 +65,13 @@ export default function ForceUnlockModal({ contract  }) {
                             <BorderEffect />
 
                             <DialogTitle as="h3" className="text-base/7 font-medium text-white">
-                                Are You sure You wanna Force Unlock ?
+                              Unlock & Claim Profits
                             </DialogTitle>
 
                             <p className="mt-2 text-sm/6 text-white/50">
-                                Forcing The Unlock will result in
+                                You are about To Claim
                                 <span className='text-primary px-1'>
-                                    25% Fees
+                                    {parseFloat((contract.amount+contract.profits).toFixed(2))} USDT
                                 </span>
                                 , are you Sure you wanna continue ?
                             </p>
@@ -92,12 +99,12 @@ export default function ForceUnlockModal({ contract  }) {
                                     <p className='text-sm'>{formatISO(contract.unlocksAt)} </p>
                                     <div className="flex items-center gap-2">
                                         <p className='text-sm'>{contract.duration} days </p>
-                                        {
-                                            contract?.isLocked ?
-                                                <FaLock className="text-yellow-500" />
-                                                :
-                                                <FaUnlock className="text-yellow-500" />
-                                        }
+                                           {
+                                        disabled ?
+                                            <FaLock className="text-yellow-500" />
+                                            :
+                                            <FaUnlock className="text-primary" />
+                                    }
                                     </div>
                                 </div>
 
@@ -107,8 +114,8 @@ export default function ForceUnlockModal({ contract  }) {
                                 <ButtonPrimary onClick={close}>
                                     Cancel
                                 </ButtonPrimary>
-                                <ButtonSecondary loading={isPending} onClick={forceUnlock}>
-                                    Yes I'm Aware
+                                <ButtonSecondary loading={isPending} onClick={claim}>
+                                    Claim Profits
                                 </ButtonSecondary>
                             </div>
 

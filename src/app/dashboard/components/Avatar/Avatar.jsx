@@ -12,6 +12,7 @@ import { RiFundsLine } from "react-icons/ri";
 import { useRouter } from 'next/navigation';
 import { appBaseRoutes } from '@/routes';
 import BorderEffect from '../BorderEffect/BorderEffect';
+import { MdPayment } from "react-icons/md";
 
 export default function Avatar({img}) {
 
@@ -57,7 +58,7 @@ router.push(path)
           </MenuItem>
           <MenuItem className='cursor-pointer' >
             <button onClick={()=>Navigate(appBaseRoutes.deposit)}  className="group flex w-full items-center gap-2 rounded-lg px-3 py-1.5 data-focus:bg-white/10">
-              <TbCreditCardRefund className="size-4 fill-white/30" />
+              <MdPayment className="size-4 fill-white/30" />
               Deposit
             </button>
           </MenuItem>

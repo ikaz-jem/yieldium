@@ -70,6 +70,11 @@ function CryptoPayment() {
         })
     }
     const convert = async (e) => {
+if (selected?.conversion<5){
+toast.error('Minimum Amount For conversion is 5 USDT')
+return
+}
+        
         e.preventDefault()
                 startTransition(async () => {
 

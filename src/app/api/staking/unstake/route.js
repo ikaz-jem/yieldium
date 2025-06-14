@@ -1,6 +1,5 @@
 import { authOptions } from "../../auth/[...nextauth]/route"
 import { getServerSession } from "next-auth"
-import User from "@/app/models/userSchema/UserSchema"
 import Staking from "@/app/models/stacking/stakingSchema"
 import Balance from "@/app/models/balanceSchema/balanceSchema"
 import dbConnect from "@/app/lib/db"
@@ -15,7 +14,7 @@ export async function POST(req) {
 
     await dbConnect()
 
-    const staked = await Staking.findOne({ _id: data?.id, user })
+    const staked = await Staking.findOne({ _id: data?.id, user, claimed: false })
 
     if (!staked) { return Response.json({ success: false, message: 'Not found !' }) }
 
@@ -23,13 +22,17 @@ export async function POST(req) {
 
     if (new Date() < staked.unlocksAt) { return NextResponse.json({ success: false, message: "Stake still locked" }); }
 
+    let totalProfits = staked.amount + staked.profits
+
     const balanceDoc = await Balance.findOneAndUpdate(
         { user, currency: 'usdt' },
-        { $inc: { amount: staked.profits } },
+        { $inc: { amount: totalProfits } },
         { upsert: true, new: true }
     );
 
     staked.claimed = true
+    staked.unlocked = true
+    staked.amountClaimed = totalProfits
 
     await staked.save()
 

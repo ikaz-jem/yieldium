@@ -7,7 +7,7 @@ import BorderEffect from "../BorderEffect/BorderEffect";
 
 
 export default function DashboardInvestments({ data }) {
-    let filter ='claimed'
+    let filter ='active'
 
     
 

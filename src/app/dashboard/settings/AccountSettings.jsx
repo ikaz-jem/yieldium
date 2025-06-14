@@ -7,6 +7,7 @@ import { ClipLoader } from 'react-spinners';
 import { countries } from './countries'; // You’ll need a country list
 import { toast } from 'sonner';
 import axios from 'axios';
+import { FaEye } from "react-icons/fa6";
 
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react'
 
@@ -16,30 +17,43 @@ import { FaChevronDown } from "react-icons/fa";
 import clsx from 'clsx'
 
 export default function AccountSettings({user}) {
-  const [name, setName] = useState(user.name);
   const [country, setCountry] = useState(user.country || "Set country");
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState(user.email)
   const [selected, setSelected] = useState( user?.country || countries[1])
   const [phone, setPhone] = useState(user.phone || "set Phone");
-  
-  const [isPending, setIsPending] = useState(false);
+  const [credentials,setCredentials]=useState({
+    phone:'',
+    name:user.name,
+    password:'',
+    oldPassword:'',
+    email:user.email
 
-console.log(user)
+  })
+
+  const [isPending, setIsPending] = useState(false);
+  const [view, setView] = useState('password');
+  const [viewOld, setViewOld] = useState('password');
+
 
 
   const handleUpdate = async () => {
     setIsPending(true);
     try {
-      await axios.post('/api/user/update-profile', {
-        name, country, phone, password,
-      });
-      toast.success('Profile updated successfully');
+     const res = await axios.post('/api/users/update', credentials).then((res)=>res.data);
+      toast.success(res.message);
     } catch (error) {
       toast.error('Update failed');
     }
     setIsPending(false);
   };
+
+function handleChange (e) {
+const {name,value} = e.target
+setCredentials((prev)=>({
+  ...prev,
+  [name]:value
+}))
+}
+
 
   return (
     <div className="space-y-6 p-5 relative w-full">
@@ -52,13 +66,14 @@ console.log(user)
       <h2 className="text-lg font-semibold">Profile Settings</h2>
 
       <div className="space-y-3">
-        <p className="font-medium">{email}</p>
+        <p className="font-medium">{credentials.email}</p>
         <p className="text-sm font-medium">Full Name</p>
         <input
           className="w-full p-3 text-sm text-white bg-white/10 rounded outline-none"
           placeholder="Your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          name='name'
+          value={credentials.name}
+          onChange={handleChange}
         />
 
         <p className="text-sm font-medium">Country</p>
@@ -91,21 +106,30 @@ console.log(user)
         </ButtonSecondary> */}
 
         <p className="text-sm font-medium">Old Password</p>
+        <div className='flex gep-2 items-center  bg-white/10 rounded '>
+
         <input
-          className="w-full p-3 text-sm text-white bg-white/10 rounded outline-none"
-          type="password"
+          className="w-full p-3 text-sm text-white outline-none"
+          type={viewOld}
           placeholder="Old Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          name='oldPassword'
+          
+          onChange={handleChange}
+          />
+          <FaEye className='text-2xl text-neutral mx-5 cursor-pointer' onMouseOver={()=>setViewOld('text')} onMouseOut={()=>setViewOld('password')}/>
+          </div>
         <p className="text-sm font-medium">New Password</p>
+        <div className='flex items-center bg-white/10 rounded '>
+
         <input
-          className="w-full p-3 text-sm text-white bg-white/10 rounded outline-none"
-          type="password"
+          className="w-full p-3 text-sm text-white outline-none "
+          type={view}
           placeholder="New password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          name="password"
+          onChange={handleChange}
+          />
+          <FaEye className='text-2xl text-neutral mx-5 cursor-pointer' onMouseOver={()=>setView('text')} onMouseOut={()=>setView('password')}/>
+          </div>
       </div>
 
       <div className="pt-4">

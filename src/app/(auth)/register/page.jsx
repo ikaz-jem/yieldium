@@ -3,33 +3,35 @@
 import { Suspense, useState } from 'react';
 import { toast } from 'sonner';
 import ButtonPrimary from '@/app/components/ButtonPrimary';
- import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { appBaseRoutes } from '@/routes';
 import { useTransition } from 'react';
+import { FaEye } from "react-icons/fa6";
 
 
- function Login() {
+function Login() {
   const searchParams = useSearchParams()
- const id = searchParams.get('id')
+  const id = searchParams.get('id')
   const router = useRouter()
-  const [data, setData] = useState({ email: '', password: '' , referredBy:id || null });
-  const [isPending,startTransition] = useTransition()
+  const [data, setData] = useState({ email: '', password: '', referredBy: id || null });
+  const [isPending, startTransition] = useTransition()
+  const [view, setView] = useState('password');
 
 
- 
+
   const handleCreateAccount = async (e) => {
     e.preventDefault();
 
-    startTransition(async()=>{
-        const res = await axios.post('api/users/register',data).then((res)=>res.data)
-        if (res.success) {
-            toast.success(res.message + " Please Check Your Email !");
-            router.push(`${appBaseRoutes?.verification}?email=${data?.email}`);
-        } else {
-            toast.error(res.message);
-          }
-      })
+    startTransition(async () => {
+      const res = await axios.post('api/users/register', data).then((res) => res.data)
+      if (res.success) {
+        toast.success(res.message + " Please Check Your Email !");
+        router.push(`${appBaseRoutes?.verification}?email=${data?.email}`);
+      } else {
+        toast.error(res.message);
+      }
+    })
   };
 
 
@@ -42,9 +44,9 @@ import { useTransition } from 'react';
   }
 
 
-  
+
   const login = async (e) => {
-  router.push(appBaseRoutes?.login)
+    router.push(appBaseRoutes?.login)
   }
 
 
@@ -60,7 +62,7 @@ import { useTransition } from 'react';
 
 
       <div className='bg-black/5 backdrop-blur-xl p-10 pb-10 rounded-xl max-w-md w-full space-y-5 border border-primary/10  shadow-xl shadow-black m-2 '>
-        <div className="flex items-center gap-2 justify-center cursor-pointer " onClick={()=>router.push('.')}>
+        <div className="flex items-center gap-2 justify-center cursor-pointer " onClick={() => router.push('.')}>
           <img src="/assets/images/logo.png" alt="" loading="lazy" className="rounded-full h-10 w-10" />
           <h5 className="font-light  tracking-wide text-xl ">Yieldium</h5>
         </div>
@@ -93,26 +95,32 @@ import { useTransition } from 'react';
 
             <div className='flex justify-between items-baseline'>
               <p className='text-sm font-semibold'>Password</p>
-              <p className='text-xs !text-primary/50 hover:!text-primary cursor-pointer' onClick={()=>router.push(appBaseRoutes?.resetPassword)}>Forgot Password ?</p>
+              <p className='text-xs !text-primary/50 hover:!text-primary cursor-pointer' onClick={() => router.push(appBaseRoutes?.resetPassword)}>Forgot Password ?</p>
             </div>
-            <input
-              className='bg-white/10 text-white rounded h-10 p-3 text-sm outline-none focus:border-primary/50 focus:border disabled:cursor-not-allowed disabled:bg-neutral-500/30'
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={data?.password}
-              onChange={handleChange}
-              required
-              disabled={isPending}
-            />
+
+            <div className='flex items-center rounded focus:border-primary/50 focus:border disabled:cursor-not-allowed disabled:bg-neutral-400/30 bg-white/10 '>
+
+              <input
+                className=' text-white w-full h-10 p-3 text-sm outline-none '
+                name="password"
+                type={view}
+                placeholder="Password"
+                value={data?.password}
+                onChange={handleChange}
+                required
+                disabled={isPending}
+              />
+              <FaEye className='text-2xl text-neutral mx-5 cursor-pointer hover:text-primary' onMouseOver={() => setView('text')} onMouseOut={() => setView('password')} />
+
+            </div>
           </div>
           <div className='w-full'>
 
             <ButtonPrimary className={'w-full'} type="submit" loading={isPending}>Create Account</ButtonPrimary>
           </div>
         </form>
-        <p className='text-xs text-center !text-white/80'>Already Have an Account ? <span className='text-xs !text-primary/50 hover:!text-primary cursor-pointer'onClick={login}> Login</span> </p>
-       
+        <p className='text-xs text-center !text-white/80'>Already Have an Account ? <span className='text-xs !text-primary/50 hover:!text-primary cursor-pointer' onClick={login}> Login</span> </p>
+
       </div>
     </div>
   );
@@ -120,14 +128,14 @@ import { useTransition } from 'react';
 
 
 
-export default function LoginPage(){
+export default function LoginPage() {
 
 
-return (
-<Suspense fallback='loading ...'>
-<Login/>
-</Suspense>
+  return (
+    <Suspense fallback='loading ...'>
+      <Login />
+    </Suspense>
 
-)
+  )
 
 }

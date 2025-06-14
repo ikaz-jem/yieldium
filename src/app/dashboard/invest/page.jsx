@@ -30,7 +30,7 @@ import BorderEffect from '../components/BorderEffect/BorderEffect';
 
 
 function PackageViewer({ lockingPackage }) {
-    const days = [15, 21, 31, 60, 90, 120];
+    const days = [7,15, 21, 31, 60, 90, 120,360];
     const session = useSession()
     const user = session?.data?.user
     const router = useRouter()
@@ -43,7 +43,7 @@ function PackageViewer({ lockingPackage }) {
     
 
     const [stats, setStats] = useState({
-        roi: 0.1,
+        roi: 0.5,
         returns: 0,
         total: 0
 
@@ -97,7 +97,7 @@ function PackageViewer({ lockingPackage }) {
     useEffect(() => {
         if (selected && amount) {
 
-            calculateCompoundInterest(amount, 0.1, selected)
+            calculateCompoundInterest(amount, 0.5, selected)
 
         }
     }, [selected, amount])
@@ -119,8 +119,8 @@ const data = useMemo(() => {
             balance: Number(totalBalance.toFixed(2)),
         });
 
-        // Apply only 0.1% daily compound to the compoundedBalance
-        compoundedBalance *= 1 + 0.1 / 100;
+        // Apply only 0.5% daily compound to the compoundedBalance
+        compoundedBalance *= 1 + 0.5 / 100;
 
         // Add fixed daily profit separately (not compounded)
         flatProfitTotal += extraDailyProfit;
@@ -212,7 +212,7 @@ const data = useMemo(() => {
                 
                 if (stake?.success){
                     toast.success(`successfully invested ${amount.toFixed()} usdt `)
-                    router.push('/dashboard')
+                    router.push('/dashboard/contracts')
                 }else{
                     toast.error(stake?.message)
                 }
@@ -295,14 +295,14 @@ const data = useMemo(() => {
                 <div className='flex flex-col gap-1 items-end'>
 
                 <AutoCompoundSwitch  enabled={auto} setEnabled={setAuto} />
-                <p className={clsx('  text-[10px] bg-green-500/20 rounded border  w-max p-1' , auto ?"!text-green-500 border-green-500 bg-green-500/20 " : "border-red-500 bg-red-500/20 !text-red-500" )}>+0.1 % auto Compound {auto ? "ON" : "OFF"} </p>
+                <p className={clsx('  text-[10px] bg-green-500/20 rounded border  w-max p-1' , auto ?"!text-green-500 border-green-500 bg-green-500/20 " : "border-red-500 bg-red-500/20 !text-red-500" )}>+0.5 % auto Compound {auto ? "ON" : "OFF"} </p>
                 </div>
             </div>
 
             <div className='grid'>
 
                 <div className='flex items-center justify-between'>
-                    <p className='text-sm '>0.1% autoCompound Daily ROI : </p>
+                    <p className='text-sm '>0.5% autoCompound Daily ROI : </p>
                     <p className=' !text-green-500 text-lg '> +{ auto ?stats.roi : 0}%</p>
                 </div>
                 <div className='flex items-center justify-between'>
@@ -390,43 +390,10 @@ export default function page() {
         {
             title: '',
             price: 25,
-            percent: 0.1
+            percent: 0.5
         },
-        // {
-        //     title: '',
-        //     price: 50,
-        //     percent: 0.1
-        // },
-        // {
-        //     title: '',
-        //     price: 100,
-        //     percent: 0.1
-        // },
-        // {
-        //     title: '',
-        //     price: 250,
-        //     percent: 0.1
-        // },
-        // {
-        //     title: '',
-        //     price: 500,
-        //     percent: 0.1
-        // },
-        // {
-        //     title: '',
-        //     price: 1000,
-        //     percent: 0.1
-        // },
-        // {
-        //     title: '',
-        //     price: 2500,
-        //     percent:0.1
-        // },
-        // {
-        //     title: '',
-        //     price: 5000,
-        //     percent: 0.1
-        // },
+
+
     ]
 
 

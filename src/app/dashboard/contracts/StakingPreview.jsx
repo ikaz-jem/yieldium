@@ -6,17 +6,19 @@ import { formatISO } from "@/app/utils/formatISO";
 import ButtonPrimary from "@/app/components/ButtonPrimary";
 import ButtonSecondary from "@/app/components/ButtonSecondary";
 import { timeLeft } from "@/app/utils/timeLeft";
-import ForceUnlockModal from "./ForcUnlockModal";
+import ForceUnlockModal from "./ForceUnlockModal";
 import BorderEffect from "../components/BorderEffect/BorderEffect";
 import { useState } from "react";
 import Link from "next/link";
 import { appBaseRoutes } from "@/routes";
 import { FaCheck } from "react-icons/fa";
 import { IoIosWarning } from "react-icons/io";
+import { timeAgo } from "@/app/utils/timeAgo";
+import { useRouter } from "next/router";
+import Unlock from "./Unlock";
 
 export default function StakingPreview({ contracts }) {
     const [filter, setFilter] = useState('active')
-
 
     const filteredContracts = contracts.filter((contract) => {
         if (filter === 'active') return !contract.claimed
@@ -24,9 +26,7 @@ export default function StakingPreview({ contracts }) {
         if (filter === 'forced') return contract.forced
     })
 
-
     function ComponentFilter() {
-
         if (filter == "active") return <Active setFilter={setFilter} contracts={filteredContracts} />
         if (filter == "claimed") return <Claimed setFilter={setFilter} contracts={filteredContracts} />
         if (filter == "forced") return <Forced setFilter={setFilter} contracts={filteredContracts} />
@@ -46,8 +46,15 @@ export default function StakingPreview({ contracts }) {
 }
 
 
+
+
+
 function Active({ contracts }) {
-const now = new Date();
+
+    const now = new Date();
+
+
+
 
     if (contracts.length == 0) return (
         <div className='flex flex-col  w-full gap-2 border border-primary/10 p-5 bg-card rounded backdrop-blur-xl relative overflow-hidden '>
@@ -70,7 +77,7 @@ const now = new Date();
             </div>
             <div className='flex gap-5 flex-wrap   w-full '>
                 {contracts?.map((contract, idx) => {
-                    
+
                     const target = new Date(contract.unlocksAt);
                     const diffMs = target.getTime() - now.getTime();
                     let disabled = diffMs >= 0
@@ -93,7 +100,6 @@ const now = new Date();
 
                             <div className="flex justify-between ">
                                 <p className='text-sm'>{timeLeft(contract.unlocksAt)} </p>
-                                <p className='text-md !text-red-500 font-bold'>{contract.claimed && "Claimed"} </p>
                             </div>
 
 
@@ -104,10 +110,10 @@ const now = new Date();
                                     <p className='text-sm'>{contract.duration} days </p>
 
                                     {
-                                        disabled?
+                                        disabled ?
                                             <FaLock className="text-yellow-500" />
                                             :
-                                            <FaUnlock className="text-yellow-500" />
+                                            <FaUnlock className="text-primary" />
                                     }
 
                                 </div>
@@ -115,8 +121,8 @@ const now = new Date();
 
 
                             <div className="flex gap-2">
-                                <ButtonPrimary disabled={disabled} >Claim</ButtonPrimary>
-                               {disabled && <ForceUnlockModal contract={contract} />}
+                                <Unlock contract={contract} />
+                                {disabled && <ForceUnlockModal contract={contract} />}
                             </div>
 
                         </div>)
@@ -170,7 +176,7 @@ function Claimed({ contracts }) {
 
                         <div className="flex justify-between ">
                             <p className='text-sm'>Status :</p>
-                            <p className='text-md !text-green-500 flex items-center gap-1 '> Claimed  <FaCheck /> </p>
+                            <p className='text-xs !text-green-500 flex items-center gap-1 '> Claimed  <FaCheck /> </p>
                         </div>
 
 
@@ -178,7 +184,7 @@ function Claimed({ contracts }) {
 
                             <p className='text-sm'>Claimed At :</p>
                             <div className="flex items-center gap-2">
-                                <p className='text-sm'>{formatISO(contract.updatedAt)}  </p>
+                                <p className='text-xs'>{timeAgo(contract.updatedAt)}  </p>
 
                                 {
                                     contract?.isLocked ?
@@ -194,9 +200,6 @@ function Claimed({ contracts }) {
                             <p className='text-sm'>Total Claimed : </p>
                             <p className=' !text-green-500'>{parseFloat((contract?.amountClaimed)?.toFixed(2)) + ' $'} </p>
                         </div>
-
-
-
                     </div>
                 )
                 }
@@ -251,7 +254,7 @@ function Forced({ contracts }) {
 
                         <div className="flex justify-between ">
                             <p className='text-sm'>Status :</p>
-                            <p className='text-md !text-yellow-500 flex items-center gap-1 '> Force Claim  <IoIosWarning /> </p>
+                            <p className='text-xs !text-accent flex items-center gap-1 '> Force Claim  <IoIosWarning /> </p>
                         </div>
 
 
@@ -259,7 +262,7 @@ function Forced({ contracts }) {
 
                             <p className='text-sm'>Claimed At :</p>
                             <div className="flex items-center gap-2">
-                                <p className='text-sm'>{formatISO(contract.updatedAt)}  </p>
+                                <p className='text-xs'>{timeAgo(contract.updatedAt)}  </p>
 
                                 {
                                     contract?.isLocked ?
