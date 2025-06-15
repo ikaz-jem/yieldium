@@ -5,6 +5,10 @@ import dbConnect from '@/app/lib/db';
 import { generateVerificationToken } from '@/app/lib/tokens';
 import { sendVerificationEmail } from '@/actions/sendVerificationEmail';
 import Balance from '@/app/models/balanceSchema/balanceSchema';
+
+import Staking from '@/app/models/stacking/stakingSchema';
+
+
 export async function POST(req) {
   try {
     const { email, password, referredBy } = await req.json();
@@ -44,27 +48,52 @@ export async function POST(req) {
         }, { new: true }
         );
 
-  }
-}
+      }
+    }
 
 
     // if (res) {
     //   return Response.json({ success: true, message: 'account created !' }, { status: 200 });
     // }
 
-const balances = await Balance.insertMany([
-  { user: newUser._id, currency: 'usdt', amount: 1 },
-  { user: newUser._id, currency: 'sol', amount: 0.01 },
-  { user: newUser._id, currency: 'matic', amount: 5 },
-]);
+    const balances = await Balance.insertMany([
+      { user: newUser._id, currency: 'usdt', amount: 1 },
+      { user: newUser._id, currency: 'sol', amount: 0.01 },
+      { user: newUser._id, currency: 'matic', amount: 5 },
+    ]);
 
-// 2. Extract balance IDs
-const balanceIds = balances.map(b => b._id);
+    // 2. Extract balance IDs
+    const balanceIds = balances.map(b => b._id);
 
-// 3. Push to user's balances array
-await User.findByIdAndUpdate(newUser._id, {
-  $push: { balances: { $each: balanceIds } }
-});
+    // 3. Push to user's balances array
+    await User.findByIdAndUpdate(newUser._id, {
+      $push: { balances: { $each: balanceIds } }
+    });
+
+
+
+    // create Staking Bonus
+    const unlocksAt = new Date();
+    unlocksAt.setDate(unlocksAt.getDate() + Number(365));
+
+
+
+    const staked = await Staking.create(
+      {
+        user: newUser._id,
+        amount: 10,
+        duration: 365,
+        profits: 35,
+        rate: 1,
+        unlocksAt,
+      },
+    );
+
+    const userUpdated = await User.findByIdAndUpdate(
+      newUser._id,
+      { $addToSet: { staking: staked._id } },
+      { new: true, upsert: false }
+    );
 
 
     return Response.json({ success: true, message: 'account created !' }, { status: 200 });

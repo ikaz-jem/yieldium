@@ -21,26 +21,6 @@ export async function createOrGetTonWallet(account,index) {
 }
 
 
-// export async function getTonWallet(index = 0) {
-//     const tonPath = `m/44'/607'/0'/${index}'`;
-//     const { key } = derivePath(tonPath, seed.toString('hex'));
-//     const tonWeb = new TonWeb();
-//     const keyPair = TonWeb.utils.nacl.sign.keyPair.fromSeed(key);
-//     const tonWallet = tonWeb.wallet.create({ publicKey: keyPair.publicKey });
-//     const address = await tonWallet.getAddress();
-//             console.log({
-//         publicKey: Buffer.from(keyPair.publicKey).toString('hex'),
-//         secretKey: Buffer.from(keyPair.secretKey).toString('hex'),
-//         address: address.toString(true, true, true),
-//         path: tonPath,
-//     })
-//     return {
-//         publicKey: Buffer.from(keyPair.publicKey).toString('hex'),
-//         secretKey: Buffer.from(keyPair.secretKey).toString('hex'),
-//         address: address.toString(true, true, true),
-//         path: tonPath,
-//     };
-// }
 
 
 export async function getTonWallet(account,index) {
@@ -80,4 +60,6 @@ const tonWeb = new TonWeb(httpProvider);
     throw new Error(`Failed to retrieve TON address: ${error.message}`);
   }
 }
+
+
 

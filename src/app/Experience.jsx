@@ -2,6 +2,8 @@
 import React, { useRef } from 'react'
 import { extend, useFrame } from '@react-three/fiber'
 import { ScrollControls, Scroll, MeshTransmissionMaterial, Environment, useScroll, Text} from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei'
+
 
 import * as THREE from 'three'
 import { Image } from '@react-three/drei'
@@ -49,34 +51,35 @@ export default function Experience() {
         useFrame((state) => {
             const t = scroll.offset;
             if (!knotRef.current) return;
-            
+
+
        
             knotRef.current.rotation.x = lerp(knotRef.current.rotation.x, state.clock.elapsedTime, 0.1);
             knotRef.current.rotation.y = lerp(knotRef.current.rotation.y, state.clock.elapsedTime, 0.1);
-            if (width < 25) return;
+            // if (width < 25) return;
           
           
             if (t < 0.5&& width > 25) {
                 knotRef.current.position.y = lerp(knotRef.current.position.y, t * 60, 0.1);
                 knotRef.current.position.z = lerp(knotRef.current.position.z, t * 100, 0.5);
             }
-            if (t < 0.8 &&  t > 0.5 && width > 25) {
-                knotRef.current.position.z = -40
-                knotRef.current.position.y = 0
-            }
+            // if (t < 0.8 &&  t > 0.5 && width > 25) {
+            //     knotRef.current.position.z = -40
+            //     knotRef.current.position.y = 0
+            // }
 
-            if (t > 0.8) {
-                knotRef.current.position.y = 2
-                knotRef.current.position.z = 25
-            }
+            // if (t > 0.8) {
+            //     knotRef.current.position.y = 2
+            //     knotRef.current.position.z = 25
+            // }
 
-            // Smooth camera zoom based on scroll ranges
-            if (t < 0.3) {
-                camera.position.z = lerp(camera.position.z, 10 + t * 10, 0.1);
-            }
-            if (t > 0.4) {
-                camera.position.z = lerp(camera.position.z, t * 50, 0.5);
-            }
+            // // Smooth camera zoom based on scroll ranges
+            // if (t < 0.3) {
+            //     camera.position.z = lerp(camera.position.z, 10 + t * 10, 0.1);
+            // }
+            // if (t > 0.4) {
+            //     camera.position.z = lerp(camera.position.z, t * 50, 0.5);
+            // }
             
         });
 
@@ -93,11 +96,11 @@ export default function Experience() {
         <>
             {/* <gridHelper /> */}
             <Environment preset='city' />
-            {/* <OrbitControls enabled={true} enableZoom={false} position={[10, 10, 0]} /> */}
+            <OrbitControls enabled={true} enableZoom={false} position={[10, 10, 0]} />
             <ambientLight intensity={5} />
             <directionalLight position={[2, 2, 10]} intensity={5} />
             {/* <color attach="background" args={['#fef4eff']} /> */}
-            <ScrollControls pages={9} damping={0.1} >
+            <ScrollControls pages={2} damping={0.1} >
                 <Scroll html > 
                     <HomePage data={scroll} />
                 </Scroll>

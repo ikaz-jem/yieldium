@@ -24,7 +24,8 @@ let navigation = [
 
 function NavbaMobile() {
 const Router = useRouter()
-const login = ()=>Router.push('/login')
+const login = ()=>console.log('coming soon')
+// const login = ()=>Router.push('/login')
 
   const [open, setOpen] = useState(false)
   return (
@@ -81,7 +82,7 @@ const login = ()=>Router.push('/login')
 
                   <div className="relative mt-6 flex-1 px-4 sm:px-6">{/* Your content */}</div>
                   <div className="flex justify-center p-5">
-                    <ButtonPrimary onClick={login} className='w-full'>Get Started</ButtonPrimary>
+                    <ButtonPrimary onClick={login} className='w-full'>Coming Soon</ButtonPrimary>
                   </div>
                 </div>
               </DialogPanel>
@@ -98,7 +99,9 @@ const login = ()=>Router.push('/login')
 export default function Navbar() {
 
   const Router = useRouter()
-  const login = ()=>Router.push('/login')
+  // const login = ()=>Router.push('/login')
+  const login = ()=>console.log('coming soon')
+
   return (
 
     <div className="  absolute top-0  w-[calc(100vw-15px)] backdrop-blur-lg  ">
@@ -116,7 +119,7 @@ export default function Navbar() {
             }
           </ul>
 
-          <ButtonPrimary onClick={login} className="md:flex hidden items-center justify-center">Get Started</ButtonPrimary>
+          <ButtonPrimary onClick={login} className="md:flex hidden items-center justify-center">Coming Soon</ButtonPrimary>
           <NavbaMobile />
         </div>
       </div>

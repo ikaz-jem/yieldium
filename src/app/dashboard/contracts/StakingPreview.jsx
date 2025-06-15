@@ -51,6 +51,8 @@ export default function StakingPreview({ contracts }) {
 
 function Active({ contracts }) {
 
+    console.log(contracts)
+
     const now = new Date();
 
 
