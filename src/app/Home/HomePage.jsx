@@ -1,17 +1,17 @@
+import { Suspense } from "react";
+import SectionBento from "./components/SectionBento";
 import Footer from "./Footer";
 import Hero from "./Hero";
+import SectionFaq from "./SectionFaq";
 import { lazy } from "react";
-// import SectionFaq from "./SectionFaq";
-// import { Suspense } from "react";
-// import Featuresslider from "./components/Featuresslider/Featuresslider";
-// import SectionBento from "./components/SectionBento";
+import Featuresslider from "./components/Featuresslider/Featuresslider";
 
 
-// const SectionFeatures = lazy(() => import('./SectionFeatures'))
-// const SectionHowItWorks = lazy(() => import('./SectionHowItWorks'))
-// const SectionCta = lazy(() => import('./SectionCta'))
-// const SectionFeatures2 = lazy(() => import('./SectionFeatures2'))
-// const SectionCalculator = lazy(() => import('./SectionCalculator'))
+const SectionFeatures = lazy(() => import('./SectionFeatures'))
+const SectionHowItWorks = lazy(() => import('./SectionHowItWorks'))
+const SectionCta = lazy(() => import('./SectionCta'))
+const SectionFeatures2 = lazy(() => import('./SectionFeatures2'))
+const SectionCalculator = lazy(() => import('./SectionCalculator'))
 
 
 export default function HomePage() {
@@ -21,7 +21,7 @@ export default function HomePage() {
         <>
             <div className="!w-screen h-full  relative ">
                 <Hero />
-                {/* <Suspense fallback='loading'>
+                <Suspense fallback='loading'>
                     <SectionFeatures />
                     <SectionFeatures2 />
                     <SectionBento />
@@ -31,7 +31,7 @@ export default function HomePage() {
                     <SectionHowItWorks />
                     <SectionCta />
                     <SectionCalculator />
-                </Suspense> */}
+                </Suspense>
                 <Footer />
                 {/* <SectionFaq /> */}
             </div>

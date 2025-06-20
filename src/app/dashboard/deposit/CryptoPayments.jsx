@@ -166,7 +166,8 @@ useEffect(()=>{
                         </div>
                 }
             </div>
-            <p className='text-sm '>Funds will be credited within 10s to 1 min</p>
+            <p className='text-xs '>Funds will be credited within 5s Please wait untill it's credited</p>
+           {selected?.minDeposit && <p className='text-xs !text-primary '>{`Min Deposit is ${selected?.minDeposit} ${selected.symbol} `}</p>}
         </div>
     )
 }

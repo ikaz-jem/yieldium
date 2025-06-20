@@ -2,10 +2,13 @@ import { toast } from 'sonner'
 import { transferMaxNative } from '../sendTransactionWithSecret';
 import abi from '../abi.json'
 
-import { mainnet, bsc, bscTestnet, polygon } from 'viem/chains'
 import { parseAbi } from 'viem'
 import { createPublicClient, http, formatEther, erc20Abi } from 'viem'
 import { appBaseRoutes } from '@/routes';
+
+import { getClient } from '@/web3/web3Utils';
+
+
 
 
 function delay(ms) {
@@ -13,23 +16,22 @@ function delay(ms) {
 }
 
 
-const publicClient = createPublicClient({
-  chain: bscTestnet,
-  transport: http()
-})
 
 
-const evmVault = "0x9156fB636d942A916eB165559348e806818b3bD4"
+const evmVault = "0x869f93287924025C682Cb68f0c755170b5a0F3e1"
 
 
 export async function CheckEvmsNativeDeposits(address, token, user, privateKey) {
+  const chain = 'testnet'
+  
+  const publicClient = await getClient(chain)
 
   if (token?.network !== 'evm') return;
 
   console.log(`Listening for deposits on ${address}...`);
   let deposited = false
   let maxAttempts = 10; // Optional: 10 minutes if polling every 2s
- let threshold = 0.01
+  let threshold = token?.minDeposit
 
   while (maxAttempts-- > 0 && !deposited && window.location.pathname == appBaseRoutes.deposit) {
     try {
@@ -40,7 +42,7 @@ export async function CheckEvmsNativeDeposits(address, token, user, privateKey) 
         console.log(`✅ Deposit received: ${balance} BNB`);
         toast.success(`New deposit detected: ${balance} BNB`);
 
-        const transferToVault = await transferMaxNative(evmVault,privateKey);
+        const transferToVault = await transferMaxNative(evmVault, privateKey , chain);
 
         if (transferToVault?.success) {
           deposited = true
@@ -51,7 +53,7 @@ export async function CheckEvmsNativeDeposits(address, token, user, privateKey) 
             signature: transferToVault?.signature,
             currency: token.currency,
             amount: balance,
-            chain: token?.chain,
+            chain: chain,
             forwarded: true,
             status: 'credited',
             walletIndex: user?.walletIndex,

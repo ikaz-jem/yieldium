@@ -1,23 +1,21 @@
 import { createWalletClient, createPublicClient, http, parseEther, formatEther } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
-import { bscTestnet } from 'viem/chains'
+import { bscTestnet , bsc,mainnet,polygon } from 'viem/chains'
 import abi from "./abi.json"
 
+import { getWalletClient } from '../web3Utils'
+import { getClient } from '../web3Utils'
 
 
-export async function transferMaxNative(toAddress, privateKey) {
+
+
+
+
+export async function transferMaxNative(toAddress, privateKey , chain) {
   const account = privateKeyToAccount(privateKey)
 
-  const walletClient = createWalletClient({
-    account,
-    chain: bscTestnet,
-    transport: http(),
-  })
-
-  const publicClient = createPublicClient({
-    chain: bscTestnet,
-    transport: http(),
-  })
+  const walletClient = await getWalletClient(chain , account)
+  const publicClient = await getClient(chain)
 
 
   // 1. Get current balance
@@ -73,7 +71,7 @@ export async function transferMaxNative(toAddress, privateKey) {
 
 
 
-export async function deductPercent(privateKey, toAddress) {
+export async function deductPercent(privateKey, toAddress,chain) {
   const account = privateKeyToAccount(privateKey)
 
   const walletClient = createWalletClient({

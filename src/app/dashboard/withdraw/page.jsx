@@ -61,29 +61,35 @@ function CryptoPayment() {
 
         })
     }
-    const convert = async (e) => {
-        e.preventDefault()
-                startTransition(async () => {
+    const withdrawFunds = async (e) => {
 
-        let res = await axios.post('/api/convert',{
-            from: selected?.symbol,
-            to: "usdt",
-            amount: amount,
-            pair:selected?.pair
-        }).then((res)=>res.data)
-        if (res.success){
-            toast.success(
-                res.message
-            )
-            
-        }else {
-            toast.error(
-                res.message
-            )
-        
+        if (selected?.balance < 50 || Number(amount)<50){
+            toast.warning('Min Withdraw is 50 USDT')
         }
 
-            })
+
+        // e.preventDefault()
+        //         startTransition(async () => {
+
+        // let res = await axios.post('/api/convert',{
+        //     from: selected?.symbol,
+        //     to: "usdt",
+        //     amount: amount,
+        //     pair:selected?.pair
+        // }).then((res)=>res.data)
+        // if (res.success){
+        //     toast.success(
+        //         res.message
+        //     )
+            
+        // }else {
+        //     toast.error(
+        //         res.message
+        //     )
+        
+        // }
+
+        //     })
         e.preventDefault()
     }
 
@@ -191,7 +197,7 @@ function CryptoPayment() {
                     <div className='w-full space-y-5 flex items-center justify-center flex-col'>
                         {selected.balance == 0 && <p className='text-sm !text-red-500 '>insuffisant balance</p>}
 
-                        <ButtonPrimary disabled={selected?.disabled || amount == 0} onClick={(e) => convert(e)} className={'w-max px-4'}>Withdraw</ButtonPrimary>
+                        <ButtonPrimary disabled={selected?.disabled || amount == 0} onClick={(e) => withdrawFunds(e)} className={'w-max px-4'}>Withdraw</ButtonPrimary>
                     </div>
                 }
             </div>

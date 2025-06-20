@@ -1,22 +1,12 @@
-import { createPublicClient, http, formatEther, erc20Abi } from 'viem'
-import { parseAbi } from 'viem'
-import { mainnet, bsc, bscTestnet, polygon } from 'viem/chains'
-import abi from './abi.json'
-import { transferMaxERC20, transferMaxNative } from './sendTransactionWithSecret'
+// import { createPublicClient, http, formatEther, erc20Abi } from 'viem'
+// import { parseAbi } from 'viem'
+// import { mainnet, bsc, bscTestnet, polygon } from 'viem/chains'
+// import abi from './abi.json'
+// import { transferMaxERC20, transferMaxNative } from './sendTransactionWithSecret'
 
 
 import { checkSolanaNativeDeposits } from './polling/SolanaPolling'
 import { CheckEvmsNativeDeposits } from './polling/EvmPolling'
-
-
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-
-
-let bscVault = '0x5cAD272a320Dab8F83921afE999D66D2F16A99ca'
-
 
 
 export async function checkDeposit(address, token, user, privateKey) {

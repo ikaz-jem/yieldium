@@ -4,6 +4,7 @@ const coinDetails = {
     bnb: '/assets/images/crypto/bnb.svg',
     usdt: '/assets/images/crypto/usdt.svg',
     matic: '/assets/images/crypto/matic.svg',
+    eth:'/assets/images/crypto/eth.svg'
 
 }
 
@@ -15,6 +16,7 @@ import React from 'react'
 import BorderEffect from '../BorderEffect/BorderEffect'
 
 export default function AssetsBalance({ data }) {
+    
 
     return (
         <div className='flex flex-col gap-3 w-full  '>

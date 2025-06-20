@@ -18,9 +18,7 @@ const AssetDistributionChart = ({ user }) => {
 
   return (
     <div className='flex flex-col gap-3 w-full '>
-      <div className="flex items-center justify-between">
-        <h1 className="!text-neutral !text-sm" >Balance Allocation</h1>
-      </div>
+   
       <div className="w-full h-96 rounded-lg border border-primary/10 py-5 bg-card  relative  overflow-hidden backdrop-blur-xl">
       <BorderEffect/>
 
@@ -34,7 +32,7 @@ const AssetDistributionChart = ({ user }) => {
               innerRadius={50}
               fill="#8884d8"
               label={({ name, value }) => `${name}: $ ${value}`}
-              fontSize={'0.8rem'}
+              fontSize={'0.7rem'}
             >
               {data.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

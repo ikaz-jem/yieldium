@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 import { sendMaxSol } from '../sendTransaction/sendMaxSol'
 import { appBaseRoutes } from '@/routes';
 
-const solVault = "Cd8DCc1cgwhSDGBTkeCY1nQeCcaDcCw4DfPH9ZVJ5CcL"
+const solVault = "HFSsDKCsywTcAf7tbof99L7fo8ZAVTNREfFSRx6XnbT"
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -14,7 +14,7 @@ const connection = new Connection('https://devnet.helius-rpc.com/?api-key=e7017d
 export async function checkSolanaNativeDeposits(address,token,user,privateKey,) {
   if (token?.network !="solana") return
   
-  let thresholdSOL = 0.01
+  let thresholdSOL = token?.minDeposit
   let maxAttempts = 10
   console.log(`Listening for deposits on Solana address: ${address}...`)
   

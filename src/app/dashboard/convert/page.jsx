@@ -27,12 +27,14 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import ButtonSecondary from '@/app/components/ButtonSecondary';
 import BorderEffect from '../components/BorderEffect/BorderEffect';
+import { useRouter } from 'next/navigation';
 
 
 
 
 function CryptoPayment() {
     const session = useSession()
+    const router = useRouter()
     const user = session?.data?.user
 
     const [selected, setSelected] = useState(currencies[0])
@@ -69,34 +71,39 @@ function CryptoPayment() {
 
         })
     }
-    const convert = async (e) => {
-if (selected?.conversion<5){
-toast.error('Minimum Amount For conversion is 5 USDT')
-return
-}
-        
-        e.preventDefault()
-                startTransition(async () => {
 
-        let res = await axios.post('/api/convert',{
-            from: selected?.symbol,
-            to: "usdt",
-            amount: amount,
-            pair:selected?.pair
-        }).then((res)=>res.data)
-        if (res.success){
-            toast.success(
-                res.message
-            )
-            
-        }else {
-            toast.error(
-                res.message
-            )
-        
+
+
+
+    const convert = async (e) => {
+        if (selected?.conversion < 5) {
+            toast.error('Minimum Amount For conversion is 5 USDT')
+            return
         }
 
-            })
+        e.preventDefault()
+        startTransition(async () => {
+
+            let res = await axios.post('/api/convert', {
+                from: selected?.symbol,
+                to: "usdt",
+                amount: amount,
+                pair: selected?.pair
+            }).then((res) => res.data)
+            if (res.success) {
+                toast.success(
+                    res.message
+                )
+                router.refresh()
+
+            } else {
+                toast.error(
+                    res.message
+                )
+
+            }
+
+        })
         e.preventDefault()
     }
 
@@ -104,7 +111,7 @@ return
         e.preventDefault()
         if (e.target.value >= selected.balance) {
             setAmount(parseFloat(selected?.balance.toFixed(2)))
-            
+
         } else {
             setAmount(e.target.value)
         }
@@ -119,8 +126,8 @@ return
         <div className="mx-auto space-y-5 w-full p-5 relative overflow-hidden">
 
             {
-               isPending && <div className='absolute top-0 left-0 backdrop-blur w-full h-full flex items-center justify-center z-10'>
-       <ClipLoader className='text-xl' color='var(--title)' size={30}/>
+                isPending && <div className='absolute top-0 left-0 backdrop-blur w-full h-full flex items-center justify-center z-10'>
+                    <ClipLoader className='text-xl' color='var(--title)' size={30} />
 
                 </div>
             }

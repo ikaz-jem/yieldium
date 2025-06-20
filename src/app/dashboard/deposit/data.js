@@ -31,10 +31,26 @@ export const cryptoDeposits = [
     pair: 'BNBUSDT',
     currency: "BNB",
     network: "evm",
+    chain:'bsc',
     icon: '/assets/images/crypto/bnb.svg',
     disabled: true,
     isNative: true,
-
+    minDeposit:0.1,
+    
+  },
+  {
+    id: uuid(),
+    name: 'ETH',
+    symbol: 'eth',
+    pair: 'BETHUSDT',
+    currency: "ETH",
+    network: "evm",
+    chain: "mainnet",
+    icon: '/assets/images/crypto/eth.svg',
+    disabled: true,
+    isNative: true,
+    minDeposit:0.05,
+    
   },
   {
     id: uuid(),
@@ -46,18 +62,19 @@ export const cryptoDeposits = [
     isNative: true,
     pair: 'SOLUSDT',
     icon: '/assets/images/crypto/solana.svg',
-    disabled: true
+    disabled: true,
+    minDeposit:0.05,
   },
   // {
-  //   id: uuid(),
-  //   name: 'Tron',
-  //   symbol: 'trc',
-  //   pair: 'TRXUSDT',
-  //   network: "trc20",
-  //   icon: '/assets/images/crypto/tron.svg',
-  //   disabled: true
-  // },
-  // {
+    //   id: uuid(),
+    //   name: 'Tron',
+    //   symbol: 'trc',
+    //   pair: 'TRXUSDT',
+    //   network: "trc20",
+    //   icon: '/assets/images/crypto/tron.svg',
+    //   disabled: true
+    // },
+    // {
   //   id: uuid(),
   //     name: 'Ton',
   //     symbol: 'ton',
@@ -67,12 +84,14 @@ export const cryptoDeposits = [
   // },
   {
     id: uuid(),
-    name: 'Matic Polygone',
+    name: 'Matic Polygon',
     symbol: 'matic',
     pair: 'MATICUSDT',
     network: "evm",
+    chain: "polygon",
     icon: '/assets/images/crypto/matic.svg',
-    disabled: true
+    disabled: true,
+    minDeposit:50,
   },
   // {
   //   id: uuid(),

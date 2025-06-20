@@ -13,11 +13,12 @@ import AssetDistributionChart from './components/charts/AssetsDistribution';
 
 const symbols = {
   sol: 'SOLUSDT',
+  eth: 'ETHUSDT',
   bnb: 'BNBUSDT',
   tron: 'TRXUSDT',
   ton: 'TONUSDT',
   usdt: 'usdt',
-  matic:'MATICUSDT'
+  matic:'MATICUSDT',
 };    
 
 async function getUserData() {
@@ -68,7 +69,7 @@ export default async function MobileDashboard() {
   const data = await getUserData()
 
   return (
-    <div className='w-full  space-y-10   '>
+    <div className='w-full  space-y-0   '>
       <Suspense fallback={<div className='w-full space-y-5 flex items-center justify-center  h-40'>
         <ClipLoader className='text-xs' color='var(--title)' size={25} />
       </div>} >

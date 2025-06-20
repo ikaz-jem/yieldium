@@ -16,32 +16,32 @@
             icon: '/assets/images/crypto/solana.svg',
             disabled:true
         },
+        // {
+        //     name: 'Tron',
+        //     symbol: 'trc',
+        //     pair: 'TRXUSDT',
+        //     icon: '/assets/images/crypto/tron.svg',
+        //     disabled:true
+        // },
+        // {
+        //     name: 'Ton',
+        //     symbol: 'ton',
+        //     pair: 'TONUSDT',
+        //     icon: '/assets/images/crypto/ton.svg',
+        //     disabled:true
+        // },
         {
-            name: 'Tron',
-            symbol: 'trc',
-            pair: 'TRXUSDT',
-            icon: '/assets/images/crypto/tron.svg',
-            disabled:true
-        },
-        {
-            name: 'Ton',
-            symbol: 'ton',
-            pair: 'TONUSDT',
-            icon: '/assets/images/crypto/ton.svg',
-            disabled:true
-        },
-        {
-            name: 'Matic Polygone',
+            name: 'Matic Polygon',
             symbol: 'matic',
             pair: 'MATICUSDT',
             icon: '/assets/images/crypto/matic.svg',
             disabled:true
         },
         {
-            name: 'Avalanche',
-            symbol: 'avax',
-            pair: 'AVAXUSDT',
-            icon: '/assets/images/crypto/avalanch.svg',
+            name: 'Ethereum',
+            symbol: 'eth',
+            pair: 'ETHUSDT',
+            icon: '/assets/images/crypto/eth.svg',
             disabled:true
         },
         // {
