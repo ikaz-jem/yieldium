@@ -1,30 +1,62 @@
 "use client"
-import React, { useRef } from 'react'
+import React, { useRef ,useEffect,useState} from 'react'
 import { extend, useFrame } from '@react-three/fiber'
 import { ScrollControls, Scroll, MeshTransmissionMaterial, Environment, useScroll, Text} from '@react-three/drei'
-
 import * as THREE from 'three'
 import { Image } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { lerp } from 'three/src/math/MathUtils'
-
 const HomePage = React.lazy(()=>import('./Home/HomePage'))
-
 extend({ MeshTransmissionMaterial })
 
-// function MyModel() {
-//     const gltf = useLoader(GLTFLoader, './model/20.gltf') // or '/model.glb'
-//     return <mesh position={[5, -1, 2]} material={MeshTransmissionMaterial} >
-//         <primitive object={gltf.scene} scale={0.05} position={[0, 1, 0]} material={MeshTransmissionMaterial} />
 
-//     </mesh>
 
-// }
+function useResponsivePages(sectionHeight = 1, numberOfSections = 8) {
+  const { height: viewportHeight } = useThree((state) => state.viewport)
+  const [pages, setPages] = useState(numberOfSections)
+
+  useEffect(() => {
+    // Fallback if something breaks
+    let effectiveSectionHeight = sectionHeight
+
+    // Adjust for mobile layout (shorter sections)
+    if (window.innerHeight < 768) {
+      effectiveSectionHeight = sectionHeight * 1.45 // or tweak as needed
+    }
+    if (window.innerHeight > 768 &&window.innerHeight <= 844) {
+      effectiveSectionHeight = sectionHeight * 1.187 // or tweak as needed
+    }
+    if (window.innerHeight > 844 &&window.innerHeight <= 896) {
+      effectiveSectionHeight = sectionHeight * 1.122 // or tweak as needed
+    }
+    if (window.innerHeight > 896 &&window.innerHeight <= 915) {
+      effectiveSectionHeight = sectionHeight * 1.103 // or tweak as needed
+    }
+    if (window.innerHeight > 915 &&window.innerHeight <= 932) {
+      effectiveSectionHeight = sectionHeight * 1.07 // or tweak as needed
+    }
+    if (window.innerHeight > 932 &&window.innerHeight <= 1080) {
+      effectiveSectionHeight = sectionHeight * 1 // or tweak as needed
+    }
+
+
+    const totalScrollDistance = numberOfSections * effectiveSectionHeight
+    const calculatedPages = totalScrollDistance / viewportHeight
+
+    setPages(calculatedPages)
+  }, [viewportHeight, numberOfSections, sectionHeight])
+
+  return pages
+}
+
+
+
+
 
 export default function Experience() {
 
     const { width, height } = useThree(state => state.viewport);
-
+const pages = useResponsivePages(20,8)
 
     const three = useThree()
     const camera = three?.camera
@@ -43,18 +75,12 @@ export default function Experience() {
     const Knot = (props) => {
         const knotRef = useRef(null)
         const scroll = useScroll()
-        
-        // let vec = new THREE.Vector3()
-        
         useFrame((state) => {
             const t = scroll.offset;
             if (!knotRef.current) return;
-            
-       
             knotRef.current.rotation.x = lerp(knotRef.current.rotation.x, state.clock.elapsedTime, 0.1);
             knotRef.current.rotation.y = lerp(knotRef.current.rotation.y, state.clock.elapsedTime, 0.1);
             if (width < 25) return;
-          
           
             if (t < 0.5&& width > 25) {
                 knotRef.current.position.y = lerp(knotRef.current.position.y, t * 60, 0.1);
@@ -64,13 +90,10 @@ export default function Experience() {
                 knotRef.current.position.z = -40
                 knotRef.current.position.y = 0
             }
-
             if (t > 0.8) {
                 knotRef.current.position.y = 2
                 knotRef.current.position.z = 25
             }
-
-            // Smooth camera zoom based on scroll ranges
             if (t < 0.3) {
                 camera.position.z = lerp(camera.position.z, 10 + t * 10, 0.1);
             }
@@ -91,13 +114,10 @@ export default function Experience() {
 
     return (
         <>
-            {/* <gridHelper /> */}
             <Environment preset='city' />
-            {/* <OrbitControls enabled={true} enableZoom={false} position={[10, 10, 0]} /> */}
             <ambientLight intensity={5} />
             <directionalLight position={[2, 2, 10]} intensity={5} />
-            {/* <color attach="background" args={['#fef4eff']} /> */}
-            <ScrollControls pages={9} damping={0.1} >
+            <ScrollControls  damping={0.1} pages={pages}>
                 <Scroll html > 
                     <HomePage data={scroll} />
                 </Scroll>
@@ -107,7 +127,6 @@ export default function Experience() {
                 </Text>
                 <MyImage />
             </ScrollControls>
-           
         </>
     )
 }

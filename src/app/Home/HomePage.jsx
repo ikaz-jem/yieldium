@@ -25,12 +25,12 @@ export default function HomePage() {
                     <SectionFeatures />
                     <SectionFeatures2 />
                     <SectionBento />
-                    <div className='h-[100vh] '>
+                    <div className='md:h-[100vh] h-full '>
                         <Featuresslider />
                     </div>
                     <SectionHowItWorks />
                     <SectionCta />
-                    <SectionCalculator />
+                    {/* <SectionCalculator /> */}
                 </Suspense>
                 <Footer />
                 {/* <SectionFaq /> */}

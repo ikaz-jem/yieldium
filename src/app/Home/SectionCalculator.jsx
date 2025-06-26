@@ -6,7 +6,7 @@ import { appBaseRoutes } from '@/routes';
 
 export default function SectionCalculator() {
     return (
-        <div className='pr-2 pl-1 overflow-y-scroll md:overflow-y-hidden snap-center w-full backdrop-blur relative bg-gradient-to-b from-background to-black overflow-hidden py-10 pt-20 h-[100vh]'>
+        <div className='pr-2 pl-1 overflow-y-scroll md:overflow-y-hidden snap-center w-full backdrop-blur relative bg-gradient-to-b from-background to-black overflow-hidden py-10 pt-20 md:h-[100vh] h-full '>
 
             <span className="bg-pink-500 rounded-full h-[400px] w-[400px] blur-[400px] absolute top-[80] left-[35%] z-[-1] opacity-40"></span>
 

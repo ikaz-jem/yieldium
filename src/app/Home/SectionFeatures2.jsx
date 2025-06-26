@@ -79,7 +79,7 @@ const cards = [
 
 export default function SectionFeatures2() {
   return (
- <div className='h-[100vh] relative  overflow-y-scroll md:overflow-y-none bg-black '>
+ <div className='md:h-[100vh] h-full relative  overflow-y-scroll md:overflow-y-none bg-black '>
       
       <div 
       className=' w-full    overflow-hidden   relative'>

@@ -20,11 +20,11 @@ export default function SectionFeatures() {
     },
     {
       title: 'Security First',
-      desc: 'Your funds are protected with advanced security protocols, wallet isolation, and a 7-day lock-in buffer for system stability.',
+      desc: 'Your funds are protected with advanced security protocols, wallet isolation, starting from 7-day lock-in buffer for system stability.',
     },
     {
       title: 'High-Yield Potential',
-      desc: 'Target up to 2% daily returns, with compounding designed to maximize your long-term growth.',
+      desc: 'Target up to 3% daily ROI returns, with 0.5% compounding Bonus designed to maximize your long-term growth.',
     },
   ]
 
@@ -41,7 +41,7 @@ export default function SectionFeatures() {
         <div className='space-y-5'>
 
           <h2 className="text-lg font-medium">{data?.title}</h2>
-          <p className='text-sm text-neutral'>{data?.desc}</p>
+          <p className='text-xs md:text-sm text-neutral'>{data?.desc}</p>
         </div>
       </div>
 
@@ -53,7 +53,7 @@ export default function SectionFeatures() {
 
   function Section1() {
     return (
-      <div className='grid gap-10  '>
+      <div className='grid gap-5  '>
 
         <div className='grid  w-full gap-3  ' >
 
@@ -82,7 +82,7 @@ export default function SectionFeatures() {
 
   return (
     
-    <div className='h-[100vh] relative overflow-y-scroll sm:overflow-none bg-gradient-to-t from-black to-transparent from-50% to-80%   '>
+    <div className='h-full md:h-[100vh]  relative overflow-y-scroll sm:overflow-none bg-gradient-to-t from-black to-transparent from-50% to-80%   '>
       <img src="/assets/images/divider.png" loading='lazy' alt="" className="w-full -mb-[100px] md:-mb-[200px] lg:-mb-[450px] z-[-1] " />
       <LazyMotion features={domAnimation}>
       <m.div 
@@ -92,7 +92,7 @@ export default function SectionFeatures() {
       className=' w-full backdrop-blur  overflow-hidden   relative'>
 
   
-        <div className='bg-black  mask-t-from-90%  pr-2 pl-1 overflow-hidden '>
+        <div className='bg-black  mask-t-from-90%  px-2  overflow-hidden '>
           <div className='container space-y-20 py-20 h-full' ref={itemRef} >
             <div>
               <Section1 />

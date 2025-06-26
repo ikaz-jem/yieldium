@@ -25,7 +25,7 @@ function Bento() {
                   <AiFillOpenAI className='text-primary text-3xl z-10' />
                   <h5 className='z-10'>AI That Learns and Adapts</h5>
                 </div>
-                <p className='w-[80%] z-10'>Our proprietary AI engine doesn't just execute — it evolves. By analyzing historical data, real-time market shifts, and user behavior, it continually improves its trading strategies for better performance.
+                <p className='text-xs md:text-sm md:w-[80%] w-[80%] z-10'>Our proprietary AI engine doesn't just execute — it evolves. By analyzing historical data, real-time market shifts, and user behavior, it continually improves its trading strategies for better performance.
 
 </p>
                 <a href={appBaseRoutes.dashboard}>
@@ -46,7 +46,7 @@ function Bento() {
                 <RiSecurePaymentFill className='text-primary text-3xl z-10' />
                 <h5 className='font-semibold   z-10'>Built-In Risk Controls</h5>
               </div>
-              <p className=' w-[80%] z-10'>From stop-loss logic to emergency trade halts and payout caps, our System Handle Risks your Gains Are Protected And covered..</p>
+              <p className='text-xs md:text-sm md:w-[80%] w-[80%] z-10'>From stop-loss logic to emergency trade halts and payout caps, our System Handle Risks your Gains Are Protected And covered..</p>
             </div>
           </div>
 
@@ -56,7 +56,7 @@ function Bento() {
                 <RiGlobalFill className='text-primary text-3xl z-10' />
                 <h5 className='font-semibold   z-10'>Global Access</h5>
               </div>
-              <p className=' w-[80%] z-10'>Accessible from anywhere in the world.</p>
+              <p className='text-xs md:text-sm md:w-[80%] w-[80%] z-10'>Accessible from anywhere in the world.</p>
             </div>
           </div>
         </div>
@@ -74,7 +74,7 @@ function Bento() {
                 <HiRefresh className='text-primary text-3xl z-10' />
                 <h5 className='font-semibold   z-10'>Daily Compounding for Maximum Growth</h5>
               </div>
-              <p className=' w-[80%] z-10'>With daily profit calculations and automatic compounding, your earnings grow exponentially over time — turning consistent returns into serious long-term gains.</p>
+              <p className='text-xs md:text-sm md:w-[80%] w-[80%] z-10'>With daily profit calculations and automatic compounding, your earnings grow exponentially over time — turning consistent returns into serious long-term gains.</p>
             </div>
           </div>
 
@@ -88,7 +88,7 @@ function Bento() {
                 <RiRobot2Fill className='text-primary text-3xl z-10' />
                 <h5 className='font-semibold   z-10'>Artificial Automated Strategy</h5>
               </div>
-              <p className=' w-[80%] z-10'>No charts. No guesswork. Just deposit your crypto and let our AI take the wheel. Yieldium is designed to be your passive income engine.</p>
+              <p className='text-xs md:text-sm md:w-[80%] w-full z-10 '>No charts. No guesswork. Just deposit your crypto and let our AI take the wheel. Yieldium is designed to be your passive income engine.</p>
             </div>
           </div>
 
@@ -106,7 +106,7 @@ export default function SectionBento() {
   return (
     <>
       <div
-        className='h-[100vh]  overflow-y-scroll md:overflow-y-none  w-full   relative overflow-hidden bg-black '>
+        className='md:h-[100vh] h-full   w-full   relative overflow-hidden bg-black '>
         {/* <div
           class="opacity-80 sepia-20   mask-radial-from-0% group-hover/1:blur-xs  z-0 absolute inset-0 bg-[url('/assets/images/wave.png')] bg-cover  ">
         </div> */}

@@ -1,6 +1,7 @@
 import { FaTelegram } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import BrandsSlider from "./components/BrandsSlider/BrandsSlider";
+import Link from "next/link";
 
 
 export default function Footer() {
@@ -21,15 +22,19 @@ export default function Footer() {
         <div className="flex justify-between items-center">
 
           <div className='space-y-3 '>
-            <h1 className='text-3xl md:text-5xl tracking-widest font-bold ' >Building A Better </h1>
-            <h1 className='text-3xl md:text-5xl font-light tracking-widest !text-primary ' >Financial Future </h1>
+            <h1 className='text-3xl md:text-4xl tracking-widest font-bold ' >Building A Better </h1>
+            <h1 className='text-3xl md:text-4xl font-light tracking-widest !text-primary ' >Financial Future </h1>
           </div>
 
 
 
           <div className="flex gap-5 grayscale-0">
+            <Link href="https://x.com/YieldiumApp?t=ODMrlTltn4Yp_4SLYjiE-A&s=09" target="_blank">
             <FaSquareXTwitter className="text-4xl text-neutral cursor-pointer hover:text-primary transition-all" />
+            </Link>
+            <Link href='https://t.me/YieldiumApps' target="_blank" >
             <FaTelegram className="text-4xl text-neutral cursor-pointer hover:text-primary transition-all" />
+            </Link>
           </div>
 
 

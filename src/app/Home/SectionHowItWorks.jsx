@@ -20,7 +20,7 @@ export default function SectionHowItWorks() {
     },
     {
       src: '/assets/images/sphere.png',
-      title: 'Weekly Withdrawals',
+      title: 'Withdraw Profits',
     },
 
 
@@ -34,12 +34,12 @@ export default function SectionHowItWorks() {
         <div className='[box-shadow:0px_-20px_40px_rgba(238,102,166,0.3)] '>
           <div className='bg-gradient-to-br from-primary to-pink-500/50 p-5 mask-b-from-80% rounded-lg  '>
 
-            <img loading='lazy' src={item?.src} alt="" className='w-60 h-60  ' />
+            <img loading='lazy' src={item?.src} alt="" className='w-40 h-40  ' />
           </div>
         </div>
         <div className='flex items-baseline gap-2'>
-          <span className='text-3xl text-neutral'>{idx + 1} .</span>
-          <span className='text-lg text-white font-light'>{item?.title} </span>
+          <span className='text-sm md:text-lg lg:text-2xl text-neutral'>{idx + 1} .</span>
+          <span className='text-sm md:text-lg   text-white font-light'>{item?.title} </span>
         </div>
         <span className="relative inline-block after:block after:h-[1px] after:bg-primary after:w-1/2 after:absolute after:bottom-0 after:left-1/4 w-40">
         </span>
@@ -53,7 +53,7 @@ export default function SectionHowItWorks() {
 
 
   return (
-    <div className='overflow-y-scroll pr-5 pl-1 snap-center w-full backdrop-blur relative bg-gradient-to-b from-background to-black overflow-hidden py-20 h-[100vh]'>
+    <div className='overflow-y-scroll pr-5 pl-1 snap-center w-full backdrop-blur relative bg-gradient-to-b from-background to-black overflow-hidden py-20 md:h-[100vh] h-full'>
 
       <span className="bg-pink-500 rounded-full h-[400px] w-[400px] blur-[400px] absolute top-[80] left-[35%] z-[-1] opacity-40"></span>
 
@@ -80,12 +80,12 @@ export default function SectionHowItWorks() {
 
 
 
-        <div className='flex justify-center md:justify-between flex-wrap w-full '>
+        <div className='flex justify-center md:justify-between flex-wrap w-full gap-2 '>
 
           {
             images?.map((item, idx) => <motion.div
               key={idx}
-              className={`${idx == 1 ? 'mt-10' : ''} ${idx == 3 ? 'mt-20' : ''}`}
+              className={`${idx == 1 ? 'mt-5' : ''} ${idx == 3 ? 'mt-20' : ''}`}
               initial={{ opacity: 0, y: 50, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
