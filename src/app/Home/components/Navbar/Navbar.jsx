@@ -8,17 +8,10 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, TransitionChild, DisclosureButton } from '@headlessui/react'
 let navigation = [
+
   {
-    title: 'About',
-    hrfef: '',
-  },
-  {
-    title: 'Features',
-    hrfef: 'FAQ',
-  },
-  {
-    title: 'FAQ',
-    hrfef: 'FAQ',
+    title: 'How it Works',
+    href: 'https://yieldium.gitbook.io/yieldium/',
   },
 ]
 
@@ -65,7 +58,6 @@ const login = ()=>Router.push('/login')
 
                       <div className="flex items-center gap-2 ">
                         <img src="/assets/images/logo.png" alt="" loading="lazy" className="rounded-full h-10 w-10" />
-                        <h5 className="font-light  tracking-wide text-xl ">Yieldium</h5>
                       </div>
 
                     </DialogTitle>
@@ -73,7 +65,7 @@ const login = ()=>Router.push('/login')
                   <div className="w-full h-full p-5">
                     <ul className="grid gap-5 ">
                       {
-                        navigation?.map((link, idx) => <li key={idx} className="cursor-pointer hover:text-primary bg-white/5 p-2 rounded">{link?.title}</li>)
+                        navigation?.map((link, idx) => <li key={idx} className="cursor-pointer hover:text-primary bg-white/5 p-2 rounded"> <a href={link.href} target="_blank">{link?.title}</a> </li>)
                       }
                     </ul>
 
@@ -107,12 +99,11 @@ export default function Navbar() {
         <div className="  flex w-full items-center justify-between  px-5 ">
           <div className="flex items-center gap-2 ">
             <img src="/assets/images/logo.webp" alt="" loading="lazy" className="rounded-full h-10 w-10" />
-            <h5 className="font-light  tracking-wide text-xl ">Yieldium</h5>
           </div>
 
           <ul className="md:flex hidden gap-5">
             {
-              navigation?.map((link, idx) => <li key={idx} className="cursor-pointer hover:text-primary">{link?.title}</li>)
+                        navigation?.map((link, idx) => <li key={idx} className="cursor-pointer hover:text-primary  p-2 rounded"> <a href={link.href} target="_blank">{link?.title}</a> </li>)
             }
           </ul>
 

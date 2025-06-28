@@ -17,7 +17,7 @@ function Bento() {
 
       <div className='flex flex-col md:flex-row gap-5 '>
           <div className='w-full relative group/1 !overflow-hidden'>            
-            <div className='cursor-pointer p-5    bg-white/5  h-60 w-full rounded-xl overflow-hidden'>
+            <div className='cursor-pointer p-5    bg-white/5  h-full w-full rounded-xl overflow-hidden'>
 
 
               <div className='grid gap-5 z-10'>
@@ -40,7 +40,7 @@ function Bento() {
         <div className='flex gap-5 w-full'>
 
 
-          <div className=' relative  overflow-hidden  cursor-pointer p-5   bg-white/5  h-60 w-full rounded-xl  '>
+          <div className=' relative  overflow-hidden  cursor-pointer p-5   bg-white/5  h-full w-full rounded-xl  '>
             <div className='grid gap-5 z-10  transition duration-1000  '>
               <div className='flex gap-2  items-center z-10'>
                 <RiSecurePaymentFill className='text-primary text-3xl z-10' />
@@ -50,7 +50,7 @@ function Bento() {
             </div>
           </div>
 
-          <div className='  cursor-pointer p-5   bg-white/5  h-60 w-full rounded-xl  '>
+          <div className='  cursor-pointer p-5   bg-white/5  h-full w-full rounded-xl  '>
             <div className='grid gap-5 z-10  transition duration-1000  '>
               <div className='flex gap-2  items-center z-10'>
                 <RiGlobalFill className='text-primary text-3xl z-10' />
@@ -68,11 +68,11 @@ function Bento() {
 
         <div className='col-span-3 md:col-span-4'>
 
-          <div className='  cursor-pointer p-5   bg-white/5  h-60 w-full rounded-xl  '>
+          <div className='  cursor-pointer p-5   bg-white/5  h-full w-full rounded-xl  '>
             <div className='grid gap-5 z-10  transition duration-1000  '>
               <div className='flex gap-2  items-center z-10'>
                 <HiRefresh className='text-primary text-3xl z-10' />
-                <h5 className='font-semibold   z-10'>Daily Compounding for Maximum Growth</h5>
+                <h5 className='font-semibold   z-10'>Daily Compounding, Maximum Growth</h5>
               </div>
               <p className='text-xs md:text-sm md:w-[80%] w-[80%] z-10'>With daily profit calculations and automatic compounding, your earnings grow exponentially over time — turning consistent returns into serious long-term gains.</p>
             </div>
@@ -82,7 +82,7 @@ function Bento() {
         </div>
         <div className='col-span-3 md:col-span-2'>
 
-          <div className='  cursor-pointer p-5   bg-white/5  h-60 w-full rounded-xl  '>
+          <div className='  cursor-pointer p-5   bg-white/5  h-full w-full rounded-xl  '>
             <div className='grid gap-5 z-10  transition duration-1000  '>
               <div className='flex gap-2  items-center z-10'>
                 <RiRobot2Fill className='text-primary text-3xl z-10' />

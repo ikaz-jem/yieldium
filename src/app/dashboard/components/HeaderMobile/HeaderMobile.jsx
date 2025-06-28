@@ -135,17 +135,17 @@ if (typeof window !== 'undefined') {
               }
             </div>
           </div>
-          <div className='flex gap-1 items-center px-2  rounded-full bg-green-500/20 py-1 '>
+          {/* <div className='flex gap-1 items-center px-2  rounded-full bg-green-500/20 py-1 '>
             <h5 className='text-sm !text-green-500'> +15.5%</h5>
             <MdOutlineArrowCircleUp className='text-green-500 text-xl hover:!text-primary cursor-pointer' />
-          </div>
+          </div> */}
 
           {/* <ButtonPrimary>Deposit</ButtonPrimary> */}
         </div>
         <div className='flex gap-2 items-center'>
           <img src="/assets/images/logo.png" alt="" className='w-5 h-5' />
 
-          <h1 className='text-xl font-semibold '>158 <span className='text-sm'>Yield Coin</span> </h1>
+          <h1 className='text-xl font-semibold '>0 <span className='text-sm'>Yield Coin</span> </h1>
         </div>
       </div>
       <Buttons />

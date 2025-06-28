@@ -96,7 +96,6 @@ export default function Verification() {
                     placeholder="eg : 1b817622-589e-4288-b788-7b8df83010a3"
                     value={verificationCode}
                     onChange={handleChange}
-                    required
                     disabled={isPending}
                   />
                   <ButtonPrimary type="submit" loading={isPending}>Verify</ButtonPrimary>

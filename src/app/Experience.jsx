@@ -56,15 +56,13 @@ function useResponsivePages(sectionHeight = 1, numberOfSections = 8) {
 export default function Experience() {
 
     const { width, height } = useThree(state => state.viewport);
-const pages = useResponsivePages(20,8)
+    const pages = useResponsivePages(20,8)
 
     const three = useThree()
     const camera = three?.camera
 
     const scaleElement = (baseWidth = 1980, baseHeight = 900) => {
-        
         const scale = Math.min(width, height);
-      
         return Number(scale)
     };
 
