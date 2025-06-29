@@ -27,7 +27,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import ButtonSecondary from '@/app/components/ButtonSecondary';
 import BorderEffect from '../components/BorderEffect/BorderEffect';
-
+import { withdrawAction } from '@/actions/withdraw/withdrawAction';
 
 
 
@@ -62,6 +62,8 @@ function CryptoPayment() {
         })
     }
     const withdrawFunds = async (e) => {
+
+        const res = await withdrawAction(Number(amount))
 
         if (selected?.balance < 50 || Number(amount)<50){
             toast.warning('Min Withdraw is 50 USDT')

@@ -17,6 +17,12 @@ const inter = Poppins({
 export const metadata = {
   title: "Yieldium Finance",
   description: "Build A better Financial Future",
+   icons: {
+    icon: [
+      { url: '/favicon.ico' },
+    ],
+    
+  }
 };
 
 export default function RootLayout({ children }) {

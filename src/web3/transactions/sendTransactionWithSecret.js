@@ -6,6 +6,7 @@ import abi from "./abi.json"
 import { getWalletClient } from '../web3Utils'
 import { getClient } from '../web3Utils'
 
+const TRON_USDT_CONTRACT = 'TXLAQ63Xg1NAzckPwKHvzw7CSEmLMEqcdj'
 
 
 
