@@ -28,6 +28,7 @@ import { toast } from 'sonner';
 import ButtonSecondary from '@/app/components/ButtonSecondary';
 import BorderEffect from '../components/BorderEffect/BorderEffect';
 import { withdrawAction } from '@/actions/withdraw/withdrawAction';
+import { transferAction } from '@/actions/transfer/transferAction';
 
 
 
@@ -37,7 +38,7 @@ function CryptoPayment() {
 
     const [selected, setSelected] = useState(currencies[0])
     const [amount, setAmount] = useState("")
-    const [address, setAddress] = useState("")
+    const [email, setEmail] = useState("")
     const [isPending, startTransition] = useTransition()
 
     useEffect(() => {
@@ -46,13 +47,13 @@ function CryptoPayment() {
         }
     }, [session?.user?.walletIndex, session?.status]);
 
-    function validateWalletAddress(address) {
-        const isBEP20 = /^0x[a-fA-F0-9]{40}$/.test(address);
-        const isTRC20 = /^T[a-zA-Z0-9]{33}$/.test(address);
-        if (isBEP20) return 'BEP20';
-        if (isTRC20) return 'TRC20';
-        return false;
-    }
+function validateEmail(email) {
+    // Regex pattern to validate email format
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    // Test the email against the regex
+    return emailRegex.test(email);
+}
     const handleSelect = async (e) => {
         startTransition(async () => {
             const balance = await axios.get(`/api/balance?currency=${e?.symbol}`).then((res) => res.data)
@@ -64,20 +65,23 @@ function CryptoPayment() {
             setSelected(data)
         })
     }
-    const withdrawFunds = async (e) => {
+
+
+
+    const TransferFunds = async (e) => {
+
+        const isValidEmail = validateEmail(email)
+        if (!isValidEmail){
+            return toast.error('invalid Email')
+        }
+
         startTransition(async () => {
-            if (selected?.balance < 50 || Number(amount) < 50) {
-                return toast.warning('Min Withdraw is 50 USDT')
-            }
-            const validAddress = validateWalletAddress(address)
-
-            if (!validAddress) return toast.error('Wallet Address Is invalid')
-
-            const data = await withdrawAction(Number(amount), address, selected.chain)
+            const data = await transferAction(email, Number(amount))
             if (data.success) {
                 toast.success(data.message)
-            } else {
-                toast.warning(data.message)
+            }
+            if (!data.success){
+                toast.error(data.message)
             }
         })
 
@@ -189,11 +193,11 @@ function CryptoPayment() {
 
                         <input
                             className=' aria-selected:bg-none auto text-white rounded h-full w-full p-3 text-sm outline-none  disabled:cursor-not-allowed disabled:bg-transparent'
-                            name="address"
+                            name="email"
                             type="text"
-                            placeholder={`Wallet Public Key`}
-                            onChange={(e) => setAddress(e.target.value)}
-                            value={address}
+                            placeholder={`user Email`}
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
                             required
                             disabled={selected?.disabled}
                         />
@@ -207,14 +211,14 @@ function CryptoPayment() {
                     <div className='w-full space-y-5 flex items-center justify-center flex-col'>
                         {selected.balance == 0 && <p className='text-sm !text-red-500 '>insuffisant balance</p>}
 
-                        <ButtonPrimary disabled={selected?.disabled || amount == 0} onClick={(e) => withdrawFunds(e)} className={'w-max px-4'}>Withdraw</ButtonPrimary>
+                        <ButtonPrimary disabled={selected?.disabled || amount == 0} onClick={(e) => TransferFunds(e)} className={'w-max px-4'}>Withdraw</ButtonPrimary>
                     </div>
                 }
             </div>
             <div className='flex justify-between items-center'>
 
-                <p className='text-xs '>+1 USDT Processing Fees</p>
-                {Number(amount) >= 50 && <p className='text-xs '>will recieve : {amount - 1} USDT</p>}
+            <p className='text-xs '>+1 USDT Processing Fees</p>
+           {Number(amount) >=50 && <p className='text-xs '>will recieve : {amount-1} USDT</p>}
             </div>
         </div>
     )
@@ -234,7 +238,7 @@ export default function page() {
                             <Tab
                                 className="rounded-full flex gap-2 items-center px-3 py-1 text-sm/6 font-semibold text-white   data-hover:bg-white/5 data-selected:bg-white/10 data-selected:data-hover:bg-white/10">
                                 <RiBnbFill className='text-lg' />
-                                <p className='text-white'>Withdraw Earnings</p>
+                                <p className='text-white'>Transfer Between Accounts</p>
                             </Tab>
                         </TabList>
                         <TabPanels className="mt-3">

@@ -17,28 +17,23 @@ const inter = Poppins({
 export const metadata = {
   title: "Yieldium Finance",
   description: "Build A better Financial Future",
-   icons: {
-    icon: [
-      { url: '/favicon.ico' },
-    ],
-    
-  }
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" >
+  
       <body
-        className={`${inter.className}    antialiased`}
+        className={`${inter.className}    antialiased` }
       >
-        <Toaster position="top-center" toastOptions={{
+      <Toaster position="top-center" toastOptions={{
 
-          style: {
-            background: 'var(--toast-background)',
-            color: 'var(--title)',
-            border: '1px solid var(--toast-border)'
-          },
-        }} />
+        style: {
+          background: 'var(--toast-background)',
+          color: 'var(--title)',
+          border: '1px solid var(--toast-border)'
+        },
+      }} />
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

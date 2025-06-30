@@ -24,4 +24,5 @@ export const appBaseRoutes = {
     referrals:'/dashboard/referrals',
     invest:'/dashboard/invest',
     contracts:'/dashboard/contracts',
+    transfer:'/dashboard/transfer',
 }

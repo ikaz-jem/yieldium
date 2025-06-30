@@ -25,6 +25,8 @@ export default function DashboardHeaderMobile({session}) {
            return"Convert Balance"
             case "/dashboard/contracts":
            return"Manage Contracts"
+            case "/dashboard/transfer":
+           return"Transfer Funds"
            default: return "Dashboard"
         }
       }

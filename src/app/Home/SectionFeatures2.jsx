@@ -28,7 +28,7 @@ const cards = [
         <div
           className='flex flex-col md:flex-row gap-5 justify-between align-text-top'
           initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          whileinview={{ opacity: 1, x: 0 }}
           viewport={{once:false}}
           transition={{ duration: 0.6 }}
         >

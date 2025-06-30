@@ -36,7 +36,7 @@ export default function Scene() {
   return (
     <>
       {/* Fullscreen overlay loader (before clipPath animation) */}
-      <AnimatePresence>
+      <AnimatePresence >
         {showLoader && (
           <motion.div
             className='flex flex-col items-center justify-center fixed inset-0 z-50 bg-black text-white text-2xl'

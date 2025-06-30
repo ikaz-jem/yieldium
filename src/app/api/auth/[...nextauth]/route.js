@@ -33,6 +33,8 @@ export const authOptions = {
   ],
   session: {
     strategy: 'jwt',
+    maxAge: 60 * 60 * 24 * 7, // 7 days in seconds
+    updateAge: 60 * 1  ,
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -52,6 +54,7 @@ export const authOptions = {
           });
           token.id = newUser._id;
           token.image = newUser.image;
+          token.verified = newUser.emailVerified
         } else {
           if (user.image && existingUser.image == null || existingUser.image == undefined) {
             existingUser.image = user.image
@@ -60,6 +63,8 @@ export const authOptions = {
           token.id = existingUser._id;
           token.walletIndex = existingUser.walletIndex;
           token.image = existingUser.image;
+          token.verified = existingUser.emailVerified
+
         }
       }
       return token;
@@ -70,6 +75,7 @@ export const authOptions = {
         session.user.id = token.id;
         session.user.walletIndex = token.walletIndex;
         session.user.image = token.image;
+        session.user.verified = token.verified;
       }
       return session;
     },

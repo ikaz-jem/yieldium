@@ -14,6 +14,7 @@ import { FaChartPie } from "react-icons/fa";
 import { GiMining } from "react-icons/gi";
 import { FaArrowsRotate } from "react-icons/fa6";
 import React, { useEffect, useState } from 'react'
+import { BsFillSendFill } from "react-icons/bs";
 
 
 
@@ -43,41 +44,42 @@ if (typeof window !== 'undefined') {
 
   const buttons = [
     {
-      title: 'Withdraw',
-      icon: <PiDownloadSimpleBold className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-      link: appBaseRoutes.withdraw,
+      title: 'Deposit',
+      icon: <PiDownloadSimpleBold className='text-primary/50 text-xl group-hover:text-primary transition-all' />,
+      link: appBaseRoutes.deposit,
     },
     //     {
     //       title:'Deposit',
-    //       icon:  <PiUploadSimpleBold className='text-primary/50 text-2xl group-hover:text-primary transition-all' />
+    //       icon:  <PiUploadSimpleBold className='text-primary/50 text-xl group-hover:text-primary transition-all' />
     // ,
     //       link:appBaseRoutes.deposit,
     //     },
     // {
     //   title:'Reinvest',
-    //   icon: <PiArrowClockwiseFill className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
+    //   icon: <PiArrowClockwiseFill className='text-primary/50 text-xl group-hover:text-primary transition-all' />,
     //   link:appBaseRoutes.withdraw,
     // },
     {
+      title: 'Transfer',
+      icon: <BsFillSendFill className='text-primary/50 text-xl group-hover:text-primary transition-all' />,
+      link: appBaseRoutes.transfer,
+    },
+    {
       title: 'Invest',
-      icon: <FaChartPie className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
+      icon: <FaChartPie className='text-primary/50 text-xl group-hover:text-primary transition-all' />,
       link: appBaseRoutes.invest,
     },
     // {
     //   title: 'Mining',
-    //   icon: <GiMining className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
+    //   icon: <GiMining className='text-primary/50 text-xl group-hover:text-primary transition-all' />,
     //   link: appBaseRoutes.mining,
     // },
     {
       title: 'Convert',
-      icon: <FaArrowsRotate className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
+      icon: <FaArrowsRotate className='text-primary/50 text-xl group-hover:text-primary transition-all' />,
       link: appBaseRoutes.convert,
     },
-    {
-      title: 'referral',
-      icon: <MdPeopleAlt className='text-primary/50 text-2xl group-hover:text-primary transition-all' />,
-      link: appBaseRoutes.referrals,
-    },
+
   ]
 
   function handleBallanceAppearance(view) {
@@ -93,7 +95,7 @@ if (typeof window !== 'undefined') {
 
   function Buttons() {
     return (
-      <div className='w-full max-w-xl h-max '>
+      <div className='w-full max-w-md h-max '>
         <div className='grid gap-1 rounded-full '>
           <div className='flex gap-2 flex-wrap justify- items-center h-full'>
             {

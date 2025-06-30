@@ -65,8 +65,6 @@ export async function withdrawUsdt({ toAddress, privateKey, chain, amount }) {
      return { success: false, error: err }
     }
   } else {
-    
      return { success: false, error: `Unsupported chain: ${chain}` }
-
   }
 }

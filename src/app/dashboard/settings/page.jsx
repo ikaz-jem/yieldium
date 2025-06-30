@@ -6,7 +6,7 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import { RiBnbFill } from "react-icons/ri";
 import AccountSettings from './AccountSettings';
 import { useSession } from 'next-auth/react';
-import PaymentSettings from './PaymentSettings';
+// import PaymentSettings from './PaymentSettings';
 import axios from 'axios';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
@@ -44,11 +44,11 @@ export default async function page() {
                                 <RiBnbFill className='text-lg' />
                                 <p className='text-white'>Account</p>
                             </Tab>
-                            <Tab
+                            {/* <Tab
                                 className="rounded-full flex gap-2 items-center px-3 py-1 text-sm/6 font-semibold text-white   data-hover:bg-white/5 data-selected:bg-white/10 data-selected:data-hover:bg-white/10">
                                 <RiBnbFill className='text-lg' />
                                 <p className='text-white'>Payments</p>
-                            </Tab>
+                            </Tab> */}
                         </TabList>
                         <TabPanels className="mt-3">
                             <TabPanel className="rounded-xl bg-card backdrop-blur-xl ">
@@ -57,11 +57,11 @@ export default async function page() {
                                 <AccountSettings user={profile} />
 
                             </TabPanel>
-                            <TabPanel className="rounded-xl  bg-card backdrop-blur-xl ">
+                            {/* <TabPanel className="rounded-xl  bg-card backdrop-blur-xl ">
                                 <BorderEffect/>
                                 <PaymentSettings user={profile} />
 
-                            </TabPanel>
+                            </TabPanel> */}
                         </TabPanels>
                     </TabGroup>
                 </div>

@@ -1,13 +1,15 @@
+
 import DashboardNavMobile from './components/DashboardNavMobile/DashboardNavMobile';
 import DashboardHeaderMobile from './components/DashboardHeaderMobile/DashboardHeaderMobile';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import DashboardNav from './components/DahsboardNav/DashboardNav';
+// import DashboardNav from './components/DahsboardNav/DashboardNav';
 
 
 export default async function DashboardLayout({ children }) {
 
     const session = await getServerSession(authOptions)
+
     // const cookieStore =await cookies();
     //   const token =  cookieStore.get('path')
     return (
