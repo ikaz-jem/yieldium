@@ -49,7 +49,7 @@ export const cryptoDeposits = [
     icon: '/assets/images/crypto/eth.svg',
     disabled: true,
     isNative: true,
-    minDeposit:0.05,
+    minDeposit:0.1,
     
   },
   {
@@ -63,7 +63,7 @@ export const cryptoDeposits = [
     pair: 'SOLUSDT',
     icon: '/assets/images/crypto/solana.svg',
     disabled: true,
-    minDeposit:0.05,
+    minDeposit:0.25,
   },
   // {
     //   id: uuid(),
@@ -91,7 +91,18 @@ export const cryptoDeposits = [
     chain: "polygon",
     icon: '/assets/images/crypto/matic.svg',
     disabled: true,
-    minDeposit:50,
+    minDeposit:150,
+  },
+  {
+    id: uuid(),
+    name: 'BTC',
+    symbol: 'bitcoin',
+    pair: 'BTCUSDT',
+    network: "btc",
+    chain: "btc",
+    icon: '/assets/images/crypto/btc.svg',
+    disabled: true,
+    minDeposit:0.005,
   },
   // {
   //   id: uuid(),

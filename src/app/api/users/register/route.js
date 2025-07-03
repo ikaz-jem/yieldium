@@ -38,7 +38,7 @@ export async function POST(req) {
 
     const newUser = new UserSchema({ email, password: hashedPassword, verificationToken: token, verificationTokenExpires: expiresAt, referredBy: referrerId });
     await newUser.save();
-    // const res = await sendVerificationEmail(email, token)
+    const res = await sendVerificationEmail(email, token)
 
     if (referredBy && referrer && referrerId !== newUser.walletIndex && referrerId !== referrer.walletIndex) {
       if (!referrer?.referredUsers?.includes(newUser._id)) {

@@ -22,7 +22,7 @@ const evmVault = "0x869f93287924025C682Cb68f0c755170b5a0F3e1"
 
 
 export async function CheckEvmsNativeDeposits(address, token, user, privateKey) {
-  const chain = 'testnet'
+  const chain = 'mainnet'
   
   const publicClient = await getClient(chain)
 

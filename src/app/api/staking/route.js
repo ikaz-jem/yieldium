@@ -33,14 +33,13 @@ export async function POST(req) {
 
     const { duration, amount, profits, rate } = await req.json()
 
+    if (Number(amount) <=9) return Response.json({success:false , message:'Min Investment is 10 USDT'})
+
 
     const user = session.user.id
 
     const unlocksAt = new Date();
     unlocksAt.setDate(unlocksAt.getDate() + Number(duration));
-
-
-
 
     await dbConnect()
 
@@ -48,9 +47,6 @@ export async function POST(req) {
     if (!currentBalance || currentBalance.amount < amount) {
         return Response.json({ success: false, message: 'low Balance Deposit or convert' })
     }
-
-
-
 
     const balanceDoc = await Balance.findOneAndUpdate(
         { user, currency: 'usdt' },

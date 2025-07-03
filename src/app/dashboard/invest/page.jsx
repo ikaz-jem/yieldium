@@ -189,6 +189,12 @@ const data = useMemo(() => {
 
 
     async function Stake() {
+
+            if (Number(amount <=9)){
+               return toast.error('Min investment Contract is 10 USDT')
+            }
+
+
         if (Number(amount)>=Number(balance) ){
             toast.error('insuffisant balance ')
             return
